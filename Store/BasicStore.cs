@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Labb3.Menues;
 using Labb3.UtilityTools;
+using Labb3.Items;
 using static System.Threading.Thread;
 
 namespace Labb3.Store
@@ -54,6 +55,7 @@ namespace Labb3.Store
 
         static public void BuyingWeaponSwitch()
         {
+            
             string input;
             int number;
             do
@@ -61,7 +63,7 @@ namespace Labb3.Store
                 input = Console.ReadLine();
                 number = Tools.ConvToInt32(input);
                 if(number > 3)
-                { Tools.RedLine("You need to keep within range of 1-3"); }
+                { Tools.RedLine("You need to keep within the range of 1-3"); }
             } while (number <= 3);
 
 
