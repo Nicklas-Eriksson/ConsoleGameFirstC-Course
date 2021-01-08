@@ -30,11 +30,5 @@ namespace Labb3.Player
         public int HealingPotions { get => healingPotions; set => healingPotions = value; }
 
 
-        
-        //static void PlayerStats()
-        //{
-        //    Tools.Blue(Name);
-        //}
-        
     }
 }
