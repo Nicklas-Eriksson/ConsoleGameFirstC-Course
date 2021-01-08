@@ -18,11 +18,11 @@ namespace Labb3.Monsters
         public string Name { get => name; set => name = value; }
         public int Level { get => level; set => level = value; }
         public int Health { get => health; set => health = value; }
-        public int Power {get => power; set => power = value; }
+        public int Power { get => power; set => power = value; }
         public int ExperienceDrop { get => experienceDrop; set => experienceDrop = value; }
         public int GoldDrop { get => goldDrop; set => goldDrop = value; }
 
-        public Monster (string name, int level, int health, int power, int experienceDrop, int goldDrop)
+        public Monster(string name, int level, int health, int power, int experienceDrop, int goldDrop)
         {
             this.name = name;
             this.level = level;
@@ -30,8 +30,8 @@ namespace Labb3.Monsters
             this.power = power;
             this.experienceDrop = experienceDrop;
             this.goldDrop = goldDrop;
-        }      
-        public Monster(){ }//Empty Constructor
+        }
+        public Monster() { }//Empty Constructor
 
         public void MonsterGenerator()
         {
@@ -44,7 +44,7 @@ namespace Labb3.Monsters
                 health = 40;
                 power = 15;
                 experienceDrop = 20;
-                goldDrop = 50;                                
+                goldDrop = 50;
             }
             Monster thief = new Monster();
             {
@@ -53,7 +53,7 @@ namespace Labb3.Monsters
                 health = 80;
                 power = 10 + mod.CritModifyer(5);
                 experienceDrop = 55;
-                goldDrop = 100;                                
+                goldDrop = 100;
             }
             Monster banshee = new Monster();
             {
@@ -62,7 +62,7 @@ namespace Labb3.Monsters
                 health = 100;
                 power = 5 + mod.CritModifyer(10);
                 experienceDrop = 66;
-                goldDrop = 75;                                
+                goldDrop = 75;
             }
             Monster necromancer = new Monster();
             {
@@ -71,7 +71,7 @@ namespace Labb3.Monsters
                 health = 70;
                 power = 20 + mod.CritModifyer(50);
                 experienceDrop = 100;
-                goldDrop = rnd.Next(150, 250); ;                                
+                goldDrop = rnd.Next(150, 250); ;
             }
             Monster cultist = new Monster();
             {
@@ -98,9 +98,45 @@ namespace Labb3.Monsters
                 health = 300;
                 power = 50 + mod.CritModifyer(70);
                 experienceDrop = 266;
-                goldDrop = rnd.Next(20,200);                                
+                goldDrop = rnd.Next(20, 200);
             }
-}
+            Monster elderThing = new Monster();
+            {
+                name = "Elder Thing";
+                level = 7;
+                health = 500;
+                power = 70 + mod.CritModifyer(70);
+                experienceDrop = 458;
+                goldDrop = rnd.Next(50, 200);
+            }
+            Monster silentOne = new Monster();
+            {
+                name = "Silent One";
+                level = 8;
+                health = 600;
+                power = 80 + mod.CritModifyer(80);
+                experienceDrop = 800;
+                goldDrop = rnd.Next(50, 200);
+            }
+            Monster deepOne = new Monster();
+            {
+                name = "Deep One";
+                level = 9;
+                health = 666;
+                power = 100 + mod.CritModifyer(100);
+                experienceDrop = 1422;
+                goldDrop = rnd.Next(50, 200);
+            }
+            Monster demiLich = new Monster();
+            {
+                name = "Demi-Lich";
+                level = 10;
+                health = 1000;
+                power = 55 + mod.CritModifyer(100);
+                experienceDrop = 10000;
+                goldDrop = 10000;
+            }
+        }
     }
     public class MiniBoss : Monster
     {
@@ -118,7 +154,7 @@ namespace Labb3.Monsters
             this.specialAttackPower = specialAttackPower;
             this.loot = loot;
         }
-        public MiniBoss(){ }//Empty Constructor
+        public MiniBoss() { }//Empty Constructor
     }
     public class LastBoss : MiniBoss
     {
@@ -126,10 +162,10 @@ namespace Labb3.Monsters
 
         public string RareLoot { get => rareLoot; set => rareLoot = value; }
 
-        public LastBoss (string rareLoot)
+        public LastBoss(string rareLoot)
         {
             this.rareLoot = rareLoot;
         }
-        public LastBoss(){ }//Empty Constructor
+        public LastBoss() { }//Empty Constructor
     }
 }
