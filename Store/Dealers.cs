@@ -8,9 +8,9 @@ using static System.Threading.Thread;
 
 namespace Labb3.Store
 {
-    public static class BasicStore
+    public static class Dealers
     {
-        public static void StoreMenue()
+        public static void StoreMenueIronSkillet()
         {
             Logo.Shop();
             Tools.YellowLine("Welcome to The Iron Skillet!"); Sleep(1400);

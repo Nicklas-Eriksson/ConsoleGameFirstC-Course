@@ -198,11 +198,6 @@ namespace Labb3.Items
         }        
     }
 
-    
-
-
-
-
     public class EquippedWeapon : Weapon
     {
         private List<EquippedWeapon> equippedWeaponList = new List<EquippedWeapon>();
