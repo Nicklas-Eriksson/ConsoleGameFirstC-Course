@@ -50,7 +50,7 @@ namespace Labb3.Monsters
             Monster goblin = new Monster();
             {
                 name = "Goblin";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 500;
                 dmg = 15;
                 expDrop = 20;
@@ -59,7 +59,7 @@ namespace Labb3.Monsters
             Monster thief = new Monster();
             {
                 name = "Thief";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 700;
                 dmg = 10 + mod.CritModifyer(5);
                 expDrop = 55;
@@ -68,7 +68,7 @@ namespace Labb3.Monsters
             Monster banshee = new Monster();
             {
                 name = "Banshee";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 1000;
                 dmg = 5 + mod.CritModifyer(10);
                 expDrop = 66;
@@ -77,7 +77,7 @@ namespace Labb3.Monsters
             Monster necromancer = new Monster();
             {
                 name = "Necromancer";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 1500;
                 dmg = 20 + mod.CritModifyer(50);
                 expDrop = 100;
@@ -86,7 +86,7 @@ namespace Labb3.Monsters
             Monster cultist = new Monster();
             {
                 name = "Cultist";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 1800;
                 dmg = 10 + mod.CritModifyer(20);
                 expDrop = 100;
@@ -95,7 +95,7 @@ namespace Labb3.Monsters
             Monster mutant = new Monster();
             {
                 name = "Mutant";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 2000;
                 dmg = 100 + mod.CritModifyer(20);
                 expDrop = 160;
@@ -104,7 +104,7 @@ namespace Labb3.Monsters
             Monster hound = new Monster();
             {
                 name = "Hound";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 2500;
                 dmg = 50 + mod.CritModifyer(70);
                 expDrop = 266;
@@ -113,7 +113,7 @@ namespace Labb3.Monsters
             Monster elderThing = new Monster();
             {
                 name = "Elder Thing";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 3000;
                 dmg = 70 + mod.CritModifyer(70);
                 expDrop = 458;
@@ -122,7 +122,7 @@ namespace Labb3.Monsters
             Monster silentOne = new Monster();
             {
                 name = "Silent One";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 4000;
                 dmg = 80 + mod.CritModifyer(80);
                 expDrop = 800;
@@ -131,7 +131,7 @@ namespace Labb3.Monsters
             Monster deepOne = new Monster();
             {
                 name = "Deep One";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 5000;
                 dmg = 100 + mod.CritModifyer(100);
                 expDrop = 1422;
@@ -140,7 +140,7 @@ namespace Labb3.Monsters
             Monster demiLich = new Monster();
             {
                 name = "Demi-Lich";
-                lvl = Player.Player.player.Lvl;
+                lvl = Character.Player.player.Lvl;
                 hp = 10000;
                 dmg = 155 + mod.CritModifyer(155);
                 expDrop = 10000;

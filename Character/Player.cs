@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using Labb3.UtilityTools;
 using Labb3.Items;
+using static System.Threading.Thread;
 
-namespace Labb3.Player
+namespace Labb3.Character
 {
     public class Player
     {
         public static Player player = new Player();
-        
+
         private string name;
+        private bool alive = true;
         private int gold = 0;
         private int hp = 100; //health
         private int dmg = 10; //damage
@@ -20,9 +22,10 @@ namespace Labb3.Player
         private int exp = 0; //experience points
         private int weaponIndex = 0;
 
-        public Player(string name, int gold, int hp, int dmg, int weaponDmg, int healingPotions, int lvl, int exp, int weaponIndex)
+        public Player(string name, bool alive, int gold, int hp, int dmg, int weaponDmg, int healingPotions, int lvl, int exp, int weaponIndex)
         {
             this.name = name;
+            this.alive = alive;
             this.gold = gold;
             this.hp = hp;
             this.dmg = dmg;
@@ -35,6 +38,7 @@ namespace Labb3.Player
         public Player() { }//Empty constructor
 
         public string Name { get => name; set => name = value; }
+        public bool Alive { get => alive; set => alive = value; }
         public int Gold { get => gold; set => gold = value; }
         public int Hp { get => hp; set => hp = value; }
         public int Dmg { get => dmg; set => dmg = value; }
@@ -44,5 +48,16 @@ namespace Labb3.Player
         public int Exp { get => exp; set => exp = value; }
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
 
+        public static void ExpToLvl(int exp)
+        {
+            if(player.lvl < 10)
+            if (exp >= 50 * player.lvl)
+            {
+                player.lvl = player.lvl + 1;
+            }
+            Console.WriteLine("You leveled up!");
+            Console.WriteLine($"Level: {player.Lvl}!");
+            Sleep(2000);
+        }
     }
 }

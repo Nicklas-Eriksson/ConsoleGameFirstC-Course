@@ -5,7 +5,7 @@ using Labb3.Menues;
 using Labb3.UtilityTools;
 using Labb3.Items;
 using static System.Threading.Thread;
-using Labb3.Player;
+using Labb3.Character;
 
 namespace Labb3.Store
 {
@@ -70,8 +70,8 @@ namespace Labb3.Store
 
 
             Tools.GreenLine($"{fullWepList[number-1].Name} has been equipped as your weapon");
-            Player.Player.player.WeaponDmg = fullWepList[number-1].Power;
-            Player.Player.player.WeaponIndex = number-1;
+            Player.player.WeaponDmg = fullWepList[number-1].Power;
+            Player.player.WeaponIndex = number-1;
             //GoldWithdraw(number-1);
 
             //test 
@@ -84,12 +84,12 @@ namespace Labb3.Store
         {
             //The number that comes in is already altered to be -1
             
-            if (Player.Player.player.Gold >= fullWepList[number - 1].GoldCost)
+            if (Player.player.Gold >= fullWepList[number - 1].GoldCost)
             {
                 Console.WriteLine($"{fullWepList[number].GoldCost} Gold has been withdrawn from your pouch");
-                Player.Player.player.Gold -= fullWepList[number].GoldCost;
+                Player.player.Gold -= fullWepList[number].GoldCost;
             }
-            else if (Player.Player.player.Gold < fullWepList[number].GoldCost)
+            else if (Player.player.Gold < fullWepList[number].GoldCost)
             {
                 Console.WriteLine("Not enough gold! Get back here when you can afford it!");
                 Console.WriteLine("Filthy creature..");

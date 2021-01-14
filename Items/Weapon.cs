@@ -251,8 +251,5 @@ namespace Labb3.Items
         }
     } //Weapon class End
 
-    //public class CurrentWeapon : Weapon
-    //{
-    //    public static CurrentWeapon weapon = new CurrentWeapon();
-    //}
+    
 }

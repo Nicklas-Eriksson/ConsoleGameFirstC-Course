@@ -11,49 +11,49 @@ namespace Labb3.UtilityTools
         static public void Red(string input)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(input);
+            Console.Write(" " + input);
             Console.ResetColor();
         }
         static public void RedLine(string input)
         {
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine(input);
+            Console.WriteLine(" " + input);
             Console.ResetColor();
         }
         static public void Yellow(string input)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.Write(input);
+            Console.Write(" " + input);
             Console.ResetColor();
         }
         static public void YellowLine(string input)
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine(input);
+            Console.WriteLine(" " + input);
             Console.ResetColor();
         }
         static public void Green(string input)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(input);
+            Console.Write(" " + input);
             Console.ResetColor();
         }
         static public void GreenLine(string input)
         {
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine(input);
+            Console.WriteLine(" " + input);
             Console.ResetColor();
         }
         static public void Blue(string input)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.Write(input);
+            Console.Write(" " + input);
             Console.ResetColor();
         }
         static public void BlueLine(string input)
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            Console.WriteLine(input);
+            Console.WriteLine(" " + input);
             Console.ResetColor();
         }
         //Text color end
@@ -76,8 +76,7 @@ namespace Labb3.UtilityTools
             } while (!success);
             return nr;
         }
-        
-        
+                
         //Often used
         static public void Error()
         {
