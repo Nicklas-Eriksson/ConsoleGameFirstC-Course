@@ -38,7 +38,9 @@ namespace Labb3.Story
                 "Roumors has it became a smugglers den after it was shut down for bussines 55 years ago..\n" +
                 "The smugglers are long gone by now, since the plague had its way  all those years ago.\n" +
                 "So you stride onward, confident and armored with bravery and your wooden practise sword\n" +
-                "that your dad made for you at your 18th birthday last year.\n");            
+                "that your dad made for you at your 18th birthday last year.\n");
+            Console.WriteLine("Press any key when you are done reading...");
+            Console.ReadKey();
         }
     }
 }

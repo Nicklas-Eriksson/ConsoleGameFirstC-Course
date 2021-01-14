@@ -6,179 +6,210 @@ namespace Labb3.Items
 {
     public class Weapon
     {
-        private List<Weapon> weaponList = new List<Weapon>();
+        //public static Weapon weapon = new Weapon();
+
         private string name;
-        private int powerLevel;
+        private int itemLevel;
         private int power;
-        private int crit;
+        private int goldCost;
+        private List<Weapon> weaponList = new List<Weapon>();
+        private List<Weapon> currentWeapon = new List<Weapon>();
 
-        public List<Weapon> WeaponList { get => weaponList; set => weaponList = value; }
+        public int ItemLevel { get => itemLevel; set => itemLevel = value; }
+        public int Power { get => power; set => power = value; }
+        public int GoldCost { get => goldCost; set => goldCost = value; }
         public string Name { get => name; set => name = value; }
-        public int PowerLevel { get => powerLevel; set => powerLevel = value; }
-        public int Power { get => power; set => Power = value; }
-        public int Crit { get => crit; set => crit = value; }
+        public List<Weapon> WeaponList { get => weaponList; set => weaponList = value; }
+        public List<Weapon> CurrentWeapon { get => currentWeapon; set => currentWeapon = value; }
 
-        public Weapon(string name, int powerLevel, int power, int crit)
+
+        //Constructors
+        public Weapon()
+        {
+        }
+        public Weapon(string name, int powerLevel, int power, int goldCost)
         {
             this.name = name;
-            this.powerLevel = powerLevel;
+            this.itemLevel = powerLevel;
             this.power = power;
-            this.crit = crit;
+            this.goldCost = goldCost;
         }
-        public Weapon() { }
 
-        public List<Weapon> WeaponForge()
+        void WeaponForge()
         {
-            Random rnd = new Random();
-           
-            Weapon blundSword = new Weapon();
+            //Weapons will be obtained in shop and/or through loot
+            Weapon blundtSword = new Weapon()//0
             {
-                name = "Blunt Sword";
-                powerLevel = 1;
-                power = 7 + rnd.Next(0,5);
-            }
-            Weapon rustyDagger = new Weapon();
+                Name = "Blundt Sword",
+                ItemLevel = 1,
+                Power = 100,
+                goldCost = 100
+            };
+            Weapon rustyDagger = new Weapon()//1
             {
-                name = "Rusty Dagger";
-                powerLevel = 1;
-                power = 4 + rnd.Next(0, 8);
-            }
-            Weapon unbalancedAxe = new Weapon();
+                Name = "Rusty Dagger",
+                ItemLevel = 1,
+                Power = 100,
+                goldCost = 100
+            };
+            Weapon unbalancedAxe = new Weapon()//2
             {
-                name = "Unbalanced Axe";
-                powerLevel = 1;
-                power = 0 + rnd.Next(0, 20);
-            }
-            Weapon vorpalBlade = new Weapon();
+                Name = "Unbalanced Axe",
+                ItemLevel = 1,
+                Power = 100,
+                goldCost = 100
+            };
+            Weapon vorpalBlade = new Weapon()//3
             {
-                name = "Vorpal Blade";
-                powerLevel = 2;
-                power = 15 + rnd.Next(0, 10); ;
-            }
-            Weapon railGuns = new Weapon();
+                Name = "Vorpal Blade",
+                ItemLevel = 2,
+                Power = 200,
+                goldCost = 200
+            };
+            Weapon railGuns = new Weapon()//4
             {
-                name = "Rail Guns";
-                powerLevel = 2;
-                power = 15 + rnd.Next(0,15);
-            }
-            Weapon lightsaber = new Weapon();
+                Name = "Rail Guns",
+                ItemLevel = 2,
+                Power = 200,
+                goldCost = 200
+            };
+            Weapon lightsaber = new Weapon()//5
             {
-                name = "Lightsaber";
-                powerLevel = 3;
-                power = 40 + rnd.Next(0, 18);
-            }
-            Weapon harbringer = new Weapon();
+                Name = "Lightsaber",
+                ItemLevel = 3,
+                Power = 300,
+                goldCost = 300
+            };
+            Weapon harbringer = new Weapon()//6
             {
-                name = "Harbringer";
-                powerLevel = 3;
-                power = 47 + rnd.Next(0, 5);
-            }
-            Weapon stinger = new Weapon();
+                Name = "Harbringer",
+                ItemLevel = 3,
+                Power = 300,
+                goldCost = 300
+            };
+            Weapon needle = new Weapon()//7
             {
-                name = "Stinger";
-                powerLevel = 4;
-                power = 40 + rnd.Next(0, 20);
-            }
-            Weapon keayblade = new Weapon();
+                Name = "Arya's Needle",
+                ItemLevel = 4,
+                Power = 400,
+                goldCost = 400
+            };
+            Weapon keyblade = new Weapon()//8
             {
-                name = "Keayblade";
-                powerLevel = 5;
-                power = 100 + rnd.Next(1, 50);
-            }
-            Weapon oblivion = new Weapon();
+                Name = "Sora's Keyblade",
+                ItemLevel = 5,
+                Power = 500,
+                goldCost = 500
+            };
+            Weapon oblivion = new Weapon()//9
             {
-                name = "Oblivion";
-                powerLevel = 5;
-                power = 120 + rnd.Next(1, 10);
-            }
-            Weapon oathkeeper = new Weapon();
+                Name = "Oblivion Keyblade",
+                ItemLevel = 5,
+                Power = 500,
+                goldCost = 500
+            };
+            Weapon oathkeeper = new Weapon()//10
             {
-                name = "Oathkeeper";
-                powerLevel = 6;
-                power = 145 + rnd.Next(1, 25);
-            }
-            Weapon thorsHammer = new Weapon();
+                Name = "Oathkeeper Keyblade",
+                ItemLevel = 6,
+                Power = 600,
+                goldCost = 600
+            };
+            Weapon thorsHammer = new Weapon()//11
             {
-                name = "Thors Hammer";
-                powerLevel = 6;
-                power = 80 + rnd.Next(1, 200);
-            }
-            Weapon theElderWand = new Weapon();
+                Name = "Thors Hammer",
+                ItemLevel = 6,
+                Power = 600,
+                goldCost = 600
+            };
+            Weapon theElderWand = new Weapon()//12
             {
-                name = "The Elder Wand";
-                powerLevel = 7;
-                power = 155 + rnd.Next(1, 66);
-            }
-            Weapon infinityGuantlet = new Weapon();
+                Name = "The Elder Wand",
+                ItemLevel = 7,
+                Power = 700,
+                goldCost = 700
+            };
+            Weapon infinityGuantlet = new Weapon()//13
             {
-                name = "Infinity Guantlet";
-                powerLevel = 7;
-                power = 180 + rnd.Next(1, 22);
-            }
-            Weapon gatlinGun = new Weapon();
+                Name = "Infinity Guantlet",
+                ItemLevel = 7,
+                Power = 700,
+                goldCost = 700
+            };
+            Weapon gatlinGun = new Weapon()//14
             {
-                name = "Gatlin Gun";
-                powerLevel = 8;
-                power = 90 + rnd.Next(1, 200);
-            }
-            Weapon muramasBlade = new Weapon();
+                Name = "Gatlin Gun",
+                ItemLevel = 8,
+                Power = 800,
+                goldCost = 800
+            };
+            Weapon muramasBlade = new Weapon()//15
             {
-                name = "Muramas Blade";
-                powerLevel = 8;
-                power = 100 + rnd.Next(1, 100);
-            }
-            Weapon dreamRod = new Weapon();
+                Name = "Muramas Blade",
+                ItemLevel = 8,
+                Power = 800,
+                goldCost = 800
+            };
+            Weapon dreamRod = new Weapon()//16
             {
-                name = "Dream Rod";
-                powerLevel = 9;
-                power = 139 + rnd.Next(1, 15);
-            }
-            Weapon olympiaSword = new Weapon();
+                Name = "Dream Rod",
+                ItemLevel = 9,
+                Power = 900,
+                goldCost = 900
+            };
+            Weapon olympiaSword = new Weapon()//17
             {
-                name = "Olympia Sword";
-                powerLevel = 9;
-                power = 100 + rnd.Next(1, 50);
-            }
-            Weapon kakashisShuriken = new Weapon();
+                Name = "Olympia Sword",
+                ItemLevel = 9,
+                Power = 900,
+                goldCost = 900
+            };
+            Weapon kakashisShuriken = new Weapon()//18
             {
-                name = "Kakashi's Shuriken";
-                powerLevel = 10;
-                power = 0 + rnd.Next(0, 900);
-            }
-            Weapon håkansLongsword = new Weapon();
+                Name = "Kakashi's Shuriken",
+                ItemLevel = 10,
+                Power = 1000,
+                goldCost = 1000
+            };
+            Weapon håkansLongsword = new Weapon()//19
             {
-                name = "Håkan's Longsword";
-                powerLevel = 10;
-                power = 0 + rnd.Next(0, 900);
-            }
-            Weapon tinasLongbow = new Weapon();
+                Name = "Håkan's Longsword -\"It seems to glowing while orcs are near..\" ",
+                ItemLevel = 10,
+                Power = 1000,
+                goldCost = 1000
+            };
+            Weapon tinasLongbow = new Weapon()//20
             {
-                name = "Tina's Longbow";
-                powerLevel = 10;
-                power = 0 + rnd.Next(0, 900);
-            }
-            Weapon bennysWhip = new Weapon();
+                Name = "Tina's Ivory Longbow",
+                ItemLevel = 10,
+                Power = 1000,
+                goldCost = 1000
+            };
+            Weapon bennysWhip = new Weapon()//21
             {
-                name = "Benny's Leather Whip";
-                powerLevel = 10;
-                power = 0 + rnd.Next(0, 900);
-            }
-            Weapon josefinesRevolver = new Weapon();
+                Name = "Benny's Leather Whip",
+                ItemLevel = 10,
+                Power = 1000,
+                goldCost = 1000
+            };
+            Weapon josefinesRevolver = new Weapon()//22
             {
-                name = "Josefine's Revolver";
-                powerLevel = 10;
-                power = 0 + rnd.Next(0, 900);
-            }
+                Name = "Josefine's Golden Revolver",
+                ItemLevel = 10,
+                Power = 1000,
+                goldCost = 100
+            };
 
-            weaponList.Add(blundSword);
+
+            weaponList.Add(blundtSword);
             weaponList.Add(rustyDagger);
             weaponList.Add(unbalancedAxe);
             weaponList.Add(vorpalBlade);
             weaponList.Add(railGuns);
             weaponList.Add(lightsaber);
             weaponList.Add(harbringer);
-            weaponList.Add(stinger);
-            weaponList.Add(keayblade);
+            weaponList.Add(needle);
+            weaponList.Add(keyblade);
             weaponList.Add(oblivion);
             weaponList.Add(oathkeeper);
             weaponList.Add(thorsHammer);
@@ -194,21 +225,26 @@ namespace Labb3.Items
             weaponList.Add(bennysWhip);
             weaponList.Add(josefinesRevolver);
 
+        }
+        public List<Weapon> GetFullWeaponList()
+        {
+            WeaponForge();
             return weaponList;
-        }        
-    }
+        }
+        public void SetCurrentWeapon(Weapon wep)
+        {
+            WeaponForge();
+            currentWeapon.Add(wep);
+        }
+        public List<Weapon> GetCurrentWeapon()
+        {
+            WeaponForge();
+            return currentWeapon;
+        }
+    } //Weapon class End
 
-    public class EquippedWeapon : Weapon
+    public class CurrentWeapon : Weapon
     {
-        private List<EquippedWeapon> equippedWeaponList = new List<EquippedWeapon>();
-
-        public List<EquippedWeapon> EquippedWeaponList { get => equippedWeaponList; set => equippedWeaponList = value; }
-
-        ///////////////////////////////////////////////////////////////////////////
-
-
-
-
-
+        public static CurrentWeapon weapon = new CurrentWeapon();
     }
 }

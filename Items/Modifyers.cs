@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Labb3.Items
 {
-    class Modifyers
+    class Modifyers //för lvl up
     {
         Random rnd = new Random();
 

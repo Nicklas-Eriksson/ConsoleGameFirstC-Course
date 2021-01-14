@@ -6,136 +6,159 @@ using Labb3.Items;
 
 namespace Labb3.Monsters
 {
-    public class Monster
+    public class Monster : IMonster
     {
-        private string name;
-        private int level;
-        private int health;
-        private int power;
-        private int experienceDrop;
-        private int goldDrop;
+        public string name { get; set; } 
+        public int lvl { get; set;} //level
+        public int hp { get; set;} //health (hit points)
+        public int dmg { get; set;} //damage
+        public int expDrop { get; set;} //experience point drop. Obtained by player by killing monster
+        public int goldDrop { get; set; }//Obtained by player by killing monster
 
-        public string Name { get => name; set => name = value; }
-        public int Level { get => level; set => level = value; }
-        public int Health { get => health; set => health = value; }
-        public int Power { get => power; set => power = value; }
-        public int ExperienceDrop { get => experienceDrop; set => experienceDrop = value; }
-        public int GoldDrop { get => goldDrop; set => goldDrop = value; }
 
-        public Monster(string name, int level, int health, int power, int experienceDrop, int goldDrop)
-        {
-            this.name = name;
-            this.level = level;
-            this.health = health;
-            this.power = power;
-            this.experienceDrop = experienceDrop;
-            this.goldDrop = goldDrop;
-        }
-        public Monster() { }//Empty Constructor
+        //private string name;
+        //private int level;
+        //private int health;
+        //private int power;
+        //private int experienceDrop;
+        //private int goldDrop;
 
-        public void MonsterGenerator()
+        //public string Name { get => name; set => name = value; }
+        //public int Level { get => level; set => level = value; }
+        //public int Health { get => health; set => health = value; }
+        //public int Power { get => power; set => power = value; }
+        //public int ExperienceDrop { get => experienceDrop; set => experienceDrop = value; }
+        //public int GoldDrop { get => goldDrop; set => goldDrop = value; }
+
+        //public Monster(string name, int level, int health, int power, int experienceDrop, int goldDrop)
+        //{
+        //    this.name = name;
+        //    this.level = level;
+        //    this.health = health;
+        //    this.power = power;
+        //    this.experienceDrop = experienceDrop;
+        //    this.goldDrop = goldDrop;
+        //}
+        //public Monster() { }//Empty Constructor
+
+        public List<IMonster> MonsterGenerator()
         {
             Random rnd = new Random();
             Modifyers mod = new Modifyers();
+
             Monster goblin = new Monster();
             {
                 name = "Goblin";
-                level = 1;
-                health = 40;
-                power = 15;
-                experienceDrop = 20;
+                lvl = 1;
+                hp = 40;
+                dmg = 15;
+                expDrop = 20;
                 goldDrop = 50;
             }
             Monster thief = new Monster();
             {
                 name = "Thief";
-                level = 2;
-                health = 80;
-                power = 10 + mod.CritModifyer(5);
-                experienceDrop = 55;
+                lvl = 2;
+                hp = 80;
+                dmg = 10 + mod.CritModifyer(5);
+                expDrop = 55;
                 goldDrop = 100;
             }
             Monster banshee = new Monster();
             {
                 name = "Banshee";
-                level = 3;
-                health = 100;
-                power = 5 + mod.CritModifyer(10);
-                experienceDrop = 66;
+                lvl = 3;
+                hp = 100;
+                dmg = 5 + mod.CritModifyer(10);
+                expDrop = 66;
                 goldDrop = 75;
             }
             Monster necromancer = new Monster();
             {
                 name = "Necromancer";
-                level = 4;
-                health = 70;
-                power = 20 + mod.CritModifyer(50);
-                experienceDrop = 100;
+                lvl = 4;
+                hp = 70;
+                dmg = 20 + mod.CritModifyer(50);
+                expDrop = 100;
                 goldDrop = rnd.Next(150, 250); ;
             }
             Monster cultist = new Monster();
             {
                 name = "Cultist";
-                level = 4;
-                health = 70;
-                power = 10 + mod.CritModifyer(20);
-                experienceDrop = 100;
+                lvl = 4;
+                hp = 70;
+                dmg = 10 + mod.CritModifyer(20);
+                expDrop = 100;
                 goldDrop = rnd.Next(100, 200);
             }
             Monster mutant = new Monster();
             {
                 name = "Mutant";
-                level = 5;
-                health = 250;
-                power = 100 + mod.CritModifyer(20);
-                experienceDrop = 160;
+                lvl = 5;
+                hp = 250;
+                dmg = 100 + mod.CritModifyer(20);
+                expDrop = 160;
                 goldDrop = rnd.Next(20, 200);
             }
             Monster hound = new Monster();
             {
                 name = "Hound";
-                level = 6;
-                health = 300;
-                power = 50 + mod.CritModifyer(70);
-                experienceDrop = 266;
+                lvl = 6;
+                hp = 300;
+                dmg = 50 + mod.CritModifyer(70);
+                expDrop = 266;
                 goldDrop = rnd.Next(20, 200);
             }
             Monster elderThing = new Monster();
             {
                 name = "Elder Thing";
-                level = 7;
-                health = 500;
-                power = 70 + mod.CritModifyer(70);
-                experienceDrop = 458;
+                lvl = 7;
+                hp = 500;
+                dmg = 70 + mod.CritModifyer(70);
+                expDrop = 458;
                 goldDrop = rnd.Next(50, 200);
             }
             Monster silentOne = new Monster();
             {
                 name = "Silent One";
-                level = 8;
-                health = 600;
-                power = 80 + mod.CritModifyer(80);
-                experienceDrop = 800;
+                lvl = 8;
+                hp = 600;
+                dmg = 80 + mod.CritModifyer(80);
+                expDrop = 800;
                 goldDrop = rnd.Next(50, 200);
             }
             Monster deepOne = new Monster();
             {
                 name = "Deep One";
-                level = 9;
-                health = 666;
-                power = 100 + mod.CritModifyer(100);
-                experienceDrop = 1422;
+                lvl = 9;
+                hp = 666;
+                dmg = 100 + mod.CritModifyer(100);
+                expDrop = 1422;
                 goldDrop = rnd.Next(50, 200);
             }
             Monster demiLich = new Monster();
             {
                 name = "Demi-Lich";
-                level = 10;
-                health = 1000;
-                power = 55 + mod.CritModifyer(100);
-                experienceDrop = 10000;
+                lvl = 10;
+                hp = 1000;
+                dmg = 55 + mod.CritModifyer(100);
+                expDrop = 10000;
                 goldDrop = 10000;
             }
+
+            List<IMonster> monsterList = new List<IMonster>();
+            monsterList.Add(goblin);
+            monsterList.Add(thief);
+            monsterList.Add(banshee);
+            monsterList.Add(necromancer);
+            monsterList.Add(mutant);
+            monsterList.Add(hound);
+            monsterList.Add(elderThing);
+            monsterList.Add(silentOne);
+            monsterList.Add(deepOne);
+            monsterList.Add(demiLich);
+
+            return monsterList;
         }
     }
     public class MiniBoss : Monster

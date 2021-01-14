@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace Labb3.UtilityTools
 {
@@ -85,6 +86,15 @@ namespace Labb3.UtilityTools
         static public void Option()
         {
             Tools.Yellow("Option: ");
+        }
+        static public void ExitGame()
+        {
+            Console.Clear();
+            Tools.YellowLine("Thank you for playing my game");
+            Thread.Sleep(1500);
+            Tools.RedLine("Exiting Game..");
+            Thread.Sleep(1400);
+            Environment.Exit(0);
         }
     }
 }
