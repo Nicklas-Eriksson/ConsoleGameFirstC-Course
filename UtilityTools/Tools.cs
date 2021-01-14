@@ -71,7 +71,7 @@ namespace Labb3.UtilityTools
                     break;
                 }
                 Error();
-                Option();
+                Tools.Yellow("Menue option: ");
                 input = Console.ReadLine();
             } while (!success);
             return nr;
@@ -83,9 +83,11 @@ namespace Labb3.UtilityTools
         {
             Tools.RedLine("Wrong input, try again");
         }
-        static public void Option()
+        static public int Option(string input)
         {
-            Tools.Yellow("Option: ");
+            Tools.Yellow("Menue option: ");            
+            int nr = Convert.ToInt32(input);
+            return nr;
         }
         static public void ExitGame()
         {

@@ -15,52 +15,65 @@ namespace Labb3.Encounters
 
         public static void Encounter(string name, int hp, int ad)
         {
-            Monster monster = new Monster();
-            Weapon weapon = new Weapon();
-            List<IMonster> monsterL = monster.MonsterGenerator();
-            //List<Weapon> weaponL = weapon.WeaponForge();
-            Player.Player player = new Player.Player();
+            //List<IMonster> monsterList = Monster.monster.MonsterGenerator();
 
-            // name = Player.CurrentPlayer
-            //Console.WriteLine($"{name} HP: {}");
 
+            List<string> monsterNames = new List<string>() { "Goblin", "Thief", "Banshee", "Cultist", "Mutant", "Hell Hound", "Elder Thing", "Deep One", " Silent One", "Necromancer", "Deci", "Ogre", "Gargoyle", "Troll", "Nymph", "Kobold", "Satyr", "Decided Rat", "Giant Spider", "Rabid Goblin", "Giant Spider" };
+            List<string> lvl10Monsters = new List<string>() { "Azathoth", "B'gnu-Thun", "Bokrug", "Cthulhu", "Dagon", "Dimensional Shambler", "Dunwich Horror", "Formless Spawn", "Ghatanothoa", "Gloon", "Gnoph-Keh", "Great Old One", "Yog-Sothoth", "Yuggoth", "Innsmouth", "Shoggoth", "Outer God", "Nightgaut", "Nyarlathotep" };
+
+            int[] expDropArray = new int[9] { 20, 55, 66, 100, 160, 266, 458, 800, 1422 }; //will use player lvl as index to face off against same lvl monster
 
             Random rnd = new Random();
-            int rndNr = rnd.Next(monsterL.Count);
-
-            //Make different list of monters depending on lvl.
-            //Or make monsters with generated stats based on player lvl.
-            Console.WriteLine($"A {monsterL[rndNr].name} appears! BUUU!");
-            Console.WriteLine("1 = attack\n 2 = block \n 3 = heal\n 4 = run away");
-            Console.Write("Option: ");
-            int nr = Tools.ConvToInt32(Console.ReadLine());
-            switch (nr)
+            if (Player.Player.player.Lvl < 9)
             {
-                
-                case 1:
-                    Console.Write("Monster:");
-                    Console.Write("Player:");
-                    Console.Write($"{ monsterL[rndNr].name}");
-                    Console.Write($"{ player.Name}");
-                    Console.Write($"{ monsterL[rndNr].lvl}");
-                    Console.Write($"{ player.Lvl}");
-                    Console.Write($"{ monsterL[rndNr].hp}");
-                    Console.Write($"{ player.Hp}");
-                    Console.Write($"{ monsterL[rndNr].dmg}");      
-                    Console.Write($"{ player.Dmg}");      
-                    Console.WriteLine("----------------------------");
-                    Console.WriteLine($"You attack the {monsterL[rndNr].name}!");
-                    monsterL[rndNr].hp -= player.Dmg; //+ player.CurrentWeapon.power
+                Monster monster = new Monster()//Balance this 
+                {
+                    name = monsterNames[rnd.Next(0, monsterNames.Count)],
+                    lvl = Player.Player.player.Lvl,
+                    hp = Player.Player.player.Hp * 2,
+                    dmg = Player.Player.player.Hp / 2,
+                    expDrop = expDropArray[Player.Player.player.Lvl],
+                    goldDrop = 10000
 
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
+                };
+            }
+            else if (Player.Player.player.Lvl >= 9)
+            {
+                Monster monster = new Monster()//Balance this
+                {
+                    name = monsterNames[rnd.Next(0, monsterNames.Count)],
+                    lvl = Player.Player.player.Lvl,
+                    hp = 10000,
+                    dmg = 500,
+                    expDrop = 10000,
+                    goldDrop = 10000
+
+                };
+
+
+
+                Console.WriteLine("You decide to keep exploring the god forsaken dungeon..\nYou grab the doorknob to the next room and slowly turn it..\n" +
+                    "When you hear the door klick, you push open the door, ready to face whatever stands before you.\n" +
+                    "There before you stands a hideous creature..");
+
+                Console.WriteLine($"{ monster.name}");
+                Console.WriteLine($"{ monster.lvl}");
+                Console.WriteLine($"{ monster.hp}");
+                Console.WriteLine($"{ monster.dmg}");
+                Console.WriteLine("----------------------------\n");
+                Console.WriteLine($"Player:");
+                Console.WriteLine($"{ Player.Player.player.Name}");
+                Console.WriteLine($"{ Player.Player.player.Lvl}");
+                Console.WriteLine($"{ Player.Player.player.Hp}");
+                Console.WriteLine($"{ Player.Player.player.Dmg + Player.Player.player.WeaponDmg}");
+                Console.WriteLine($"{ Player.Player.player.HealingPotions}");
+                Console.WriteLine("----------------------------\n");
+
+
+
 
             }
+
 
         }
     }

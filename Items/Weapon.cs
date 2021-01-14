@@ -7,13 +7,14 @@ namespace Labb3.Items
     public class Weapon
     {
         //public static Weapon weapon = new Weapon();
-
+        public static Weapon weapon = new Weapon();
         private string name;
         private int itemLevel;
         private int power;
         private int goldCost;
         private List<Weapon> weaponList = new List<Weapon>();
         private List<Weapon> currentWeapon = new List<Weapon>();
+        //add a string trivia?
 
         public int ItemLevel { get => itemLevel; set => itemLevel = value; }
         public int Power { get => power; set => power = value; }
@@ -173,7 +174,7 @@ namespace Labb3.Items
             };
             Weapon håkansLongsword = new Weapon()//19
             {
-                Name = "Håkan's Longsword -\"It seems to glowing while orcs are near..\" ",
+                Name = "Håkan's Longsword -\"It seems to be glowing while orcs are near..\" ",
                 ItemLevel = 10,
                 Power = 1000,
                 goldCost = 1000
@@ -199,7 +200,13 @@ namespace Labb3.Items
                 Power = 1000,
                 goldCost = 100
             };
-
+            Weapon davidsSpear = new Weapon()//22
+            {
+                Name = "David's Glowing Spear",
+                ItemLevel = 10,
+                Power = 1000,
+                goldCost = 100
+            };
 
             weaponList.Add(blundtSword);
             weaponList.Add(rustyDagger);
@@ -224,6 +231,7 @@ namespace Labb3.Items
             weaponList.Add(tinasLongbow);
             weaponList.Add(bennysWhip);
             weaponList.Add(josefinesRevolver);
+            weaponList.Add(davidsSpear);
 
         }
         public List<Weapon> GetFullWeaponList()
@@ -243,8 +251,8 @@ namespace Labb3.Items
         }
     } //Weapon class End
 
-    public class CurrentWeapon : Weapon
-    {
-        public static CurrentWeapon weapon = new CurrentWeapon();
-    }
+    //public class CurrentWeapon : Weapon
+    //{
+    //    public static CurrentWeapon weapon = new CurrentWeapon();
+    //}
 }

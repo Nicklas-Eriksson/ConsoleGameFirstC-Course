@@ -51,25 +51,28 @@ namespace Labb3.Menues
                 case 3://Player Stats
                    
                     Weapon weapon = new Weapon();
-                    
 
+
+                    Console.Clear();
+                    OptionAlternatives();
                     Console.WriteLine("-Player Stats-");
-                    Console.WriteLine("Name: " + Player.Player.player.Name);
-                    Console.WriteLine("Health: " + Player.Player.player.Hp);
-                    Console.WriteLine("Power: " + Player.Player.player.Dmg);
-                    Console.WriteLine("Level: " + Player.Player.player.Lvl);
-                    Console.WriteLine("Experience: " + Player.Player.player.Exp);
-                    Console.WriteLine("Potions: " + Player.Player.player.HealingPotions);
-                    
+                    Console.WriteLine($"Name: {Player.Player.player.Name}");
+                    Console.WriteLine($"Health: {Player.Player.player.Hp}");
+                    Console.WriteLine($"Power: {Player.Player.player.Dmg}");
+                    Console.WriteLine($"Level: {Player.Player.player.Lvl}");
+                    Console.WriteLine($"Experience: {Player.Player.player.Exp}");
 
-                    Console.ReadKey();
+                    Console.WriteLine("\n-Inventory-");
+                    List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
                     
-                  
+                    int wepIndex = Player.Player.player.WeaponIndex;
+                    Console.WriteLine($"Weapon: {weaponList[wepIndex].Name}");
+                    Console.WriteLine($"Weapon: {weaponList[wepIndex].Power}");
+                    Console.WriteLine($"Potions: {Player.Player.player.HealingPotions}\n");
+
+                    Tools.Option(Console.ReadLine());
                     
-                    //Console.WriteLine("Weapon name: " + currentWeapon.Name);
-                    //Console.WriteLine("Weapon power level: " + currentWeapon.Name);
-                    //Console.WriteLine("Weapon power: " + currentWeapon.Power);
-                    //Console.WriteLine("--------------------------------");
+                    
 
                     break;
 

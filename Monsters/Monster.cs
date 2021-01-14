@@ -8,6 +8,7 @@ namespace Labb3.Monsters
 {
     public class Monster : IMonster
     {
+        public static Monster monster = new Monster();
         public string name { get; set; } 
         public int lvl { get; set;} //level
         public int hp { get; set;} //health (hit points)
@@ -49,17 +50,17 @@ namespace Labb3.Monsters
             Monster goblin = new Monster();
             {
                 name = "Goblin";
-                lvl = 1;
-                hp = 40;
+                lvl = Player.Player.player.Lvl;
+                hp = 500;
                 dmg = 15;
                 expDrop = 20;
-                goldDrop = 50;
+                goldDrop = 100;
             }
             Monster thief = new Monster();
             {
                 name = "Thief";
-                lvl = 2;
-                hp = 80;
+                lvl = Player.Player.player.Lvl;
+                hp = 700;
                 dmg = 10 + mod.CritModifyer(5);
                 expDrop = 55;
                 goldDrop = 100;
@@ -67,8 +68,8 @@ namespace Labb3.Monsters
             Monster banshee = new Monster();
             {
                 name = "Banshee";
-                lvl = 3;
-                hp = 100;
+                lvl = Player.Player.player.Lvl;
+                hp = 1000;
                 dmg = 5 + mod.CritModifyer(10);
                 expDrop = 66;
                 goldDrop = 75;
@@ -76,8 +77,8 @@ namespace Labb3.Monsters
             Monster necromancer = new Monster();
             {
                 name = "Necromancer";
-                lvl = 4;
-                hp = 70;
+                lvl = Player.Player.player.Lvl;
+                hp = 1500;
                 dmg = 20 + mod.CritModifyer(50);
                 expDrop = 100;
                 goldDrop = rnd.Next(150, 250); ;
@@ -85,8 +86,8 @@ namespace Labb3.Monsters
             Monster cultist = new Monster();
             {
                 name = "Cultist";
-                lvl = 4;
-                hp = 70;
+                lvl = Player.Player.player.Lvl;
+                hp = 1800;
                 dmg = 10 + mod.CritModifyer(20);
                 expDrop = 100;
                 goldDrop = rnd.Next(100, 200);
@@ -94,8 +95,8 @@ namespace Labb3.Monsters
             Monster mutant = new Monster();
             {
                 name = "Mutant";
-                lvl = 5;
-                hp = 250;
+                lvl = Player.Player.player.Lvl;
+                hp = 2000;
                 dmg = 100 + mod.CritModifyer(20);
                 expDrop = 160;
                 goldDrop = rnd.Next(20, 200);
@@ -103,8 +104,8 @@ namespace Labb3.Monsters
             Monster hound = new Monster();
             {
                 name = "Hound";
-                lvl = 6;
-                hp = 300;
+                lvl = Player.Player.player.Lvl;
+                hp = 2500;
                 dmg = 50 + mod.CritModifyer(70);
                 expDrop = 266;
                 goldDrop = rnd.Next(20, 200);
@@ -112,8 +113,8 @@ namespace Labb3.Monsters
             Monster elderThing = new Monster();
             {
                 name = "Elder Thing";
-                lvl = 7;
-                hp = 500;
+                lvl = Player.Player.player.Lvl;
+                hp = 3000;
                 dmg = 70 + mod.CritModifyer(70);
                 expDrop = 458;
                 goldDrop = rnd.Next(50, 200);
@@ -121,8 +122,8 @@ namespace Labb3.Monsters
             Monster silentOne = new Monster();
             {
                 name = "Silent One";
-                lvl = 8;
-                hp = 600;
+                lvl = Player.Player.player.Lvl;
+                hp = 4000;
                 dmg = 80 + mod.CritModifyer(80);
                 expDrop = 800;
                 goldDrop = rnd.Next(50, 200);
@@ -130,8 +131,8 @@ namespace Labb3.Monsters
             Monster deepOne = new Monster();
             {
                 name = "Deep One";
-                lvl = 9;
-                hp = 666;
+                lvl = Player.Player.player.Lvl;
+                hp = 5000;
                 dmg = 100 + mod.CritModifyer(100);
                 expDrop = 1422;
                 goldDrop = rnd.Next(50, 200);
@@ -139,9 +140,9 @@ namespace Labb3.Monsters
             Monster demiLich = new Monster();
             {
                 name = "Demi-Lich";
-                lvl = 10;
-                hp = 1000;
-                dmg = 55 + mod.CritModifyer(100);
+                lvl = Player.Player.player.Lvl;
+                hp = 10000;
+                dmg = 155 + mod.CritModifyer(155);
                 expDrop = 10000;
                 goldDrop = 10000;
             }
