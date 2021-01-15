@@ -38,11 +38,17 @@ namespace Labb3.Menues
 
                     if (rndNr == 1)//10% nothing happens
                     {
-                        Console.WriteLine("You explore deeper into the dungeon.\n" +
-                          "You see a wooden door with a rusted knob and lock.\n" +
-                          "Slowly you turn the creeking door open..\n" +
-                          "To your surprise, the corridor is completly desolate...");
-                        Sleep(10000);
+                        Console.Clear();
+
+                        Tools.YellowLine("You explore deeper into the dungeon.");
+                        Sleep(3000);
+                        Tools.YellowLine("You see a wooden door with a rusted knob and lock.");
+                        Sleep(3000);
+                        Tools.YellowLine("Slowly you turn the creeking door open..");
+                        Sleep(3000);
+                        Tools.YellowLine("To your surprise, the corridor is completly desolate...");
+                        Sleep(3000);
+                        
                         Options();
                     }
                     else //90% You encounter a monster
@@ -83,11 +89,9 @@ namespace Labb3.Menues
             List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
 
             int wepIndex = Player.player.WeaponIndex;
-            Console.WriteLine($" Weapon: {weaponList[wepIndex].Name}");
-            Console.WriteLine($" Damage: {weaponList[wepIndex].Power}");
-            Console.WriteLine("--------------");
-            Console.WriteLine($" Potions: {Player.player.HealingPotions}\n");
-            Console.WriteLine($" Gold: {Player.player.Gold}");
+            Console.WriteLine($" Weapon: {weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} ");
+            Console.WriteLine($" Potions: {Player.player.HealingPotions}");
+            Console.WriteLine($" Gold: {Player.player.Gold}\n");
 
             Tools.BlueLine("Press any key when you want to return to previous menue..");
             Console.ReadKey();

@@ -256,6 +256,15 @@ namespace Labb3.Items
             WeaponForge();
             return currentWeapon;
         }
+
+        public void instantiateList()
+        {           
+            if (weapon.WeaponList.Count == 0)
+            {
+                weapon.WeaponList = Weapon.weapon.GetFullWeaponList();
+            }
+        }
+
     } //Weapon class End
 
     
