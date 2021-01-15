@@ -45,7 +45,8 @@ namespace Labb3.Items
                 ItemLevel = 1,
                 Power = 20,
                 goldCost = 0
-            }; Weapon blundtSword = new Weapon()//0
+            }; 
+            Weapon blundtSword = new Weapon()//0
             {
                 Name = "Blundt Sword",
                 ItemLevel = 1,

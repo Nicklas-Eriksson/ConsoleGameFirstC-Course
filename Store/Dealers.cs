@@ -81,6 +81,7 @@ namespace Labb3.Store
                     Tools.RedLine($"You entered a too low number: {number - 1}.");
                     Tools.RedLine($"Keep it within the range of 1-{fullWepList.Count}!");
                 }
+
             } while (number > fullWepList.Count || number - 1 <= 1);
 
 

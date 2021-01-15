@@ -68,6 +68,7 @@ namespace Labb3.Menues
                     break;
 
                 case 4://Exit Game
+
                     Tools.ExitGame();
                     break;
             }

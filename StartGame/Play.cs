@@ -20,15 +20,15 @@ namespace Labb3.StartGame
             //player.Play();
 
 
-
             Console.Title = "Dungeons of Daggorath";
+
             //Logo.DoD();
             //Sleep(3500);
             //Logo.RdyP1();
             //Sleep(2500);
             //Messange.GameInfo();
             Tools.Yellow("Enter your name: ");
-            Player.player.Name = Console.ReadLine().Trim();
+            Player.player.Name = Console.ReadLine().Trim();//Stor bokstav på första??
             Tools.YellowLine($"\nGreetings {Player.player.Name}..\n");
             Console.ReadKey(); //Ta bort sen
             

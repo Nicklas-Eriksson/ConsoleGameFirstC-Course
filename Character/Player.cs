@@ -23,21 +23,6 @@ namespace Labb3.Character
         private int weaponIndex = 0;
         private bool lvlUp = false;
 
-        //public Player() { }//Empty constructor
-        //public Player(string name, bool alive, int gold, int hp, int dmg, int weaponDmg, int healingPotions, int lvl, int exp, int weaponIndex)
-        //{
-        //    this.name = name;
-        //    this.alive = alive;
-        //    this.gold = gold;
-        //    this.hp = hp;
-        //    this.dmg = dmg;
-        //    this.weaponDmg = weaponDmg;
-        //    this.healingPotions = healingPotions;
-        //    this.lvl = lvl;
-        //    this.exp = exp;
-        //    this.weaponIndex = weaponIndex;
-        //}
-
         public string Name { get => name; set => name = value; }
         public bool Alive { get => alive; set => alive = value; }
         public int Gold { get => gold; set => gold = value; }
@@ -50,7 +35,7 @@ namespace Labb3.Character
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
         public bool LvlUp { get => lvlUp; set => lvlUp = value; }
 
-        public static void ExpToLvl(int exp)
+        public static void ExpToLvl(int exp)//fixa
         {
             if (player.lvl < 10)
             {
@@ -60,8 +45,6 @@ namespace Labb3.Character
                     
                 }
                 Sleep(2000);
-                //player.LvlUp = false;
-
             }
         }
     }

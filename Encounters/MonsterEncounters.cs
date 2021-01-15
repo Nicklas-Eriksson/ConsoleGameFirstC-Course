@@ -44,7 +44,7 @@ namespace Labb3.Encounters
                     name = monsterNames[monsterIndex],
                     lvl = Player.player.Lvl,
                     hp = Player.player.Hp * 2,
-                    dmg = Player.player.Hp / 2,
+                    dmg = Player.player.Dmg / 2,
                     expDrop = expDropArray[Player.player.Lvl],
                     goldDrop = 100 * Player.player.Lvl
                 };
