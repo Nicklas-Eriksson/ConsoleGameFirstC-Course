@@ -6,6 +6,8 @@ using Labb3.Monsters;
 using Labb3.Items;
 using Labb3.Character;
 using Labb3.Store;
+using static System.Threading.Thread;
+using Labb3.Menues;
 
 namespace Labb3.Encounters
 {
@@ -14,7 +16,7 @@ namespace Labb3.Encounters
         static private Random rnd = new Random();
 
 
-        public static void Encounter()
+        public static void EncounterGenerator()
         {
             Console.Clear();
 
@@ -34,21 +36,19 @@ namespace Labb3.Encounters
                     lvl = Player.player.Lvl,
                     hp = Player.player.Hp * 2,
                     dmg = Player.player.Hp / 2,
-                    //expDrop = expDropArray[Player.player.Lvl],
                     expDrop = expDropArray[Player.player.Lvl],
                     goldDrop = 100 * Player.player.Lvl
                 };
 
-                Tools.YellowLine("You decide to keep exploring the god forsaken dungeon..\n" +
-                   "You grab the doorknob to the next room and slowly turn it..\n" +
-                   "When you hear the door klick, you push open the door, ready to face whatever stands before you.\n" +
-                   "There before you stands a hideous creature..\n");
+                Tools.YellowLine("You decide to keep exploring the god forsaken dungeon..");
+                Tools.YellowLine("You grab the doorknob to the next room and slowly turn it..");
+                Tools.YellowLine("When you hear the door klick, you push open the door, ready to face whatever stands before you.");
+                Tools.YellowLine("There before you stands a hideous creature..\n");
 
                 StatsDuringFight(monster);
 
                 Tools.BlueLine("Press to return");//Test
                 Console.ReadKey();
-
 
             }
             else if (Player.player.Lvl >= 9)
@@ -63,7 +63,7 @@ namespace Labb3.Encounters
                     goldDrop = 10000
                 };
 
-                Console.WriteLine("You decide to keep exploring the god forsaken dungeon..\n" +
+                Tools.YellowLine("You decide to keep exploring the god forsaken dungeon..\n" +
                     "You grab the doorknob to the next room and slowly turn it..\n" +
                     "When you hear the door klick, you push open the door, ready to face whatever stands before you.\n" +
                     "There before you stands a hideous creature..\n");
@@ -76,6 +76,7 @@ namespace Labb3.Encounters
                 Fight(monster, monsterIndex);
 
             }
+
             static void StatsDuringFight(Monster monster)
             {
                 Tools.YellowLine("-----------------------------");
@@ -100,10 +101,10 @@ namespace Labb3.Encounters
             static void FightingMenueText()
             {
                 Console.WriteLine("-----------------------");
-                Console.WriteLine("|| [A]ttack......... ||");
-                Console.WriteLine("|| [B]lock Attack... ||");
-                Console.WriteLine("|| [H]ealing Potion..||");
-                Console.WriteLine("|| [R]un Away........||");
+                Console.WriteLine("|| [A]ttack......... ||");//The fighting is turn based. First you strike, than the monster will attack you
+                Console.WriteLine("|| [B]lock Attack... ||");//Block attack, take reduced/no dmg, and deal some back
+                Console.WriteLine("|| [H]ealing Potion..||");//Take a swig from a potion, heals up health. Takes reduced damage while healing
+                Console.WriteLine("|| [R]un Away........||");//Tries to escape. Chanse to be hit on the way out
                 Console.WriteLine("|| [E]xit Game.......||");
                 Console.WriteLine("-----------------------");
             }
@@ -114,6 +115,9 @@ namespace Labb3.Encounters
                 StatsDuringFight(monster);
 
                 char input = Console.ReadKey().KeyChar;
+                int monsterChanseOnHit = rnd.Next(1, 3); //33% chance to hit on escape
+                int dodge = rnd.Next(1, 5); //20% that the attack is dodged
+                int playerDmg = Player.player.Dmg + Player.player.WeaponDmg;
 
                 switch (input)
                 {
@@ -123,9 +127,8 @@ namespace Labb3.Encounters
 
                         while (Player.player.Alive == true)
                         {
-                            Console.WriteLine($"You raise your {Weapon.weapon.WeaponList[Player.player.WeaponIndex]} and attack the {monster.name}!");
+                            Console.WriteLine($"You raise your {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} and attack the {monster.name}!");
 
-                            int dodge = rnd.Next(1, 5); //1 in 5 that the attack is dodged
 
 
                             if (dodge == 1)
@@ -137,7 +140,8 @@ namespace Labb3.Encounters
                             else
                             {
                                 Console.WriteLine($"As you strike the {monster.name} it screams in pain.");
-                                monster.hp -= Player.player.Dmg + Player.player.WeaponDmg;
+                                Console.WriteLine($"The {monster.name} was delt {playerDmg}.");
+                                monster.hp -= playerDmg;
                             }
 
                             if (Player.player.Hp <= 0)
@@ -159,8 +163,8 @@ namespace Labb3.Encounters
                             }
 
                             //Now the monster will attack back!
-                            monster.dmg -= Player.player.Hp;
                             Console.WriteLine($"The {monster.name} strikes you for {monster.dmg}!");
+                            Player.player.Hp -= monster.dmg;
                             Fight(monster, monsterIndex);
                         }
 
@@ -168,17 +172,49 @@ namespace Labb3.Encounters
 
                     case ('b')://Block
 
+                        Console.WriteLine($"You raise your {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} in a defensive stance.");
+                        if (monsterChanseOnHit == 1)//If monster hits
+                        {
+                            Console.WriteLine($"The {monster.name} strikes you with all their power and hits you for {monster.dmg / 2} damage.");
+                            Player.player.Hp -= monster.dmg / 2;
+
+                        }
+                        else if (monsterChanseOnHit > 1) //Miss
+                        {
+                            Console.WriteLine($"The {monster.name} misses you with their attack and you frantically strikes back");
+                            Console.WriteLine($"You hit the {monster.name} for {playerDmg / 2} damage.");
+                            monster.hp -= playerDmg / 2;
+                        }
+                        Sleep(2000);
                         break;
 
                     case ('h')://Heal
                                //heal.
+                        Sleep(2000);
                         break;
 
                     case ('r')://Run away
-                               //take dmg and run away. back to menu
+
+                        Console.WriteLine("With darting eyes you look for the door you just came in from.");
+                        Console.WriteLine("You scurry around and head for the exit.");
+                        Console.WriteLine($"But as you do the {monster.name} takes a swing at you!");
+
+                        if (monsterChanseOnHit == 1) //Hit
+                        {
+                            Console.WriteLine($"The sweeping strike from the {monster.name} hits you for {monster.dmg / 2}.");
+                            Player.player.Hp -= monster.dmg / 2;
+                        }
+                        else if (monsterChanseOnHit > 1)//Miss
+                        {
+                            Console.WriteLine("The {monster.name} barely misses you, as you swing the door shut.");
+                            Sleep(2000);
+                            MenuOptions.Options(); //Back to menu
+                        }
+                        Sleep(2000);
                         break;
 
                     case ('e')://Exit Game
+
                         Tools.ExitGame();
                         break;
                 }

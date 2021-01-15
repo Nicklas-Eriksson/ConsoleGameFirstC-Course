@@ -13,7 +13,7 @@ namespace Labb3.Character
 
         private string name;
         private bool alive = true;
-        private int gold = 0;
+        private int gold = 100; //Will be sufficient for 1 of the 3 starter weapons in the store
         private int hp = 100; //health
         private int dmg = 10; //damage
         private int weaponDmg = 10; //damage
@@ -42,7 +42,7 @@ namespace Labb3.Character
         public int Gold { get => gold; set => gold = value; }
         public int Hp { get => hp; set => hp = value; }
         public int Dmg { get => dmg; set => dmg = value; }
-        public int WeaponDmg { get => dmg; set => dmg = value; }
+        public int WeaponDmg { get => WeaponDmg; set => WeaponDmg = value; }
         public int HealingPotions { get => healingPotions; set => healingPotions = value; }
         public int Lvl { get => lvl; set => lvl = value; }
         public int Exp { get => exp; set => exp = value; }

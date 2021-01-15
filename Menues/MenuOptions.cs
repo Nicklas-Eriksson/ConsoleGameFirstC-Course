@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Labb3.Encounters;
 using Labb3.Items;
+using Labb3.Store;
 using Labb3.Character;
 using Labb3.UtilityTools;
 using static System.Threading.Thread;
@@ -34,6 +35,7 @@ namespace Labb3.Menues
                 case 1://Explore
                     Random rnd = new Random();
                     int rndNr = rnd.Next(1, 11);
+
                     if (rndNr == 1)//10% nothing happens
                     {
                         Console.WriteLine("You explore deeper into the dungeon.\n" +
@@ -45,20 +47,18 @@ namespace Labb3.Menues
                     }
                     else //90% You encounter a monster
                     {
-                        MonsterEncounters.Encounter();
+                        MonsterEncounters.EncounterGenerator();
                     }
                     break;
 
                 case 2://Shop
-                    Store.Dealers.BuyingWeaponSwitch();
+
+                    Dealers.BuyWeapon();
                     break;
 
                 case 3://Player Stats
 
-                    PlayerStats();
-
-                    Tools.BlueLine("Press any key when you want to return to previous menue..");
-                    Console.ReadKey();
+                    PlayerStats();                   
                     break;
 
                 case 4://Exit Game
@@ -72,20 +72,26 @@ namespace Labb3.Menues
         {
             Console.Clear();
             OptionAlternatives();
-            Console.WriteLine("-Player Stats-");
-            Console.WriteLine($"Name: {Player.player.Name}");
-            Console.WriteLine($"Health: {Player.player.Hp}");
-            Console.WriteLine($"Power: {Player.player.Dmg}");
-            Console.WriteLine($"Level: {Player.player.Lvl}");
-            Console.WriteLine($"Experience: {Player.player.Exp}");
+            Console.WriteLine(" -Player Stats-");
+            Console.WriteLine($" Name: {Player.player.Name}");
+            Console.WriteLine($" Health: {Player.player.Hp}");
+            Console.WriteLine($" Power: {Player.player.Dmg}");
+            Console.WriteLine($" Level: {Player.player.Lvl}");
+            Console.WriteLine($" Experience: {Player.player.Exp}");
 
-            Console.WriteLine("\n-Inventory-");
+            Console.WriteLine("\n -Inventory-");
             List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
 
             int wepIndex = Player.player.WeaponIndex;
-            Console.WriteLine($"Weapon: {weaponList[wepIndex].Name}");
-            Console.WriteLine($"Weapon: {weaponList[wepIndex].Power}");
-            Console.WriteLine($"Potions: {Player.player.HealingPotions}\n");
+            Console.WriteLine($" Weapon: {weaponList[wepIndex].Name}");
+            Console.WriteLine($" Damage: {weaponList[wepIndex].Power}");
+            Console.WriteLine("--------------");
+            Console.WriteLine($" Potions: {Player.player.HealingPotions}\n");
+            Console.WriteLine($" Gold: {Player.player.Gold}");
+
+            Tools.BlueLine("Press any key when you want to return to previous menue..");
+            Console.ReadKey();
+            MenuOptions.Options();
         }
     }
 }

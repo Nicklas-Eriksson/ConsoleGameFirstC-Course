@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Labb3.Character;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -73,10 +74,27 @@ namespace Labb3.UtilityTools
                 Error();
                 Tools.Yellow("Menue option: ");
                 input = Console.ReadLine();
+
+                if (!success && input == "greedisgood")//gold cheat 
+                {
+                    Player.player.Gold += 1000000;
+                    Tools.GreenLine("Congratulations, you are now filthy rich!\n" +
+                        "+1 Million gold added to pouch");
+                    Thread.Sleep(3000);
+                }
+                else if (!success && input == "ihavethepower")
+                {
+                    Player.player.Lvl = 10;//lvl 10 cheat
+                    Tools.GreenLine("Whooow! You grow up fast dont you!?");
+                    Tools.GreenLine("Character level: 10");
+                    Thread.Sleep(3000);
+                }
+
             } while (!success);
+
             return nr;
         }
-                
+
         //Often used
         static public void Error()
         {
@@ -84,7 +102,7 @@ namespace Labb3.UtilityTools
         }
         static public int Option(string input)
         {
-            Tools.Yellow("Menue option: ");            
+            Tools.Yellow("Menue option: ");
             int nr = Convert.ToInt32(input);
             return nr;
         }

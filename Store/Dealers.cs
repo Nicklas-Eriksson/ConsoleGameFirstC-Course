@@ -22,31 +22,32 @@ namespace Labb3.Store
             Tools.YellowLine("Anyways!..");  //Sleep(1300);
             Tools.YellowLine("Here are my goods!\n"); // Sleep(2400);
         }
-        public static void BuyWeapon(int nr)
-        {
-            Tools.YellowLine($"[{nr+1}]: {fullWepList[nr].Name}");
-            Tools.YellowLine($"Weapon power: +{fullWepList[nr].Power} damage");
-            Tools.YellowLine($"Cost to purchase: {fullWepList[nr].GoldCost} Gold");
-            Console.WriteLine("------------------------------");
-        }
-        public static void WeaponIcons()
+        public static void BuyInstruct()
         {
             Console.Clear();
             Logo.Shop();
 
             Console.WriteLine("Write the number of the weapon you would like to purchase:\n");
 
-            //Display Weapons for shop
+            //Display Weapons for shop, loops through the whole weapon list 
             for (int i = 0; i < fullWepList.Count; i++)
             {
-                BuyWeapon(i);
+                BuyWeaponText(i);
             }
         }
+        public static void BuyWeaponText(int nr)//will be looped through in BuyInstruct()
+        {
+            Tools.YellowLine($"[{nr+1}]: {fullWepList[nr].Name}");
+            Tools.YellowLine($"Weapon power: +{fullWepList[nr].Power} damage");
+            Tools.YellowLine($"Cost to purchase: {fullWepList[nr].GoldCost} Gold");
+            Console.WriteLine("------------------------------");
+        }
+        
 
-        static public void BuyingWeaponSwitch()
+        static public void BuyWeapon()
         {
             StoreMenueIronSkillet();
-            WeaponIcons();
+            BuyInstruct();
 
             int number;
 
@@ -71,12 +72,14 @@ namespace Labb3.Store
 
             Tools.GreenLine($"{fullWepList[number-1].Name} has been equipped as your weapon");
             Player.player.WeaponDmg = fullWepList[number-1].Power;
-            Player.player.WeaponIndex = number-1;
+            Player.player.WeaponIndex = number-1;//A way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it
+            Sleep(1500);
+
+
             //GoldWithdraw(number-1);
 
-            //test 
-            fullWepList.Clear();
-            Sleep(1500);
+            
+            fullWepList.Clear();//test if this works, last time on visiting the shop more than once, wrote out double wep list.
             MenuOptions.Options();
         }
 
@@ -94,7 +97,7 @@ namespace Labb3.Store
                 Console.WriteLine("Not enough gold! Get back here when you can afford it!");
                 Console.WriteLine("Filthy creature..");
                 Sleep(1500);
-                BuyingWeaponSwitch();
+                BuyWeapon();
             }
         }
     }

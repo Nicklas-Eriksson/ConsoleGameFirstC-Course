@@ -28,7 +28,7 @@ namespace Labb3.StartGame
             //Sleep(2500);
             //Messange.GameInfo();
             Tools.Yellow("Enter your name: ");
-            Character.Player.player.Name = Console.ReadLine().Trim();
+            Player.player.Name = Console.ReadLine().Trim();
             Tools.YellowLine($"\nGreetings {Player.player.Name}..\n");
             Console.ReadKey(); //Ta bort sen
             

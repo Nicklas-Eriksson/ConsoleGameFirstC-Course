@@ -39,7 +39,13 @@ namespace Labb3.Items
         void WeaponForge()
         {
             //Weapons will be obtained in shop and/or through loot
-            Weapon blundtSword = new Weapon()//0
+            Weapon fists = new Weapon()//0
+            {
+                Name = "Fist",
+                ItemLevel = 1,
+                Power = 20,
+                goldCost = 0
+            }; Weapon blundtSword = new Weapon()//0
             {
                 Name = "Blundt Sword",
                 ItemLevel = 1,
@@ -208,6 +214,7 @@ namespace Labb3.Items
                 goldCost = 100
             };
 
+            weaponList.Add(fists);
             weaponList.Add(blundtSword);
             weaponList.Add(rustyDagger);
             weaponList.Add(unbalancedAxe);
