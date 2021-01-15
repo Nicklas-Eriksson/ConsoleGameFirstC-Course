@@ -13,7 +13,7 @@ namespace Labb3.Store
     {       
         static private List<Weapon> fullWepList = new List<Weapon>();
 
-        static private void instanceateList()
+        static private void instanceateList()//Ta listan från weapons istället
         {
             if (fullWepList.Count == 0)
             {
@@ -26,9 +26,13 @@ namespace Labb3.Store
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("Welcome to The Iron Skillet!"); //Sleep(1400);
+            Sleep(2000);
             Tools.YellowLine("It's not often we get customers these days..");  //Sleep(2000);
+            Sleep(2000);
             Tools.YellowLine("Anyways!..");  //Sleep(1300);
+            Sleep(2000);
             Tools.YellowLine("Here are my goods!\n"); // Sleep(2400);
+            Sleep(2000);
         }
         public static void BuyInstruct()
         {
@@ -50,7 +54,6 @@ namespace Labb3.Store
             Tools.YellowLine($"Cost to purchase: {fullWepList[nr].GoldCost} Gold");
             Console.WriteLine("------------------------------");
         }
-
 
         static public void BuyWeapon()
         {

@@ -17,13 +17,13 @@ namespace Labb3.Encounters
 
         private static void TextEncounter()
         {
-            Tools.YellowLine("You decide to keep exploring the god forsaken dungeon..");
+            Tools.YellowLine("You decide to keep exploring the god-forsaken dungeon..");
             Sleep(3000);
             Tools.YellowLine("You grab the doorknob to the next room and slowly turn it..");
             Sleep(3000);
-            Tools.YellowLine("When you hear the door klick, you push open the door, ready to face whatever stands before you.");
+            Tools.YellowLine("When you hear the door click, you push open the door, ready to face whatever stand before you.");
             Sleep(3000);
-            Tools.YellowLine("There before you stands a hideous creature..\n");
+            Tools.YellowLine("Before you stands a hideous creature..\n");
             Sleep(3000);
         }
         public static void EncounterGenerator()
@@ -132,7 +132,7 @@ namespace Labb3.Encounters
 
                         if (dodge == 1)
                         {
-                            Console.WriteLine("As you strike you miss your attack..");
+                            Console.WriteLine("As you try to strike you miss your attack..");
                             Console.WriteLine($"The {monster.name} strikes you while you gather your wits");
                             Player.player.Hp -= monster.dmg / 2; //Player takes half monster dmg  
                             Sleep(3000);
@@ -154,11 +154,11 @@ namespace Labb3.Encounters
 
                             Tools.YellowLine($"As you prepare for one more attack on the { monster.name}");
                             Sleep(3000);
-                            Tools.YellowLine($"you suddenly come to a halt, as you see the lifeless corpse of your foe.");
+                            Tools.YellowLine($"you suddenly come to a halt when you see the lifeless corpse of your foe.");
                             Sleep(3000);
-                            Tools.YellowLine($"It has fallen dead onto the floor and blood are seeping out from its open wounds..");
+                            Tools.YellowLine($"It has fallen dead onto the floor and blood is seeping from its open wounds..");
                             Sleep(3000);
-                            Console.WriteLine($"+ {monster.expDrop} experience poionts!");
+                            Console.WriteLine($"+ {monster.expDrop} experience points!");
                             Console.WriteLine($"+ {monster.goldDrop} gold added to pouch!");
 
                             Player.player.Exp += monster.expDrop;
@@ -191,7 +191,7 @@ namespace Labb3.Encounters
                     }
                     else if (monsterChanseOnHit > 1) //Miss
                     {
-                        Console.WriteLine($"The {monster.name} misses you with their attack and you frantically strikes back");
+                        Console.WriteLine($"The {monster.name} misses you with their attack and you frantically strike back");
                         Console.WriteLine($"You hit the {monster.name} for {pDmg / 2} damage.");
                         monster.hp -= pDmg / 2;
                     }
@@ -211,7 +211,7 @@ namespace Labb3.Encounters
                 case ('r'):
 
                     Console.WriteLine("With darting eyes you look for the door you just came in from.");
-                    Console.WriteLine("You scurry around and head for the exit.");
+                    Console.WriteLine("You turn around and head for the exit.");
                     Console.WriteLine($"But as you do the {monster.name} takes a swing at you!");
 
                     if (monsterChanseOnHit == 1) //Hit
@@ -221,7 +221,7 @@ namespace Labb3.Encounters
                     }
                     else if (monsterChanseOnHit > 1)//Miss
                     {
-                        Console.WriteLine("The {monster.name} barely misses you, as you swing the door shut.");
+                        Console.WriteLine("The {monster.name} barely misses you, as you slam the door shut.");
                         Sleep(2000);
                         MenuOptions.Options(); //Back to menu
                     }

@@ -42,7 +42,7 @@ namespace Labb3.Menues
 
                         Tools.YellowLine("You explore deeper into the dungeon.");
                         Sleep(3000);
-                        Tools.YellowLine("You see a wooden door with a rusted knob and lock.");
+                        Tools.YellowLine("You see a wooden door with a rusty knob and lock.");
                         Sleep(3000);
                         Tools.YellowLine("Slowly you turn the creeking door open..");
                         Sleep(3000);
@@ -70,7 +70,6 @@ namespace Labb3.Menues
                 case 4://Exit Game
                     Tools.ExitGame();
                     break;
-
             }
         }
 
@@ -93,7 +92,7 @@ namespace Labb3.Menues
             Console.WriteLine($" Potions: {Player.player.HealingPotions}");
             Console.WriteLine($" Gold: {Player.player.Gold}\n");
 
-            Tools.BlueLine("Press any key when you want to return to previous menue..");
+            Tools.BlueLine("Press any key when you want to return to previous menu..");
             Console.ReadKey();
             MenuOptions.Options();
         }
