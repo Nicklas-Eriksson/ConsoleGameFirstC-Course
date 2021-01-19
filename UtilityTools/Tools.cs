@@ -58,6 +58,18 @@ namespace Labb3.UtilityTools
             Console.WriteLine(" " + input);
             Console.ResetColor();
         }
+        static public void Purple(string input)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.Write(" " + input);
+            Console.ResetColor();
+        }
+        static public void PurpleLine(string input)
+        {
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine(" " + input);
+            Console.ResetColor();
+        }
         //Text color end
 
         //Convertions
@@ -75,11 +87,7 @@ namespace Labb3.UtilityTools
                 if (success && nr <= maxLength)
                 {
                     return nr;
-                }
-                //else if ()
-                //{
-
-                //}
+                }                
                 else
                 {
                     Error();                   
@@ -104,7 +112,7 @@ namespace Labb3.UtilityTools
                 }
                 //Cheat codes END
 
-            } while (!success);
+            } while (!success || nr > maxLength);
 
             return nr;
         }
@@ -112,7 +120,7 @@ namespace Labb3.UtilityTools
         //Often used
         static public void Error()
         {
-            Tools.RedLine("Wrong input, try again");
+            Tools.RedLine("Wrong input, try again\n");
         }
         
         static public void ExitGame()

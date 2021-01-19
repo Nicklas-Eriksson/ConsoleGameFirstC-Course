@@ -13,7 +13,7 @@ namespace Labb3.Character
 
         private string name;
         private bool alive = true;
-        private int gold = 100; //Will be sufficient for 1 of the 3 starter weapons in the store
+        private int gold = 10000; //Will be sufficient for 1 of the 3 starter weapons in the store
         private int hp = 100; //health
         private int maxHp = 100; //health
         private int dmg = 10; //damage

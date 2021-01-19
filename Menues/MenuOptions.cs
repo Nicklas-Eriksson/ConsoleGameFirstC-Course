@@ -25,27 +25,40 @@ namespace Labb3.Menues
             Tools.YellowLine("|| [3] Exit Game........ ||");
             Tools.YellowLine("===========================\n");
 
-            Console.WriteLine(" -Player Stats-");
-            Console.WriteLine($" Name: {Player.player.Name}");
-            Console.WriteLine($" Health: {Player.player.MaxHp}");
-            Console.WriteLine($" Power: {Player.player.Dmg}");
-            Console.WriteLine($" Level: {Player.player.Lvl}");
-            Console.WriteLine($" Experience: {Player.player.Exp} / {Player.player.MaxExp}");
 
-            Console.WriteLine("\n -Inventory-");
+
+            Tools.PurpleLine("-Player Stats-");
+            Console.Write(" Name: ");
+            Tools.YellowLine($"{Player.player.Name}");
+            Console.Write(" Health:");
+            Tools.GreenLine($"{Player.player.MaxHp}"); ;
+            Console.Write(" Power:");
+            Tools.RedLine($"{Player.player.Dmg}");
+            Console.Write($" Level:");
+            Tools.YellowLine($"{Player.player.Lvl}");
+            Console.Write($" Experience:");
+            Tools.GreenLine($"{Player.player.Exp} / {Player.player.MaxExp}");
+
+            Tools.PurpleLine("\n -Inventory-");
             List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
 
             int wepIndex = Player.player.WeaponIndex;
             if (wepIndex >= 0)
             {
-                Console.WriteLine($" Weapon: {weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} ");
+                Console.Write(" Weapon:");
+                Tools.PurpleLine($"{weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} damage");
             }
             else if (wepIndex == -1)
             {
-                Console.WriteLine(" Weapon: Fists");
+                Console.Write(" Weapon:");
+                Tools.PurpleLine("Fists");
             }
-            Console.WriteLine($" Potions: {Player.player.LesserPotion}");
-            Console.WriteLine($" Gold: {Player.player.Gold}\n");
+            Console.Write(" Gold:");
+            Tools.YellowLine($"{Player.player.Gold}\n");
+            Console.WriteLine(" Healing Potions:");
+            Tools.GreenLine($"  Lesser: {Player.player.LesserPotion}");
+            Tools.GreenLine($"  Minor: {Player.player.MinorPotion}");
+            Tools.GreenLine($"  Major: {Player.player.MajorPotion}");
 
 
         }

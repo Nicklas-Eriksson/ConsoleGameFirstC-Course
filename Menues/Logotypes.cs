@@ -14,7 +14,7 @@ namespace Labb3.Menues
         static public void DoD()
         {
             Console.Clear();
-
+            Console.ForegroundColor = ConsoleColor.Magenta;
             string[] daggorath = {
                 "______                                          _____  __  ______                                  _   _",
                 "|  _  \\                                        |  _  |/ _| |  _  \\                                | | | |",
@@ -30,12 +30,13 @@ namespace Labb3.Menues
             {
                 Console.WriteLine(row);
             }
+            Console.ResetColor();
         }//Welcome Screen
 
         static public void RdyP1()//Ready Player One
         {
             Console.Clear();
-
+            Console.ForegroundColor = ConsoleColor.Magenta;
             string[] rdy = {
                 "______               _        ______ _                         _____            ",
                 "| ___ \\             | |       | ___ \\ |                       |  _  |",
@@ -51,12 +52,13 @@ namespace Labb3.Menues
             {
                 Console.WriteLine(row);
             }
+            Console.ResetColor();
         }
 
         static public void Shop()//The Iron Skillet
         {
             Console.Clear();
-
+            Console.ForegroundColor = ConsoleColor.Magenta;
             string[] shop = {
                 " _____ _            _____                  _____ _    _ _ _      _",
                 "|_   _| |          |_   _|                /  ___| |  (_) | |    | |",
@@ -70,6 +72,7 @@ namespace Labb3.Menues
             {
                 Console.WriteLine(row);
             }
+            Console.ResetColor();
         }
     }
 }

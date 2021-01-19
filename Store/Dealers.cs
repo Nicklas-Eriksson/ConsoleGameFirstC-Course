@@ -117,7 +117,7 @@ namespace Labb3.Store
 
         private static void DisplayPlayerGoldAndSuch()
         {
-            Tools.YellowLine("==================");
+            Tools.YellowLine("==============================================================");
             Console.Write(" Health:");
             Tools.GreenLine($"{Player.player.MaxHp}");
             Console.Write(" Power:");
@@ -127,21 +127,41 @@ namespace Labb3.Store
 
             if (Player.player.WeaponIndex >= 0)
             {
-                Console.Write("Equiped Weapon:");
-                Tools.YellowLine($"{Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power}");
+                Console.Write(" Equipped Weapon:");
+                Tools.YellowLine($"{Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} +{Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} damage");
             }
             else if (Player.player.WeaponIndex < 0)
             {
-                Console.WriteLine(" Weapon: Fists");
+                Console.WriteLine(" Weapon: Fists +0 dmg\n");
             }
-            Tools.YellowLine("==================\n");
         }
 
         private static void BuyWeaponText(int nr)//will be looped through in BuyInstruct()
         {
             Console.WriteLine("------------------------------");
             Tools.YellowLine($"[{nr + 1}]: {Weapon.weapon.WeaponList[nr].Name}");
-            Tools.YellowLine($"Weapon power: +{Weapon.weapon.WeaponList[nr].Power} damage");
+            Tools.Yellow($"Weapon power: +{Weapon.weapon.WeaponList[nr].Power} damage");
+
+            //This if statement displays how much + or - dmg the weapons in the store gives vs current weapon
+            if (Player.player.WeaponIndex >= 0) //Check if higher since default weapon index for fist is -1
+            {
+                if (Weapon.weapon.WeaponList[nr].Power >= Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power && Weapon.weapon.WeaponList[nr].Name == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name == false)
+                {
+                    Tools.GreenLine($" +{Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
+                }
+                else if (Weapon.weapon.WeaponList[nr].Name == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name)
+                {
+                    Tools.BlueLine($"  -Current Weapon-");
+                }
+                else if (Weapon.weapon.WeaponList[nr].Power < Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
+                {
+                    Tools.RedLine($" {Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
+                }
+            }
+            else
+            {
+                Tools.GreenLine($" +{Weapon.weapon.WeaponList[nr].Power} on equipped weapon");
+            }
             Tools.YellowLine($"Cost to purchase: {Weapon.weapon.WeaponList[nr].GoldCost} Gold");
         }
 
@@ -152,7 +172,6 @@ namespace Labb3.Store
             DisplayWeapon();
 
             input = Tools.ConvToInt32(Weapon.weapon.WeaponList.Count);
-
 
             bool sucessfulPurchase = GoldWithdraw(input, "weapon");
 
@@ -350,7 +369,7 @@ namespace Labb3.Store
             {
                 if (Player.player.Gold >= Weapon.weapon.WeaponList[index - 1].GoldCost)
                 {
-                    Console.WriteLine($"\n{Weapon.weapon.WeaponList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
+                    Tools.YellowLine($"\n-{Weapon.weapon.WeaponList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
                     Player.player.Gold -= Weapon.weapon.WeaponList[index - 1].GoldCost;
                     purchaseSucces = true;
                 }
@@ -360,16 +379,16 @@ namespace Labb3.Store
                 }
             }
             else if (product == "potion")
-            {                
-                    if (Player.player.Gold >= Consumable.pot.itemList[index - 1].goldCost)
-                    {
-                        Player.player.Gold -= Consumable.pot.itemList[index - 1].goldCost;
-                        purchaseSucces = true;
-                    }
-                    else if (Player.player.Gold < Consumable.pot.itemList[index - 1].goldCost)
-                    {
-                        purchaseSucces = false;
-                    }               
+            {
+                if (Player.player.Gold >= Consumable.pot.itemList[index - 1].goldCost)
+                {
+                    Player.player.Gold -= Consumable.pot.itemList[index - 1].goldCost;
+                    purchaseSucces = true;
+                }
+                else if (Player.player.Gold < Consumable.pot.itemList[index - 1].goldCost)
+                {
+                    purchaseSucces = false;
+                }
             }
             else if (product == "power-up")
             {

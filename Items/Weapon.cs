@@ -227,7 +227,7 @@ namespace Labb3.Items
                 goldCost = 1000,
                 goldIfSold = this.GoldIfSold
             };
-            Weapon davidsSpear = new Weapon()//22
+            Weapon davidsSpear = new Weapon()//23
             {
                 Name = "David's Glowing Spear",
                 ItemLevel = 10,

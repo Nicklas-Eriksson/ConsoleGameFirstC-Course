@@ -21,8 +21,8 @@ namespace Labb3.Items
         {
             if(type == "hp")
             {
-                Tools.YellowLine("How many do you want to buy?");
-                Tools.YellowLine("");
+                //Tools.YellowLine("How many do you want to buy?");
+               // Tools.YellowLine("");
                 Player.player.MaxHp += 20 * Player.player.Lvl;
                 Player.player.Hp += 20 * Player.player.Lvl;
                 Tools.GreenLine($"Max health is not {Player.player.MaxHp}");
