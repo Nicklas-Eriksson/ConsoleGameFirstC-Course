@@ -5,8 +5,7 @@ using System.Text;
 namespace Labb3.Items
 {
     public class Weapon
-    {
-       
+    {       
         public static Weapon weapon = new Weapon();
 
         private string name;
@@ -43,13 +42,7 @@ namespace Labb3.Items
         void WeaponForge()
         {
             //Weapons will be obtained in shop and/or through loot
-            //Weapon fists = new Weapon()//0
-            //{
-            //    Name = "Fist",
-            //    ItemLevel = 1,
-            //    Power = 0,
-            //    goldCost = 0
-            //};
+            
             Weapon blundtSword = new Weapon()//0
             {
                 Name = "Blundt Sword",

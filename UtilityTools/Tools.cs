@@ -76,6 +76,10 @@ namespace Labb3.UtilityTools
                 {
                     return nr;
                 }
+                //else if ()
+                //{
+
+                //}
                 else
                 {
                     Error();                   

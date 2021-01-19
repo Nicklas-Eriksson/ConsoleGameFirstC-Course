@@ -4,12 +4,15 @@ using System.Text;
 
 namespace Labb3.Items
 {
-    interface IPowerUp
+    public interface IItem
     {
         string name { get; set; }
         int goldCost { get; set; }
+        int itemLevel { get; set; }
+        int bonus { get; set; }
+        List<IItem> itemList { get; set; }
 
-        void Bonus(string type);
-        
+        List<IItem> Type(string type);
+
     }
 }

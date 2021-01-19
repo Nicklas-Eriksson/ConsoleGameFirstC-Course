@@ -44,7 +44,7 @@ namespace Labb3.Menues
             {
                 Console.WriteLine(" Weapon: Fists");
             }
-            Console.WriteLine($" Potions: {Player.player.HealingPotions}");
+            Console.WriteLine($" Potions: {Player.player.LesserPotion}");
             Console.WriteLine($" Gold: {Player.player.Gold}\n");
 
 

@@ -11,7 +11,6 @@ namespace Labb3.Store
 {
     public static class Dealers
     {
-        static private List<Weapon> fullWepList = new List<Weapon>();
         private static int input;
 
 
@@ -31,7 +30,7 @@ namespace Labb3.Store
         private static void BuyOrSellSwitch()
         {
             BuyOrSellText();
-                        
+
             input = Tools.ConvToInt32(4);
 
             switch (input)
@@ -71,7 +70,7 @@ namespace Labb3.Store
         private static void BuySwitch()
         {
             BuyText();
-                        
+
             input = Tools.ConvToInt32(5);
 
             switch (input)
@@ -96,28 +95,36 @@ namespace Labb3.Store
         //Buy Options END
 
         //Buy Weapons START
-        static private void instantiateListWeapons()
-        {
-            if (fullWepList.Count == 0)
-            {
-                fullWepList = Weapon.weapon.GetFullWeaponList();
-            }
-        }
+
         public static void DisplayWeapon()
-        {           
+        {
             Weapon.weapon.instantiateList();
             Console.Clear();
             Logo.Shop();
 
             Console.WriteLine(" Write the number of the weapon you would like to purchase:\n");
 
-            Tools.YellowLine("===================");
-            Console.Write("Health:");
+            DisplayPlayerGoldAndSuch();
+
+
+            //Display Weapons for shop, loops through the whole weapon list 
+            for (int i = 0; i < Weapon.weapon.WeaponList.Count; i++)
+            {
+                BuyWeaponText(i);
+            }
+            Console.WriteLine("------------------------------");
+        }
+
+        private static void DisplayPlayerGoldAndSuch()
+        {
+            Tools.YellowLine("==================");
+            Console.Write(" Health:");
             Tools.GreenLine($"{Player.player.MaxHp}");
-            Console.Write("Power:");
+            Console.Write(" Power:");
             Tools.RedLine($"{Player.player.Dmg}");
-            Console.Write("Gold:");
+            Console.Write(" Gold:");
             Tools.YellowLine($"{Player.player.Gold}");
+
             if (Player.player.WeaponIndex >= 0)
             {
                 Console.Write("Equiped Weapon:");
@@ -127,21 +134,15 @@ namespace Labb3.Store
             {
                 Console.WriteLine(" Weapon: Fists");
             }
-            Tools.YellowLine("===================");
-
-
-            //Display Weapons for shop, loops through the whole weapon list 
-            for (int i = 0; i < Weapon.weapon.WeaponList.Count; i++)
-            {
-                BuyWeaponText(i);
-            }
+            Tools.YellowLine("==================\n");
         }
+
         private static void BuyWeaponText(int nr)//will be looped through in BuyInstruct()
         {
+            Console.WriteLine("------------------------------");
             Tools.YellowLine($"[{nr + 1}]: {Weapon.weapon.WeaponList[nr].Name}");
             Tools.YellowLine($"Weapon power: +{Weapon.weapon.WeaponList[nr].Power} damage");
             Tools.YellowLine($"Cost to purchase: {Weapon.weapon.WeaponList[nr].GoldCost} Gold");
-            Console.WriteLine("------------------------------");
         }
 
         static public void BuyWeapon()
@@ -153,15 +154,15 @@ namespace Labb3.Store
             input = Tools.ConvToInt32(Weapon.weapon.WeaponList.Count);
 
 
-            bool sucessfulPurchase = GoldWithdraw(1, "weapon");
+            bool sucessfulPurchase = GoldWithdraw(input, "weapon");
 
             if (sucessfulPurchase == true)
             {
-                Tools.GreenLine($"{Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
+                Tools.GreenLine($"\n{Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
                 Player.player.WeaponDmg = Weapon.weapon.WeaponList[input - 1].Power;
                 Player.player.WeaponIndex = input - 1;
                 /* WeaponIndex is a way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it */
-                Sleep(1500);
+                Sleep(2500);
             }
 
             BuyOrSellSwitch();
@@ -195,20 +196,20 @@ namespace Labb3.Store
         private static void BuyPowerUpSwitch()
         {
             BuyPowerUpText();
-                        
-            input = Tools.ConvToInt32( 3);
+
+            input = Tools.ConvToInt32(3);
 
             switch (input)
             {
                 case 1://+ stamina
                     GoldWithdraw(0, "power-up");
-                    PowerUp.powerUp.Bonus("hp");
+                    PowerUp.powerUp.Type("hp");
                     BuyPowerUpSwitch();
                     break;
 
                 case 2://+ strength
                     GoldWithdraw(0, "power-up");
-                    PowerUp.powerUp.Bonus("dmg");
+                    PowerUp.powerUp.Type("dmg");
                     BuyPowerUpSwitch();
                     break;
 
@@ -232,9 +233,11 @@ namespace Labb3.Store
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("==============================");
-            Tools.YellowLine("|| -----Healing Potions----- ||");
-            Tools.YellowLine("|| [1] Buy Healing potion.. ||");
-            Tools.YellowLine("|| [2] Back................ ||");
+            Tools.YellowLine("|| ------Healing Potions------ ||");
+            Tools.YellowLine("|| [1] Lesser Healing Potion.. ||");
+            Tools.YellowLine("|| [2] Minor Healing potion... ||");
+            Tools.YellowLine("|| [3] Major Healing potion... ||");
+            Tools.YellowLine("|| [4] Back................... ||");
             Tools.YellowLine("============================== \n");
 
 
@@ -249,19 +252,43 @@ namespace Labb3.Store
         {
             BuyPotionText();
 
-            input = Tools.ConvToInt32(2);
+            input = Tools.ConvToInt32(4);
+            bool purchaseOk;
 
             switch (input)
             {
+
                 case 1:
-                    GoldWithdraw(0, "potion");
-                    Player.player.HealingPotions++;
-                    Tools.GreenLine("1 Healing Potion has been added to your inventory!");
+                    purchaseOk = GoldWithdraw(0, "potion");
+                    if (purchaseOk)
+                    {
+                        Player.player.LesserPotion++;
+                        Tools.GreenLine($"1 {Consumable.pot.itemList[input - 1].name} has been added to your inventory!");
+                    }
                     Sleep(2000);
 
                     BuyPotionSwitch();
                     break;
+
                 case 2:
+                    purchaseOk = GoldWithdraw(0, "potion");
+                    if (purchaseOk)
+                    {
+                        Player.player.MinorPotion++;
+                        Tools.GreenLine($"1 {Consumable.pot.itemList[input - 1].name} has been added to your inventory!");
+                    }
+                    break;
+
+                case 3:
+                    purchaseOk = GoldWithdraw(0, "potion");
+                    if (purchaseOk)
+                    {
+                        Player.player.MajorPotion++;
+                        Tools.GreenLine($"1 {Consumable.pot.itemList[input - 1].name} has been added to your inventory!");
+                    }
+                    break;
+
+                case 4:
                     BuySwitch();
                     break;
             }
@@ -284,7 +311,7 @@ namespace Labb3.Store
         {
             SellText();
             Player.DisplayInventory();
-                        
+
             input = Tools.ConvToInt32(Player.player.InventoryList.Count);
 
             Console.WriteLine($"There you go, {Weapon.weapon.WeaponList[input - 1].GoldIfSold} gold coins.");
@@ -321,28 +348,28 @@ namespace Labb3.Store
 
             if (product == "weapon")
             {
-                if (Player.player.Gold >= fullWepList[index - 1].GoldCost)
+                if (Player.player.Gold >= Weapon.weapon.WeaponList[index - 1].GoldCost)
                 {
-                    Console.WriteLine($"{fullWepList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
-                    Player.player.Gold -= fullWepList[index - 1].GoldCost;
+                    Console.WriteLine($"\n{Weapon.weapon.WeaponList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
+                    Player.player.Gold -= Weapon.weapon.WeaponList[index - 1].GoldCost;
                     purchaseSucces = true;
                 }
-                else if (Player.player.Gold < fullWepList[index - 1].GoldCost)
+                else if (Player.player.Gold < Weapon.weapon.WeaponList[index - 1].GoldCost)
                 {
                     purchaseSucces = false;
                 }
             }
             else if (product == "potion")
-            {
-                if (Player.player.Gold >= 50)
-                {
-                    Player.player.Gold -= 50;
-                    purchaseSucces = true;
-                }
-                else if (Player.player.Gold < 50)
-                {
-                    purchaseSucces = false;
-                }
+            {                
+                    if (Player.player.Gold >= Consumable.pot.itemList[index - 1].goldCost)
+                    {
+                        Player.player.Gold -= Consumable.pot.itemList[index - 1].goldCost;
+                        purchaseSucces = true;
+                    }
+                    else if (Player.player.Gold < Consumable.pot.itemList[index - 1].goldCost)
+                    {
+                        purchaseSucces = false;
+                    }               
             }
             else if (product == "power-up")
             {
@@ -356,12 +383,12 @@ namespace Labb3.Store
                     purchaseSucces = false;
                 }
             }
-            if(purchaseSucces == false)
+            if (purchaseSucces == false)
             {
                 Console.WriteLine("Not enough gold! Get back here when you can afford it!");
-               // Sleep(1500);
+                // Sleep(1500);
                 Console.WriteLine("Filthy creature..");
-               // Sleep(1500);
+                // Sleep(1500);
             }
             return purchaseSucces;
 

@@ -18,7 +18,9 @@ namespace Labb3.Character
         private int maxHp = 100; //health
         private int dmg = 10; //damage
         private int weaponDmg = 0; //damage
-        private int healingPotions = 1; //can be obtained from shop
+        private int lesserPotion = 1; //can be obtained from shop
+        private int minorPotion = 0; //can be obtained from shop
+        private int majorPotion = 0; //can be obtained from shop
         private int lvl = 1; //level
         private int exp = 0; //experience points
         private int maxExp = 0; //Max exp before lvl up
@@ -34,7 +36,9 @@ namespace Labb3.Character
         public int MaxHp { get => maxHp; set => maxHp = value; }
         public int Dmg { get => dmg; set => dmg = value; }
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
-        public int HealingPotions { get => healingPotions; set => healingPotions = value; }
+        public int LesserPotion { get => lesserPotion; set => lesserPotion = value; }
+        public int MinorPotion { get => minorPotion; set => minorPotion = value; }
+        public int MajorPotion { get => majorPotion; set => majorPotion = value; }
         public int Lvl { get => lvl; set => lvl = value; }
         public int Exp { get => exp; set => exp = MaxExp / KillsToLevel; }
         public int MaxExp { get => maxExp; set => maxExp = maxExp * 2; }
@@ -74,7 +78,6 @@ namespace Labb3.Character
             {
                 Tools.YellowLine($"{i+1}: {player.InventoryList[i].Name} - sell for {player.InventoryList[i].GoldIfSold} gold\n");
             }
-
         }
 
         public static void GodMode()
@@ -84,7 +87,7 @@ namespace Labb3.Character
                 player.MaxHp = 1000000;
                 player.Dmg = 1000000;
                 player.Gold = 1000000;
-                player.HealingPotions = 100;
+                player.LesserPotion = 100;
 
                 Tools.YellowLine("-God mode activated-");
                 Console.Write("Health:");
@@ -94,7 +97,7 @@ namespace Labb3.Character
                 Console.Write("Gold:");
                 Tools.YellowLine($"{player.Gold}");
                 Console.Write("Potions:");
-                Tools.GreenLine($"{player.HealingPotions}");
+                Tools.GreenLine($"{player.LesserPotion}");
             }
         }
     }

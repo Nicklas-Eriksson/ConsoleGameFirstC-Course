@@ -7,14 +7,17 @@ using static System.Threading.Thread;
 
 namespace Labb3.Items
 {
-    public class PowerUp : IPowerUp
+    public class PowerUp : IItem
     {
         public static PowerUp powerUp = new PowerUp();
 
         public string name { get => name; set => name = value; }
         public int goldCost { get => goldCost; set => Player.player.Gold -= 50 * Player.player.Lvl; }
+        public int itemLevel { get => itemLevel; set => itemLevel = value; }
+        public int bonus { get => bonus; set => bonus = value; }
+        public List<IItem> itemList { get => ((IItem)powerUp).itemList; set => ((IItem)powerUp).itemList = value; }//Fixa
 
-        public void Bonus(string type)
+        public List<IItem> Type(string type)
         {
             if(type == "hp")
             {
@@ -31,6 +34,7 @@ namespace Labb3.Items
                 Tools.GreenLine($"{Player.player.Name} power: {Player.player.Dmg}");
             }
             Sleep(1300);
+            return itemList;
         }
     }
 }
