@@ -104,151 +104,171 @@ namespace Labb3.Encounters
         }
         static public void Fight(Monster monster, int monsterIndex)
         {
-            Console.Clear();
-            FightingMenueText();
-            StatsDuringFight(monster);
             Weapon.weapon.instantiateList();
 
+            //Montster
             int monsterChanseOnHit = rnd.Next(1, 3); //33% chance to hit on escape
             int dodge = rnd.Next(1, 5); //20% that the attack is dodged
-            int pDmg = Player.player.Dmg;
-            int pDmg2 = Player.player.WeaponDmg;
-            int pDmg3 = pDmg + pDmg2;
+
+            //Player
+            int pDmg = Player.player.Dmg + Player.player.WeaponDmg;
+            string wepName = Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name;
             int input;
 
-            Tools.Yellow("Option: ");
-            input = Tools.Option(Console.ReadLine(),5);
-
-            switch (input)
+            while (Player.player.Alive == true && Monster.monster.alive == true)
             {
-                case 1://Attack
+                Console.Clear();
 
-                    //Remove monster index?
+                //UI
+                FightingMenueText();
+                StatsDuringFight(monster);
 
-                    while (Player.player.Alive == true)
-                    {
-                        Console.WriteLine($"\nYou raise your {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} and attack the {monster.name}!");
-                        Sleep(3000);
+                //For deciding your options
+                Tools.Yellow("Option: ");
+                input = Tools.Option(Console.ReadLine(), 5);
+
+                switch (input)
+                {
+                    case 1://Attack
+
+                        //Remove monster index?
+
+                        Console.WriteLine($"\nYou raise your {wepName} and attack the {monster.name}!");
+                        //Sleep(3000);
 
                         if (dodge == 1)
                         {
-                            Console.WriteLine("As you try to strike you miss your attack..");
+                            Console.WriteLine("As you try to strike your attack miss..");
                             Console.WriteLine($"The {monster.name} strikes you while you gather your wits");
+                            Tools.RedLine($"-{monster.dmg / 2} health.");
                             Player.player.Hp -= monster.dmg / 2; //Player takes half monster dmg  
+                            Player.CheckIfAlive();
                             Sleep(3000);
 
-                            CheckIfAlive();
                         }
-                        else
+                        else //Hit
                         {
                             Console.WriteLine($"As you strike the {monster.name} it screams in pain.");
-                            Console.WriteLine($"The {monster.name} was delt {pDmg}.");
-                            monster.hp -= pDmg3;
+                            Console.Write($"The {monster.name} was delt ");
+                            Tools.GreenLine($"{pDmg} damage");
+                            monster.hp -= pDmg;
+                            Player.CheckIfAlive();
                             Sleep(3000);
 
-                            CheckIfAlive();
                         }
 
-                        if (monster.hp <= 0)
-                        {
+                        //if (monster.hp <= 0)
+                        //{
 
-                            Tools.YellowLine($"As you prepare for one more attack on the { monster.name}");
-                            Sleep(3000);
-                            Tools.YellowLine($"you suddenly come to a halt when you see the lifeless corpse of your foe.");
-                            Sleep(3000);
-                            Tools.YellowLine($"It has fallen dead onto the floor and blood is seeping from its open wounds..");
-                            Sleep(3000);
-                            Console.WriteLine($"+ {monster.expDrop} experience points!");
-                            Console.WriteLine($"+ {monster.goldDrop} gold added to pouch!");
+                        //Monsters turn to attack
+                        Console.WriteLine($"As you prepare for one more attack on the {monster.name},");
+                        //Sleep(3000);
+                        Console.WriteLine($"you suddenly come to a halt when you see its lifeless corpse.");
+                        //Sleep(3000);
+                        Console.WriteLine($"It has fallen dead onto the floor and blood is seeping from its open wounds..");
+                        //Sleep(3000);
+                        Tools.GreenLine($"+ {monster.expDrop} experience points!");
+                        Tools.YellowLine($"+ {monster.goldDrop} gold added to pouch!");
 
-                            Player.player.Exp += monster.expDrop;
-                            Player.player.Gold += monster.goldDrop;
-                            Sleep(3000);
+                        Player.player.Exp += monster.expDrop;
+                        Player.player.Gold += monster.goldDrop;
 
-                            Player.ExpToLvl(); //Cheks if you can level up
-                        }
-
-                        //Now the monster will attack back!
-                        Console.WriteLine($"The {monster.name} strikes you for {monster.dmg}!");
-                        Player.player.Hp -= monster.dmg;
-
+                        Sleep(3000);
+                        monster.CheckIfAlive();
                         Player.ExpToLvl(); //Cheks if you can level up
 
-                        Fight(monster, monsterIndex);
-                    }
-                    break;
+                        //}
 
-                ////////////////
-                //   Block   //
-                case 2://Block
+                        //if (Player.player.Alive == true && Monster.monster.alive == true)
+                        //{
+                        Console.WriteLine($"After your hits has landed the {monster.name} hits you with a sweeping strike!");
+                        Tools.RedLine($"-{monster.dmg} damage");
+                        Player.player.Hp -= monster.dmg;
+                        Player.CheckIfAlive();
+                        //}
 
-                    Console.WriteLine($"You raise your {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} in a defensive stance.");
-                    if (monsterChanseOnHit == 1)//If monster hits
-                    {
-                        Console.WriteLine($"The {monster.name} strikes you with all their power and hits you for {monster.dmg / 2} damage.");
-                        Player.player.Hp -= monster.dmg / 2;
+                        //Fight(monster, monsterIndex);
 
-                    }
-                    else if (monsterChanseOnHit > 1) //Miss
-                    {
-                        Console.WriteLine($"The {monster.name} misses you with their attack and you frantically strike back");
-                        Console.WriteLine($"You hit the {monster.name} for {pDmg / 2} damage.");
-                        monster.hp -= pDmg / 2;
-                    }
-                    Sleep(2000);
-                    break;
 
-                /////////////////
-                //    Heal    //
-                case 3:
+                        break;
 
-                    //Drink a healing potion.
-                    Sleep(2000);
-                    break;
+                    ////////////////
+                    //   Block   //
+                    case 2://Block
 
-                ///////////////////
-                //   Run away   //
-                case 4:
+                        //while (Player.player.Alive == true && Monster.monster.alive == true)
+                        //{
+                        Console.WriteLine($"You raise your {wepName} in a defensive stance.");
+                        if (monsterChanseOnHit >= 1)// 66% chance on hit
+                        {
+                            Console.WriteLine($"The {monster.name} strikes you with all their power and hits you for {monster.dmg} damage.");
+                            Player.player.Hp -= monster.dmg;
+                            Player.CheckIfAlive();
 
-                    Console.WriteLine("With darting eyes you look for the door you just came in from.");
-                    Console.WriteLine("You turn around and head for the exit.");
-                    Console.WriteLine($"But as you do the {monster.name} takes a swing at you!");
-
-                    if (monsterChanseOnHit == 1) //Hit
-                    {
-                        Console.WriteLine($"The sweeping strike from the {monster.name} hits you for {monster.dmg / 2}.");
-                        Player.player.Hp -= monster.dmg / 2;
-                    }
-                    else if (monsterChanseOnHit > 1)//Miss
-                    {
-                        Console.WriteLine("The {monster.name} barely misses you, as you slam the door shut.");
+                        }
+                        else if (monsterChanseOnHit == 3)// 33% chance to miss
+                        {
+                            Console.WriteLine($"The {monster.name} misses you with their attack and you frantically strike back");
+                            Console.WriteLine($"You hit the {monster.name} for {pDmg / 2} damage.");
+                            monster.hp -= pDmg / 2;
+                            monster.CheckIfAlive();
+                        }
                         Sleep(2000);
-                        MenuOptions.Options(); //Back to menu
-                    }
-                    Sleep(2000);
-                    break;
+                        // }
+                        break;
 
-                ////////////////
-                //    Exit   //
-                case 5://Exit Game
+                    /////////////////
+                    //    Heal    //
+                    case 3:
+                        Console.WriteLine("You open your bag and scramble for your healing potion..");
+                        Console.WriteLine("As you find it you pop its cork and takes a qucik swig from the bottle.");
+                        Tools.GreenLine($"Health + 50");
 
-                    Tools.ExitGame();
-                    break;
-            }
+                        Player.player.Hp += 50;
+                        Player.player.HealingPotions--;
 
+                        if (Player.player.Hp >= Player.player.MaxHp) //Corrects so that player cant heal for more than max hp
+                        {
+                            Player.player.Hp = Player.player.MaxHp;
+                        }
+
+                        Sleep(2000);
+                        break;
+
+                    ///////////////////
+                    //   Run away   //
+                    case 4:
+
+                        Console.WriteLine("With darting eyes you look for the door you just came in from.");
+                        Console.WriteLine("You turn around and head for the exit.");
+                        Console.WriteLine($"But as you do the {monster.name} takes a swing at you!");
+
+                        if (monsterChanseOnHit >= 1) // 33% chace the monster hits you on your way out
+                        {
+                            Console.WriteLine($"The sweeping strike from the {monster.name} hits you for as you try to run away.");
+                            Tools.RedLine($"-{monster.dmg/2}");
+                            Player.player.Hp -= monster.dmg/2;
+                            Player.CheckIfAlive();
+                        }
+                        else if (monsterChanseOnHit > 1)// 66% miss
+                        {
+                            Console.WriteLine($"The {monster.name} barely misses you, as you slam the door shut.");
+                            Sleep(2000);
+                            MenuOptions.Options(); //Back to menu
+                        }
+                        Sleep(2000);
+                        break;
+
+                    ////////////////
+                    //    Exit   //
+                    case 5://Exit Game
+
+                        Tools.ExitGame();
+                        break;
+                }//Switch end
+
+            }//While (player and monster alive == true) end
+                MenuOptions.Options();
         }
-        static private void CheckIfAlive()
-        {
-            if(Player.player.Hp <= 0)
-            {
-                Player.player.Alive = false;
-                Console.WriteLine("You died! Game over!");
-                Sleep(4000);
-                Tools.ExitGame();
-            }            
-        }
-
-
-
     }
 }

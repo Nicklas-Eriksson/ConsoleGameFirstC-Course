@@ -181,10 +181,10 @@ namespace Labb3.Store
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine( "===========================        ===================== ");
-            Tools.YellowLine( "|| ------Power-Ups------ ||       || --Player Stats-- ");
-            Tools.YellowLine($"|| [1] Stamina.......... ||       || Max Health: {Player.player.MaxHp} ");
-            Tools.YellowLine($"|| [2] Strength......... ||       || Attack Damage: {Player.player.Dmg} ");
-            Tools.YellowLine($"|| [3] Main store menu.. ||       || Gold : {Player.player.Gold} gold ");
+            Tools.YellowLine( "|| ------Power-Ups------ ||          --Player Stats-- ");
+            Tools.YellowLine($"|| [1] Buy Stamina...... ||          Max Health: {Player.player.MaxHp} ");
+            Tools.YellowLine($"|| [2] Buy Strength..... ||          Attack Damage: {Player.player.Dmg} ");
+            Tools.YellowLine($"|| [3] Back............. ||          Gold : {Player.player.Gold} gold ");
             Tools.YellowLine("===========================        =====================\n");
 
             Tools.YellowLine("Okey, listen up!");
@@ -218,7 +218,7 @@ namespace Labb3.Store
                     break;
 
                 case 3:
-                    BuyOrSellSwitch();
+                    BuySwitch();
                     break;
             }
 
@@ -236,11 +236,11 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine("===========================");
-            Tools.YellowLine("|| ---Healing Potions--- ||");
-            Tools.YellowLine("|| [1] Healing potion... ||");
-            Tools.YellowLine("|| [2] Main store menu.. ||");
-            Tools.YellowLine("=========================== \n");
+            Tools.YellowLine("==============================");
+            Tools.YellowLine("|| -----Healing Potions----- ||");
+            Tools.YellowLine("|| [1] Buy Healing potion.. ||");
+            Tools.YellowLine("|| [2] Back................ ||");
+            Tools.YellowLine("============================== \n");
 
 
             Tools.YellowLine("This red little bottle will maby one day be your life saver.. ");
@@ -267,7 +267,7 @@ namespace Labb3.Store
                     BuyPotionSwitch();
                     break;
                 case 2:
-                    BuyOrSellSwitch();
+                    BuySwitch();
                     break;
             }
         }

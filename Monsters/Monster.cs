@@ -15,7 +15,15 @@ namespace Labb3.Monsters
         public int dmg { get; set;} //damage
         public int expDrop { get; set;} //experience point drop. Obtained by player by killing monster
         public int goldDrop { get; set; }//Obtained by player by killing monster
+        public bool alive { get; set; }
 
+        public void CheckIfAlive()
+        {
+            if(monster.hp <= 0)
+            {
+                monster.alive = false;
+            }
+        }
     }
     public class MiniBoss : Monster
     {

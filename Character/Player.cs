@@ -57,6 +57,17 @@ namespace Labb3.Character
             }
         }
 
+        static public void CheckIfAlive()
+        {
+            if (Player.player.Hp <= 0)
+            {
+                Player.player.Alive = false;
+                Console.WriteLine("You died! Game over!");
+                Sleep(5000);
+                Tools.ExitGame();
+            }
+        }
+
         public static void DisplayInventory()
         {
             for (int i = 0; i < player.InventoryList.Count; i++)

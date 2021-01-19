@@ -12,5 +12,8 @@ namespace Labb3.Monsters
         int dmg { get; set; }
         int expDrop { get; set; }
         int goldDrop { get; set; }
+        bool alive { get; set; }
+
+        void CheckIfAlive();
     }
 }
