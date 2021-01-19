@@ -13,7 +13,8 @@ namespace Labb3.Encounters
 {
     public class MonsterEncounters
     {
-        static private Random rnd = new Random();
+        private static Random rnd = new Random();
+        private static int input;
 
         private static void TextEncounter()
         {
@@ -113,7 +114,6 @@ namespace Labb3.Encounters
             //Player
             int pDmg = Player.player.Dmg + Player.player.WeaponDmg;
             string wepName = Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name;
-            int input;
 
             while (Player.player.Alive == true && Monster.monster.alive == true)
             {
@@ -124,8 +124,8 @@ namespace Labb3.Encounters
                 StatsDuringFight(monster);
 
                 //For deciding your options
-                Tools.Yellow("Option: ");
-                input = Tools.Option(Console.ReadLine(), 5);
+                
+                input = Tools.ConvToInt32(5);
 
                 switch (input)
                 {
@@ -157,8 +157,7 @@ namespace Labb3.Encounters
 
                         }
 
-                        //if (monster.hp <= 0)
-                        //{
+                        
 
                         //Monsters turn to attack
                         Console.WriteLine($"As you prepare for one more attack on the {monster.name},");
@@ -177,18 +176,12 @@ namespace Labb3.Encounters
                         monster.CheckIfAlive();
                         Player.ExpToLvl(); //Cheks if you can level up
 
-                        //}
 
-                        //if (Player.player.Alive == true && Monster.monster.alive == true)
-                        //{
+                        
                         Console.WriteLine($"After your hits has landed the {monster.name} hits you with a sweeping strike!");
                         Tools.RedLine($"-{monster.dmg} damage");
                         Player.player.Hp -= monster.dmg;
-                        Player.CheckIfAlive();
-                        //}
-
-                        //Fight(monster, monsterIndex);
-
+                        Player.CheckIfAlive();                        
 
                         break;
 
@@ -196,8 +189,7 @@ namespace Labb3.Encounters
                     //   Block   //
                     case 2://Block
 
-                        //while (Player.player.Alive == true && Monster.monster.alive == true)
-                        //{
+                        
                         Console.WriteLine($"You raise your {wepName} in a defensive stance.");
                         if (monsterChanseOnHit >= 1)// 66% chance on hit
                         {
@@ -214,7 +206,7 @@ namespace Labb3.Encounters
                             monster.CheckIfAlive();
                         }
                         Sleep(2000);
-                        // }
+                        
                         break;
 
                     /////////////////

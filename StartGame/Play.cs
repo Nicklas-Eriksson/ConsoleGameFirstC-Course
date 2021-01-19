@@ -30,6 +30,10 @@ namespace Labb3.StartGame
             Tools.Yellow("Enter your name: ");
             Player.player.Name = Console.ReadLine().Trim();//Stor bokstav på första??
             Tools.YellowLine($"\nGreetings {Player.player.Name}..\n");
+
+            Player.GodMode(); //Checks if user is admin or Robin
+            /* Names to avtivate god mode: Hakk, hakk, Robin, robin, Robin Kamo, robin kamo */
+
             Console.ReadKey(); //Ta bort sen
             
             //Sleep(1400);

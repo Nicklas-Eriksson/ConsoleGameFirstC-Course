@@ -1,4 +1,5 @@
 ﻿using Labb3.Character;
+using Labb3.Menues;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -60,12 +61,16 @@ namespace Labb3.UtilityTools
         //Text color end
 
         //Convertions
-        static public int ConvToInt32(string input, int maxLength)
+        static public int ConvToInt32(int maxLength)
         {
             bool success;
+            string input;
             int nr;
+
             do
             {
+                Tools.Yellow("Option: ");
+                input = Console.ReadLine();
                 success = Int32.TryParse(input.Trim(), out nr);
                 if (success && nr <= maxLength)
                 {
@@ -73,25 +78,27 @@ namespace Labb3.UtilityTools
                 }
                 else
                 {
-                    Error();
-                    string input2 = Console.ReadLine();
-                    Option(input2, maxLength);
+                    Error();                   
                 }
 
+                //Cheat codes START
                 if (!success && input == "greedisgood")//gold cheat 
                 {
                     Player.player.Gold += 1000000;
                     Tools.GreenLine("Congratulations, you are now filthy rich!\n" +
                         "+1 Million gold added to pouch");
                     Thread.Sleep(3000);
+                    MenuOptions.Options();
                 }
-                else if (!success && input == "ihavethepower")
+                else if (!success && input == "ihavethepower")//lvl 10 cheat
                 {
                     Player.player.Lvl = 10;//lvl 10 cheat
                     Tools.GreenLine("Whooow! You grow up fast dont you!?");
                     Tools.GreenLine("Character level: 10");
                     Thread.Sleep(3000);
+                    MenuOptions.Options();
                 }
+                //Cheat codes END
 
             } while (!success);
 
@@ -103,11 +110,7 @@ namespace Labb3.UtilityTools
         {
             Tools.RedLine("Wrong input, try again");
         }
-        static public int Option(string input, int maxLength)
-        {           
-            int nr = ConvToInt32(input, maxLength);
-            return nr;
-        }
+        
         static public void ExitGame()
         {
             Console.Clear();

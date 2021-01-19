@@ -12,6 +12,8 @@ namespace Labb3.Menues
 {
     public static class MenuOptions
     {
+        private static int input;
+
         private static void OptionAlternatives()
         {
             Console.Clear();
@@ -38,6 +40,10 @@ namespace Labb3.Menues
             {
                 Console.WriteLine($" Weapon: {weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} ");
             }
+            else if (wepIndex == -1)
+            {
+                Console.WriteLine(" Weapon: Fists");
+            }
             Console.WriteLine($" Potions: {Player.player.HealingPotions}");
             Console.WriteLine($" Gold: {Player.player.Gold}\n");
 
@@ -49,8 +55,7 @@ namespace Labb3.Menues
             Console.Clear();
             OptionAlternatives();
 
-            Tools.Yellow("Option: ");
-            int input = Tools.ConvToInt32(Console.ReadLine(), 3);
+            input = Tools.ConvToInt32(3);
 
             switch (input)
             {
@@ -65,11 +70,11 @@ namespace Labb3.Menues
                         Tools.YellowLine("You explore deeper into the dungeon.");
                         //Sleep(3000);
                         Tools.YellowLine("You see a wooden door with a rusty knob and lock.");
-                       // Sleep(3000);
+                        // Sleep(3000);
                         Tools.YellowLine("Slowly you turn the creeking door open..");
-                       // Sleep(3000);
+                        // Sleep(3000);
                         Tools.YellowLine("To your surprise, the corridor is completly desolate...");
-                       // Sleep(3000);
+                        // Sleep(3000);
 
                         Options();
                     }

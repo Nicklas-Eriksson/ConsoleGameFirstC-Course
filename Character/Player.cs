@@ -76,5 +76,26 @@ namespace Labb3.Character
             }
 
         }
+
+        public static void GodMode()
+        {
+            if(player.Name == "Hakk" || player.Name == "hakk" || player.Name == "Robin" || player.Name == "Robin Kamo" || player.Name == "robin" || player.Name == "robin kamo")
+            {
+                player.MaxHp = 1000000;
+                player.Dmg = 1000000;
+                player.Gold = 1000000;
+                player.HealingPotions = 100;
+
+                Tools.YellowLine("-God mode activated-");
+                Console.Write("Health:");
+                Tools.GreenLine($"{player.MaxHp}");
+                Console.Write("Power:");
+                Tools.RedLine($"{player.Dmg}");
+                Console.Write("Gold:");
+                Tools.YellowLine($"{player.Gold}");
+                Console.Write("Potions:");
+                Tools.GreenLine($"{player.HealingPotions}");
+            }
+        }
     }
 }

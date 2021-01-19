@@ -242,8 +242,7 @@ namespace Labb3.Items
                 goldCost = 1000,
                 goldIfSold = this.GoldIfSold
             };
-
-            //weaponList.Add(fists);
+                        
             weaponList.Add(blundtSword);
             weaponList.Add(rustyDagger);
             weaponList.Add(unbalancedAxe);

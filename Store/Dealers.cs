@@ -12,9 +12,10 @@ namespace Labb3.Store
     public static class Dealers
     {
         static private List<Weapon> fullWepList = new List<Weapon>();
+        private static int input;
 
-        
-        //Buy/Sell START
+
+        //Buy or Sell START
         private static void BuyOrSellText()
         {
             Console.Clear();
@@ -30,9 +31,8 @@ namespace Labb3.Store
         private static void BuyOrSellSwitch()
         {
             BuyOrSellText();
-
-            Tools.Yellow("Option: ");
-            int input = Tools.Option(Console.ReadLine(), 4);
+                        
+            input = Tools.ConvToInt32(4);
 
             switch (input)
             {
@@ -71,9 +71,8 @@ namespace Labb3.Store
         private static void BuySwitch()
         {
             BuyText();
-
-            Tools.Yellow("Option: ");
-            int input = Tools.Option(Console.ReadLine(), 5);
+                        
+            input = Tools.ConvToInt32(5);
 
             switch (input)
             {
@@ -105,17 +104,33 @@ namespace Labb3.Store
             }
         }
         public static void DisplayWeapon()
-        {
-            //instantiateListWeapons();
+        {           
             Weapon.weapon.instantiateList();
             Console.Clear();
             Logo.Shop();
 
-            Console.WriteLine("Write the number of the weapon you would like to purchase:\n");
+            Console.WriteLine(" Write the number of the weapon you would like to purchase:\n");
+
+            Tools.YellowLine("===================");
+            Console.Write("Health:");
+            Tools.GreenLine($"{Player.player.MaxHp}");
+            Console.Write("Power:");
+            Tools.RedLine($"{Player.player.Dmg}");
+            Console.Write("Gold:");
+            Tools.YellowLine($"{Player.player.Gold}");
+            if (Player.player.WeaponIndex >= 0)
+            {
+                Console.Write("Equiped Weapon:");
+                Tools.YellowLine($"{Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power}");
+            }
+            else if (Player.player.WeaponIndex < 0)
+            {
+                Console.WriteLine(" Weapon: Fists");
+            }
+            Tools.YellowLine("===================");
+
 
             //Display Weapons for shop, loops through the whole weapon list 
-            
-            
             for (int i = 0; i < Weapon.weapon.WeaponList.Count; i++)
             {
                 BuyWeaponText(i);
@@ -133,42 +148,21 @@ namespace Labb3.Store
         {
             Logo.Shop();
 
-            
             DisplayWeapon();
 
-            //Add remove bought iteam??
-
-            int number;
-
-            //do
-            //{
-                Tools.Yellow("Option: ");
-                number = Tools.ConvToInt32(Console.ReadLine(), Weapon.weapon.WeaponList.Count);
-
-                //Onödigt om errorhandeling funkar som jag tänkt
-
-                //if (number - 1 > fullWepList.Count)
-                //{
-                //    Tools.RedLine($"You entered a too high number: {number - 1}.");
-                //    Tools.RedLine($"Keep it within the range of 1-{fullWepList.Count}!");
-                //}
-                //else if (number - 1 <= 1)
-                //{
-                //    Tools.RedLine($"You entered a too low number: {number - 1}.");
-                //    Tools.RedLine($"Keep it within the range of 1-{fullWepList.Count}!");
-                //}
-
-            //} while (number > fullWepList.Count || number - 1 <= 1);
+            input = Tools.ConvToInt32(Weapon.weapon.WeaponList.Count);
 
 
-            Tools.GreenLine($"{Weapon.weapon.WeaponList[number - 1].Name} has been equipped as your weapon");
-            Player.player.WeaponDmg = Weapon.weapon.WeaponList[number - 1].Power;
-            Player.player.WeaponIndex = number - 1;//A way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it
-            Sleep(1500);
+            bool sucessfulPurchase = GoldWithdraw(1, "weapon");
 
-
-            //GoldWithdraw(number-1);
-
+            if (sucessfulPurchase == true)
+            {
+                Tools.GreenLine($"{Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
+                Player.player.WeaponDmg = Weapon.weapon.WeaponList[input - 1].Power;
+                Player.player.WeaponIndex = input - 1;
+                /* WeaponIndex is a way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it */
+                Sleep(1500);
+            }
 
             BuyOrSellSwitch();
         }
@@ -180,8 +174,8 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine( "===========================        ===================== ");
-            Tools.YellowLine( "|| ------Power-Ups------ ||          --Player Stats-- ");
+            Tools.YellowLine("===========================        ===================== ");
+            Tools.YellowLine("|| ------Power-Ups------ ||          --Player Stats-- ");
             Tools.YellowLine($"|| [1] Buy Stamina...... ||          Max Health: {Player.player.MaxHp} ");
             Tools.YellowLine($"|| [2] Buy Strength..... ||          Attack Damage: {Player.player.Dmg} ");
             Tools.YellowLine($"|| [3] Back............. ||          Gold : {Player.player.Gold} gold ");
@@ -201,18 +195,19 @@ namespace Labb3.Store
         private static void BuyPowerUpSwitch()
         {
             BuyPowerUpText();
+                        
+            input = Tools.ConvToInt32( 3);
 
-            Tools.Yellow("Option: ");
-            int input = Tools.Option(Console.ReadLine(), 3);
-
-            switch(input)
+            switch (input)
             {
                 case 1://+ stamina
+                    GoldWithdraw(0, "power-up");
                     PowerUp.powerUp.Bonus("hp");
                     BuyPowerUpSwitch();
                     break;
 
                 case 2://+ strength
+                    GoldWithdraw(0, "power-up");
                     PowerUp.powerUp.Bonus("dmg");
                     BuyPowerUpSwitch();
                     break;
@@ -250,16 +245,16 @@ namespace Labb3.Store
             Tools.RedLine("|  HP+  |    ");
             Tools.RedLine("'.......'  \n");
         }
-        private static void BuyPotionSwitch() 
+        private static void BuyPotionSwitch()
         {
             BuyPotionText();
 
-            Tools.Yellow("Option: ");
-            int input = Tools.Option(Console.ReadLine(), 2);
-            switch(input)
+            input = Tools.ConvToInt32(2);
+
+            switch (input)
             {
                 case 1:
-                    //-gold
+                    GoldWithdraw(0, "potion");
                     Player.player.HealingPotions++;
                     Tools.GreenLine("1 Healing Potion has been added to your inventory!");
                     Sleep(2000);
@@ -276,7 +271,7 @@ namespace Labb3.Store
 
         //Sell START
         private static void SellText()
-        {            
+        {
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("===================================");
@@ -289,9 +284,8 @@ namespace Labb3.Store
         {
             SellText();
             Player.DisplayInventory();
-
-            Tools.Yellow("Option: ");
-            int input = Tools.Option(Console.ReadLine(), Player.player.InventoryList.Count);
+                        
+            input = Tools.ConvToInt32(Player.player.InventoryList.Count);
 
             Console.WriteLine($"There you go, {Weapon.weapon.WeaponList[input - 1].GoldIfSold} gold coins.");
             Player.player.Gold += Weapon.weapon.WeaponList[input - 1].GoldIfSold; //You get half the cost back from selling
@@ -307,36 +301,70 @@ namespace Labb3.Store
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("Welcome to The Iron Skillet!");
-           // Sleep(2000);
+            // Sleep(2000);
             Tools.YellowLine("It's not often we get customers these days..");
-           // Sleep(2000);
+            // Sleep(2000);
             Tools.YellowLine("Anyways!..");
-           // Sleep(2000);
+            // Sleep(2000);
             Console.Clear();
 
             BuyOrSellSwitch();
 
         }
-       
-        
-       
 
-        private static void GoldWithdraw(int number)
+
+
+        //GoldWithdraw START
+        private static bool GoldWithdraw(int index, string product)
         {
-            //The number that comes in is already altered to be -1
+            bool purchaseSucces = false;
 
-            if (Player.player.Gold >= fullWepList[number - 1].GoldCost)
+            if (product == "weapon")
             {
-                Console.WriteLine($"{fullWepList[number].GoldCost} Gold has been withdrawn from your pouch");
-                Player.player.Gold -= fullWepList[number].GoldCost;
+                if (Player.player.Gold >= fullWepList[index - 1].GoldCost)
+                {
+                    Console.WriteLine($"{fullWepList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
+                    Player.player.Gold -= fullWepList[index - 1].GoldCost;
+                    purchaseSucces = true;
+                }
+                else if (Player.player.Gold < fullWepList[index - 1].GoldCost)
+                {
+                    purchaseSucces = false;
+                }
             }
-            else if (Player.player.Gold < fullWepList[number].GoldCost)
+            else if (product == "potion")
+            {
+                if (Player.player.Gold >= 50)
+                {
+                    Player.player.Gold -= 50;
+                    purchaseSucces = true;
+                }
+                else if (Player.player.Gold < 50)
+                {
+                    purchaseSucces = false;
+                }
+            }
+            else if (product == "power-up")
+            {
+                if (Player.player.Gold >= PowerUp.powerUp.goldCost)
+                {
+                    Player.player.Gold -= PowerUp.powerUp.goldCost;
+                    purchaseSucces = true;
+                }
+                else if (Player.player.Gold < PowerUp.powerUp.goldCost)
+                {
+                    purchaseSucces = false;
+                }
+            }
+            if(purchaseSucces == false)
             {
                 Console.WriteLine("Not enough gold! Get back here when you can afford it!");
+               // Sleep(1500);
                 Console.WriteLine("Filthy creature..");
-                Sleep(1500);
-                BuyWeapon();
+               // Sleep(1500);
             }
+            return purchaseSucces;
+
         }//GoldWithdraw() End
     }//Dealers.cs End
 }
