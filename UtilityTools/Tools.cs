@@ -60,20 +60,23 @@ namespace Labb3.UtilityTools
         //Text color end
 
         //Convertions
-        static public int ConvToInt32(string input)
+        static public int ConvToInt32(string input, int maxLength)
         {
             bool success;
             int nr;
             do
             {
                 success = Int32.TryParse(input.Trim(), out nr);
-                if (success)
+                if (success && nr <= maxLength)
                 {
-                    break;
+                    return nr;
                 }
-                Error();
-                Tools.Yellow("Menue option: ");
-                input = Console.ReadLine();
+                else
+                {
+                    Error();
+                    string input2 = Console.ReadLine();
+                    Option(input2, maxLength);
+                }
 
                 if (!success && input == "greedisgood")//gold cheat 
                 {
@@ -100,10 +103,9 @@ namespace Labb3.UtilityTools
         {
             Tools.RedLine("Wrong input, try again");
         }
-        static public int Option(string input)
-        {
-            Tools.Yellow("Menue option: ");
-            int nr = Convert.ToInt32(input);
+        static public int Option(string input, int maxLength)
+        {           
+            int nr = ConvToInt32(input, maxLength);
             return nr;
         }
         static public void ExitGame()

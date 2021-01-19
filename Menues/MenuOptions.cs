@@ -15,12 +15,33 @@ namespace Labb3.Menues
         private static void OptionAlternatives()
         {
             Console.Clear();
+            Logo.DoD();
+
             Tools.YellowLine("===========================");
             Tools.YellowLine("|| [1] Explore.......... ||");
             Tools.YellowLine("|| [2] Shop............. ||");
-            Tools.YellowLine("|| [3] Player Stats..... ||");
-            Tools.YellowLine("|| [4] Exit Game........ ||");
+            Tools.YellowLine("|| [3] Exit Game........ ||");
             Tools.YellowLine("===========================\n");
+
+            Console.WriteLine(" -Player Stats-");
+            Console.WriteLine($" Name: {Player.player.Name}");
+            Console.WriteLine($" Health: {Player.player.MaxHp}");
+            Console.WriteLine($" Power: {Player.player.Dmg}");
+            Console.WriteLine($" Level: {Player.player.Lvl}");
+            Console.WriteLine($" Experience: {Player.player.Exp} / {Player.player.MaxExp}");
+
+            Console.WriteLine("\n -Inventory-");
+            List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
+
+            int wepIndex = Player.player.WeaponIndex;
+            if (wepIndex >= 0)
+            {
+                Console.WriteLine($" Weapon: {weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} ");
+            }
+            Console.WriteLine($" Potions: {Player.player.HealingPotions}");
+            Console.WriteLine($" Gold: {Player.player.Gold}\n");
+
+
         }
 
         public static void Options()
@@ -28,7 +49,8 @@ namespace Labb3.Menues
             Console.Clear();
             OptionAlternatives();
 
-            int input = Tools.ConvToInt32(Console.ReadLine());
+            Tools.Yellow("Option: ");
+            int input = Tools.ConvToInt32(Console.ReadLine(), 3);
 
             switch (input)
             {
@@ -41,14 +63,14 @@ namespace Labb3.Menues
                         Console.Clear();
 
                         Tools.YellowLine("You explore deeper into the dungeon.");
-                        Sleep(3000);
+                        //Sleep(3000);
                         Tools.YellowLine("You see a wooden door with a rusty knob and lock.");
-                        Sleep(3000);
+                       // Sleep(3000);
                         Tools.YellowLine("Slowly you turn the creeking door open..");
-                        Sleep(3000);
+                       // Sleep(3000);
                         Tools.YellowLine("To your surprise, the corridor is completly desolate...");
-                        Sleep(3000);
-                        
+                       // Sleep(3000);
+
                         Options();
                     }
                     else //90% You encounter a monster
@@ -59,43 +81,16 @@ namespace Labb3.Menues
 
                 case 2://Shop
 
-                    Dealers.BuyWeapon();
+                    Dealers.StoreMenueIronSkillet();
                     break;
 
-                case 3://Player Stats
-
-                    PlayerStats();                   
-                    break;
-
-                case 4://Exit Game
+                case 3://Exit Game
 
                     Tools.ExitGame();
                     break;
             }
         }
 
-        private static void PlayerStats()
-        {
-            Console.Clear();
-            OptionAlternatives();
-            Console.WriteLine(" -Player Stats-");
-            Console.WriteLine($" Name: {Player.player.Name}");
-            Console.WriteLine($" Health: {Player.player.Hp}");
-            Console.WriteLine($" Power: {Player.player.Dmg}");
-            Console.WriteLine($" Level: {Player.player.Lvl}");
-            Console.WriteLine($" Experience: {Player.player.Exp}");
 
-            Console.WriteLine("\n -Inventory-");
-            List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
-
-            int wepIndex = Player.player.WeaponIndex;
-            Console.WriteLine($" Weapon: {weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} ");
-            Console.WriteLine($" Potions: {Player.player.HealingPotions}");
-            Console.WriteLine($" Gold: {Player.player.Gold}\n");
-
-            Tools.BlueLine("Press any key when you want to return to previous menu..");
-            Console.ReadKey();
-            MenuOptions.Options();
-        }
     }
 }

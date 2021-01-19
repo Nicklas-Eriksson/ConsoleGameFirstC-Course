@@ -15,37 +15,55 @@ namespace Labb3.Character
         private bool alive = true;
         private int gold = 100; //Will be sufficient for 1 of the 3 starter weapons in the store
         private int hp = 100; //health
+        private int maxHp = 100; //health
         private int dmg = 10; //damage
         private int weaponDmg = 0; //damage
         private int healingPotions = 1; //can be obtained from shop
         private int lvl = 1; //level
         private int exp = 0; //experience points
-        private int weaponIndex = 0;
+        private int maxExp = 0; //Max exp before lvl up
+        private int killsToLevel = 1; //Kills needed for each lvl        
+        private int weaponIndex = -1;
         private bool lvlUp = false;
+        private List<Weapon> inventoryList = new List<Weapon>();
 
         public string Name { get => name; set => name = value; }
         public bool Alive { get => alive; set => alive = value; }
         public int Gold { get => gold; set => gold = value; }
         public int Hp { get => hp; set => hp = value; }
+        public int MaxHp { get => maxHp; set => maxHp = value; }
         public int Dmg { get => dmg; set => dmg = value; }
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
         public int HealingPotions { get => healingPotions; set => healingPotions = value; }
         public int Lvl { get => lvl; set => lvl = value; }
-        public int Exp { get => exp; set => exp = value; }
+        public int Exp { get => exp; set => exp = MaxExp / KillsToLevel; }
+        public int MaxExp { get => maxExp; set => maxExp = maxExp * 2; }
+        public int KillsToLevel { get => killsToLevel; set => killsToLevel = Exp * Lvl; }
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
         public bool LvlUp { get => lvlUp; set => lvlUp = value; }
+        public List<Weapon> InventoryList { get => inventoryList; set => inventoryList = value; }
 
-        public static void ExpToLvl(int exp)//fixa
+        public static void ExpToLvl()
         {
+
             if (player.lvl < 10)
             {
-                if (exp >= 50 * player.lvl) 
+                if (player.Exp >= player.MaxExp)
                 {
-                    player.lvl = player.lvl + 1;
-                    
+                    player.Exp -= player.MaxExp;
+                    player.lvl++;
                 }
                 Sleep(2000);
             }
+        }
+
+        public static void DisplayInventory()
+        {
+            for (int i = 0; i < player.InventoryList.Count; i++)
+            {
+                Tools.YellowLine($"{i+1}: {player.InventoryList[i].Name} - sell for {player.InventoryList[i].GoldIfSold} gold\n");
+            }
+
         }
     }
 }

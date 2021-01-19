@@ -95,11 +95,11 @@ namespace Labb3.Encounters
         static void FightingMenueText()
         {
             Console.WriteLine("-----------------------");
-            Console.WriteLine("|| [A]ttack......... ||");//The fighting is turn based. First you strike, than the monster will attack you
-            Console.WriteLine("|| [B]lock Attack... ||");//Block attack, take reduced/no dmg, and deal some back
-            Console.WriteLine("|| [H]ealing Potion..||");//Take a swig from a potion, heals up health. Takes reduced damage while healing
-            Console.WriteLine("|| [R]un Away........||");//Tries to escape. Chanse to be hit on the way out
-            Console.WriteLine("|| [E]xit Game.......||");
+            Console.WriteLine("|| [1] Attack......... ||");//The fighting is turn based. First you strike, than the monster will attack you
+            Console.WriteLine("|| [2] Block Attack... ||");//Block attack, take reduced/no dmg, and deal some back
+            Console.WriteLine("|| [3] Healing.........||");//Take a swig from a potion, heals up health. Takes reduced damage while healing
+            Console.WriteLine("|| [4] Run Away........||");//Tries to escape. Chanse to be hit on the way out
+            Console.WriteLine("|| [5] Exit Game.......||");
             Console.WriteLine("-----------------------");
         }
         static public void Fight(Monster monster, int monsterIndex)
@@ -114,14 +114,14 @@ namespace Labb3.Encounters
             int pDmg = Player.player.Dmg;
             int pDmg2 = Player.player.WeaponDmg;
             int pDmg3 = pDmg + pDmg2;
-            char input;
+            int input;
 
             Tools.Yellow("Option: ");
-            input = Console.ReadKey().KeyChar;
+            input = Tools.Option(Console.ReadLine(),5);
 
             switch (input)
             {
-                case ('a')://Attack
+                case 1://Attack
 
                     //Remove monster index?
 
@@ -143,7 +143,7 @@ namespace Labb3.Encounters
                         {
                             Console.WriteLine($"As you strike the {monster.name} it screams in pain.");
                             Console.WriteLine($"The {monster.name} was delt {pDmg}.");
-                            monster.hp -= pDmg;
+                            monster.hp -= pDmg3;
                             Sleep(3000);
 
                             CheckIfAlive();
@@ -165,14 +165,14 @@ namespace Labb3.Encounters
                             Player.player.Gold += monster.goldDrop;
                             Sleep(3000);
 
-                            Player.ExpToLvl(Player.player.Exp); //Cheks if you can level up
+                            Player.ExpToLvl(); //Cheks if you can level up
                         }
 
                         //Now the monster will attack back!
                         Console.WriteLine($"The {monster.name} strikes you for {monster.dmg}!");
                         Player.player.Hp -= monster.dmg;
 
-                        Player.ExpToLvl(Player.player.Exp); //Cheks if you can level up
+                        Player.ExpToLvl(); //Cheks if you can level up
 
                         Fight(monster, monsterIndex);
                     }
@@ -180,7 +180,7 @@ namespace Labb3.Encounters
 
                 ////////////////
                 //   Block   //
-                case ('b')://Block
+                case 2://Block
 
                     Console.WriteLine($"You raise your {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} in a defensive stance.");
                     if (monsterChanseOnHit == 1)//If monster hits
@@ -200,7 +200,7 @@ namespace Labb3.Encounters
 
                 /////////////////
                 //    Heal    //
-                case ('h'):
+                case 3:
 
                     //Drink a healing potion.
                     Sleep(2000);
@@ -208,7 +208,7 @@ namespace Labb3.Encounters
 
                 ///////////////////
                 //   Run away   //
-                case ('r'):
+                case 4:
 
                     Console.WriteLine("With darting eyes you look for the door you just came in from.");
                     Console.WriteLine("You turn around and head for the exit.");
@@ -230,7 +230,7 @@ namespace Labb3.Encounters
 
                 ////////////////
                 //    Exit   //
-                case ('e')://Exit Game
+                case 5://Exit Game
 
                     Tools.ExitGame();
                     break;
