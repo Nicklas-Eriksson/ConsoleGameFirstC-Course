@@ -12,6 +12,7 @@ namespace Labb3.Store
     public static class Dealers
     {
         private static int input;
+        private static bool purchaseOk;
 
 
         //Buy or Sell START
@@ -43,7 +44,7 @@ namespace Labb3.Store
                     SellSwitch();
                     break;
                 case 3:
-                    MenuOptions.Options();
+                    MenuOptions.MainMenuSwitch();
                     break;
                 case 4:
                     Tools.ExitGame();
@@ -194,7 +195,7 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine("===========================        ===================== ");
+            Tools.YellowLine("===========================       ===================== ");
             Tools.YellowLine("|| ------Power-Ups------ ||          --Player Stats-- ");
             Tools.YellowLine($"|| [1] Buy Stamina...... ||          Max Health: {Player.player.MaxHp} ");
             Tools.YellowLine($"|| [2] Buy Strength..... ||          Attack Damage: {Player.player.Dmg} ");
@@ -204,7 +205,11 @@ namespace Labb3.Store
             Tools.YellowLine("Okey, listen up!");
             Tools.YellowLine("There are two different types of power-ups..");
             Tools.YellowLine("Stamina: This power-up increases your maximum healt..");
-            Tools.YellowLine("Strength: This power-up increases your damage capability..\n");
+            Tools.YellowLine("Strength: This power-up increases your damage capability..");
+            Tools.YellowLine("There are 3 different degrees of effectiveness");
+            Tools.YellowLine("Lesser: +50 hp for 100 gold");
+            Tools.YellowLine("Minor: +100 hp for 200 gold");
+            Tools.YellowLine("Major: +150 hp for 300 gold\n");
             Tools.RedLine("   :~:           :~:   ");
             Tools.RedLine("   | |           | |   ");
             Tools.RedLine("  .' '.         .' '.  ");
@@ -221,15 +226,11 @@ namespace Labb3.Store
             switch (input)
             {
                 case 1://+ stamina
-                    GoldWithdraw(0, "power-up");
-                    PowerUp.powerUp.Type("hp");
-                    BuyPowerUpSwitch();
+                    BuyStaminaSwitch();
                     break;
 
                 case 2://+ strength
-                    GoldWithdraw(0, "power-up");
-                    PowerUp.powerUp.Type("dmg");
-                    BuyPowerUpSwitch();
+                    BuyStrengthSwitch();
                     break;
 
                 case 3:
@@ -242,6 +243,98 @@ namespace Labb3.Store
 
 
             Sleep(2000);
+        }
+        private static void StaminaText()
+        {
+            Tools.YellowLine("===========================");
+            Tools.YellowLine("|| --------Buy--------  ||");
+            Tools.YellowLine("|| [1] Lesser Stamina.. ||");
+            Tools.YellowLine("|| [2] Minor Stamina... ||");
+            Tools.YellowLine("|| [3] Major Stamina... ||");
+            Tools.YellowLine("|| [4] Back............ ||");
+            Tools.YellowLine("===========================\n");
+            Tools.YellowLine("Lesser: +50 hp for 100 gold");
+            Tools.YellowLine("Minor: +100 hp for 200 gold");
+            Tools.YellowLine("Major: +150 hp for 300 gold\n");
+            Tools.RedLine("   :~:     ");
+            Tools.RedLine("   | |     ");
+            Tools.RedLine("  .' '.    ");
+            Tools.RedLine(".'     '.  ");
+            Tools.RedLine("|  Sta  |  ");
+            Tools.RedLine("'.......'\n");
+        }
+        private static void StrengthText()
+        {
+            Tools.YellowLine("===========================");
+            Tools.YellowLine("|| ---------Buy--------  ||");
+            Tools.YellowLine("|| [1] Lesser Strength.. ||");
+            Tools.YellowLine("|| [2] Minor Strength... ||");
+            Tools.YellowLine("|| [3] Major Strength... ||");
+            Tools.YellowLine("|| [4] Back............. ||");
+            Tools.YellowLine("===========================\n");
+            Tools.YellowLine("Lesser: +50 hp for 100 gold");
+            Tools.YellowLine("Minor: +100 hp for 200 gold");
+            Tools.YellowLine("Major: +150 hp for 300 gold\n");
+            Tools.RedLine("   :~:     ");
+            Tools.RedLine("   | |     ");
+            Tools.RedLine("  .' '.    ");
+            Tools.RedLine(".'     '.  ");
+            Tools.RedLine("|  Str  |  ");
+            Tools.RedLine("'.......'\n");
+        }
+        private static void BuyStaminaSwitch()
+        {           
+            StaminaText();
+
+            int nr = Tools.ConvToInt32(4);
+
+            switch (nr)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    purchaseOk = GoldWithdraw(nr-1, "power-up");
+                    if (purchaseOk)
+                    {
+                        Player.player.MaxHp += PowerUp.powerUp.itemList[nr - 1].bonus;
+                        Player.player.Hp += PowerUp.powerUp.itemList[nr - 1].bonus;
+                        Tools.YellowLine("Max health increased!");
+                        Tools.GreenLine($"+{PowerUp.powerUp.itemList[nr - 1].bonus}.");
+                    }
+                    BuyStrengthSwitch();
+                    break;
+
+                case 4://Back
+                    BuyPowerUpSwitch();
+                    break;
+            }
+
+        }
+        private static void BuyStrengthSwitch()
+        {
+            StrengthText();
+            int nr = Tools.ConvToInt32(4);
+
+            switch (nr)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    purchaseOk = GoldWithdraw(nr-1, "power-up");
+                    if (purchaseOk)
+                    {
+                        Player.player.Dmg += PowerUp.powerUp.itemList[nr - 1].bonus;
+                        Tools.YellowLine("The power flows through you!");
+                        Tools.GreenLine($"+{PowerUp.powerUp.itemList[nr - 1].bonus} damage.");
+                    }
+                        BuyStrengthSwitch();
+                    break;
+
+                case 4://Back
+                    BuyPowerUpSwitch();
+                    break;
+            }
+
         }
         //Buy Power-Ups END
 
@@ -272,7 +365,7 @@ namespace Labb3.Store
             BuyPotionText();
 
             input = Tools.ConvToInt32(4);
-            bool purchaseOk;
+           
 
             switch (input)
             {
@@ -342,7 +435,7 @@ namespace Labb3.Store
         //Sell END
 
 
-        public static void StoreMenueIronSkillet()
+        public static void MainMenuStore()
         {
             Console.Clear();
             Logo.Shop();
@@ -359,11 +452,9 @@ namespace Labb3.Store
         }
 
 
-
         //GoldWithdraw START
         private static bool GoldWithdraw(int index, string product)
-        {
-            bool purchaseSucces = false;
+        {         
 
             if (product == "weapon")
             {
@@ -371,11 +462,11 @@ namespace Labb3.Store
                 {
                     Tools.YellowLine($"\n-{Weapon.weapon.WeaponList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
                     Player.player.Gold -= Weapon.weapon.WeaponList[index - 1].GoldCost;
-                    purchaseSucces = true;
+                    purchaseOk = true;
                 }
                 else if (Player.player.Gold < Weapon.weapon.WeaponList[index - 1].GoldCost)
                 {
-                    purchaseSucces = false;
+                    purchaseOk = false;
                 }
             }
             else if (product == "potion")
@@ -383,33 +474,33 @@ namespace Labb3.Store
                 if (Player.player.Gold >= Consumable.pot.itemList[index - 1].goldCost)
                 {
                     Player.player.Gold -= Consumable.pot.itemList[index - 1].goldCost;
-                    purchaseSucces = true;
+                    purchaseOk = true;
                 }
                 else if (Player.player.Gold < Consumable.pot.itemList[index - 1].goldCost)
                 {
-                    purchaseSucces = false;
+                    purchaseOk = false;
                 }
             }
             else if (product == "power-up")
             {
-                if (Player.player.Gold >= PowerUp.powerUp.goldCost)
+                if (Player.player.Gold >= PowerUp.powerUp.itemList[index].goldCost)
                 {
-                    Player.player.Gold -= PowerUp.powerUp.goldCost;
-                    purchaseSucces = true;
+                    Player.player.Gold -= PowerUp.powerUp.itemList[index].goldCost;
+                    purchaseOk = true;
                 }
-                else if (Player.player.Gold < PowerUp.powerUp.goldCost)
+                else if (Player.player.Gold < PowerUp.powerUp.itemList[index].goldCost)
                 {
-                    purchaseSucces = false;
+                    purchaseOk = false;
                 }
             }
-            if (purchaseSucces == false)
+            if (purchaseOk == false)
             {
                 Console.WriteLine("Not enough gold! Get back here when you can afford it!");
                 // Sleep(1500);
                 Console.WriteLine("Filthy creature..");
                 // Sleep(1500);
             }
-            return purchaseSucces;
+            return purchaseOk;
 
         }//GoldWithdraw() End
     }//Dealers.cs End

@@ -186,7 +186,7 @@ namespace Labb3.Encounters
 
                         Sleep(3000);
                         monster.CheckIfAlive();
-                        Player.ExpToLvl(); //Cheks if you can level up
+                        Player.CheckIfLvlUp(); //Cheks if you can level up
 
 
 
@@ -276,7 +276,7 @@ namespace Labb3.Encounters
                         {
                             Console.WriteLine($"The {monster.name} barely misses you, as you slam the door shut.");
                             Sleep(2000);
-                            MenuOptions.Options(); //Back to menu
+                            MenuOptions.MainMenuSwitch(); //Back to menu
                         }
                         Sleep(2000);
                         break;
@@ -290,7 +290,7 @@ namespace Labb3.Encounters
                 }//Switch end
 
             }//While (player and monster alive == true) end
-            MenuOptions.Options();
+            MenuOptions.MainMenuSwitch();
         }
     }
 }

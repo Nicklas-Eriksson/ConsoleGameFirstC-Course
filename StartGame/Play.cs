@@ -38,7 +38,7 @@ namespace Labb3.StartGame
             
             //Sleep(1400);
             //Messange.Intro();
-            MenuOptions.Options();
+            MenuOptions.MainMenuSwitch();
 
 
 

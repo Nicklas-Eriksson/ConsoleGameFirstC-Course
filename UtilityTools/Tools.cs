@@ -100,7 +100,7 @@ namespace Labb3.UtilityTools
                     Tools.GreenLine("Congratulations, you are now filthy rich!\n" +
                         "+1 Million gold added to pouch");
                     Thread.Sleep(3000);
-                    MenuOptions.Options();
+                    MenuOptions.MainMenuSwitch();
                 }
                 else if (!success && input == "ihavethepower")//lvl 10 cheat
                 {
@@ -108,7 +108,7 @@ namespace Labb3.UtilityTools
                     Tools.GreenLine("Whooow! You grow up fast dont you!?");
                     Tools.GreenLine("Character level: 10");
                     Thread.Sleep(3000);
-                    MenuOptions.Options();
+                    MenuOptions.MainMenuSwitch();
                 }
                 //Cheat codes END
 

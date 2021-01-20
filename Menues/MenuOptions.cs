@@ -14,7 +14,7 @@ namespace Labb3.Menues
     {
         private static int input;
 
-        private static void OptionAlternatives()
+        private static void MainMenuText()
         {
             Console.Clear();
             Logo.DoD();
@@ -25,8 +25,13 @@ namespace Labb3.Menues
             Tools.YellowLine("|| [3] Exit Game........ ||");
             Tools.YellowLine("===========================\n");
 
+            //Displays the stats for current charracter
+            PlayerStats();
 
+        }
 
+        private static void PlayerStats()
+        {
             Tools.PurpleLine("-Player Stats-");
             Console.Write(" Name: ");
             Tools.YellowLine($"{Player.player.Name}");
@@ -58,15 +63,13 @@ namespace Labb3.Menues
             Console.WriteLine(" Healing Potions:");
             Tools.GreenLine($"  Lesser: {Player.player.LesserPotion}");
             Tools.GreenLine($"  Minor: {Player.player.MinorPotion}");
-            Tools.GreenLine($"  Major: {Player.player.MajorPotion}");
-
-
+            Tools.GreenLine($"  Major: {Player.player.MajorPotion}\n");
         }
 
-        public static void Options()
+        public static void MainMenuSwitch()
         {
             Console.Clear();
-            OptionAlternatives();
+            MainMenuText();
 
             input = Tools.ConvToInt32(3);
 
@@ -89,7 +92,7 @@ namespace Labb3.Menues
                         Tools.YellowLine("To your surprise, the corridor is completly desolate...");
                         // Sleep(3000);
 
-                        Options();
+                        MainMenuSwitch();
                     }
                     else //90% You encounter a monster
                     {
@@ -99,7 +102,7 @@ namespace Labb3.Menues
 
                 case 2://Shop
 
-                    Dealers.StoreMenueIronSkillet();
+                    Dealers.MainMenuStore();
                     break;
 
                 case 3://Exit Game
@@ -108,7 +111,5 @@ namespace Labb3.Menues
                     break;
             }
         }
-
-
     }
 }
