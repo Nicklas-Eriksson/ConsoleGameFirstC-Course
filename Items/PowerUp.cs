@@ -10,14 +10,14 @@ namespace Labb3.Items
     public class PowerUp : IItem
     {
         public static PowerUp powerUp = new PowerUp();
+        public static List<PowerUp> itemList = new List<PowerUp>();
 
         public string name { get => name; set => name = value; }
         public int goldCost { get => goldCost; set => goldCost = value; }
         public int itemLevel { get => itemLevel; set => itemLevel = value; }
         public int bonus { get => bonus; set => bonus = value; }
-        public List<IItem> itemList { get => ((IItem)powerUp).itemList; set => ((IItem)powerUp).itemList = value; }//Fixa
-
-        public List<IItem> Type(string type)
+        
+        public void Instantiate()
         {
             //Stamina buff
             PowerUp lesserStamina = new PowerUp()
@@ -71,29 +71,16 @@ namespace Labb3.Items
 
             };
 
-            if (type == "hp")
-            {
-                
-                Player.player.MaxHp += 20 * Player.player.Lvl;
-                Player.player.Hp += 20 * Player.player.Lvl;
-                Tools.GreenLine($"Max health is now {Player.player.MaxHp}");
-            }
-            else if (type == "dmg")
-            {
-                Player.player.Dmg += 20 * Player.player.Lvl;
-                Tools.GreenLine($"The power flows through you! is now {Player.player.MaxHp}");
-                Tools.GreenLine($"{Player.player.Name} power: {Player.player.Dmg}");
-            }
+            
 
-            itemList.Add(lesserStamina);
-            itemList.Add(lesserStrength);
-            itemList.Add(minorStamina);
-            itemList.Add(minorStrength);
-            itemList.Add(majorStamina);
-            itemList.Add(majorStrength);
+            itemList.Add(lesserStamina);//0
+            itemList.Add(lesserStrength);//1
+            itemList.Add(minorStamina);//2
+            itemList.Add(minorStrength);//3
+            itemList.Add(majorStamina);//4
+            itemList.Add(majorStrength);//5
 
             Sleep(1300);
-            return itemList;
         }
     }
 }

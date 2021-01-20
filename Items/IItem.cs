@@ -10,9 +10,9 @@ namespace Labb3.Items
         int goldCost { get; set; }
         int itemLevel { get; set; }
         int bonus { get; set; }
-        List<IItem> itemList { get; set; }
+       
 
-        List<IItem> Type(string type);
+        void Instantiate();
 
     }
 }
