@@ -10,34 +10,39 @@ namespace Labb3.Items
         public static Consumable pot = new Consumable();
         public static List<Consumable> itemList = new List<Consumable>();
 
-        public string name { get => name; set => name = value; }
-        public int goldCost { get => goldCost; set => goldCost = value; }
-        public int itemLevel { get => itemLevel; set => itemLevel = value; }
-        public int bonus { get => bonus; set => bonus = value; }
+        private string name;
+        private int goldCost;
+        private int itemLevel;
+        private int bonus;
+
+        public string Name { get => name; set => name = value; }
+        public int GoldCost { get => goldCost; set => goldCost = value; }
+        public int ItemLevel { get => itemLevel; set => itemLevel = value; }
+        public int Bonus { get => bonus; set => bonus = value; }
 
 
         public void Instantiate()
         {
             Consumable lesserHealing = new Consumable()
             {
-                name = "Lesser Healing Potion",
-                goldCost = 50,
-                itemLevel = 1,
-                bonus = 50
+                Name = "Lesser Healing Potion",
+                GoldCost = 50,
+                ItemLevel = 1,
+                Bonus = 50
             };
             Consumable minorHealing = new Consumable()
             {
-                name = "Minor Healing Potion",
-                goldCost = 150,
-                itemLevel = 2,
-                bonus = 150
+                Name = "Minor Healing Potion",
+                GoldCost = 150,
+                ItemLevel = 2,
+                Bonus = 150
             };
             Consumable majorHealing = new Consumable()
             {
-                name = "Major Healing Potion",
-                goldCost = 400,
-                itemLevel = 3,
-                bonus = 400
+                Name = "Major Healing Potion",
+                GoldCost = 400,
+                ItemLevel = 3,
+                Bonus = 400
             };
 
             itemList.Add(lesserHealing);

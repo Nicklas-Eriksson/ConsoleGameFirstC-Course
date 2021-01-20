@@ -178,7 +178,7 @@ namespace Labb3.Store
 
             if (sucessfulPurchase == true)
             {
-                Tools.GreenLine($"\n{Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
+                Tools.GreenLine($"\n {Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
                 Player.player.WeaponDmg = Weapon.weapon.WeaponList[input - 1].Power;
                 Player.player.WeaponIndex = input - 1;
                 /* WeaponIndex is a way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it */
@@ -204,12 +204,12 @@ namespace Labb3.Store
 
             Tools.YellowLine("Okey, listen up!");
             Tools.YellowLine("There are two different types of power-ups..");
-            Tools.Green("Stamina:"); Tools.YellowLine("This power-up increases your maximum healt..");
-            Tools.Red("Strength:"); Tools.YellowLine("This power-up increases your damage capability..");
-            Tools.YellowLine("There are 3 different degrees of effectiveness");
+            Tools.Green("Stamina:"); Tools.YellowLine("Increases your maximum health.");
+            Tools.Red("Strength:"); Tools.YellowLine("Increases your damage.\n");
+            Tools.YellowLine("Each type has 3 different degrees of effectiveness:");
             Tools.YellowLine("-Lesser: +50 bonus for 100 gold");
             Tools.YellowLine("-Minor: +100 bonus for 200 gold");
-            Tools.YellowLine("-Major: +150 bonus for 300 gold\n");            
+            Tools.YellowLine("-Major: +150 bonus for 300 gold\n");
             Tools.RedLine("   :~:           :~:   ");
             Tools.RedLine("   | |           | |   ");
             Tools.RedLine("  .' '.         .' '.  ");
@@ -287,7 +287,7 @@ namespace Labb3.Store
             Tools.RedLine("'.......'\n");
         }
         private static void BuyStaminaSwitch()
-        {           
+        {
             StaminaText();
 
             int nr = Tools.ConvToInt32(4);
@@ -297,15 +297,16 @@ namespace Labb3.Store
                 case 1:
                 case 2:
                 case 3:
-                    purchaseOk = GoldWithdraw(nr-1, "power-up");
+                    purchaseOk = GoldWithdraw(nr - 1, "power-up");
                     if (purchaseOk)
                     {
-                        Player.player.MaxHp += PowerUp.itemList[nr - 1].bonus;
-                        Player.player.Hp += PowerUp.itemList[nr - 1].bonus;
+                        Player.player.MaxHp += PowerUp.staminaList[nr - 1].Bonus;
+                        Player.player.Hp += PowerUp.staminaList[nr - 1].Bonus;
                         Tools.YellowLine("Max health increased!");
-                        Tools.GreenLine($"+{PowerUp.itemList[nr - 1].bonus}.");
+                        Tools.GreenLine($"+{PowerUp.staminaList[nr - 1].Bonus}.");
+                        Sleep(1400);
                     }
-                    BuyStrengthSwitch();
+                    BuyStaminaSwitch();
                     break;
 
                 case 4://Back
@@ -324,14 +325,15 @@ namespace Labb3.Store
                 case 1:
                 case 2:
                 case 3:
-                    purchaseOk = GoldWithdraw(nr-1, "power-up");
+                    purchaseOk = GoldWithdraw(nr - 1, "power-up");
                     if (purchaseOk)
                     {
-                        Player.player.Dmg += PowerUp.itemList[nr - 1].bonus;
+                        Player.player.Dmg += PowerUp.strengthList[nr - 1].Bonus;
                         Tools.YellowLine("The power flows through you!");
-                        Tools.GreenLine($"+{PowerUp.itemList[nr - 1].bonus} damage.");
+                        Tools.GreenLine($"+{PowerUp.strengthList[nr - 1].Bonus} damage.");
+                        Sleep(1400);
                     }
-                        BuyStrengthSwitch();
+                    BuyStrengthSwitch();
                     break;
 
                 case 4://Back
@@ -358,7 +360,8 @@ namespace Labb3.Store
 
 
             Tools.YellowLine("This red little bottle will maby one day be your life saver.. ");
-            Tools.YellowLine("I mean it.. Literally, you wont die if you drink it..\n");
+            Tools.YellowLine("I mean it.. Literally, you wont die if you drink it..");
+            Tools.YellowLine("Pinky swear...\n");
             Tools.RedLine("   :~:       ");
             Tools.RedLine(" .'   '.     ");
             Tools.RedLine("|  HP+  |    ");
@@ -369,7 +372,7 @@ namespace Labb3.Store
             BuyPotionText();
 
             input = Tools.ConvToInt32(4);
-           
+
 
             switch (input)
             {
@@ -377,16 +380,27 @@ namespace Labb3.Store
                 case 1:
                 case 2:
                 case 3:
-                    purchaseOk = GoldWithdraw(input-1, "potion");
+                    purchaseOk = GoldWithdraw(input - 1, "potion");
                     if (purchaseOk)
                     {
-                        Player.player.LesserPotion++;
-                        Tools.GreenLine($"1 {Consumable.itemList[input - 1].name} has been added to your inventory!");
+                        if (input == 1)
+                        {
+                            Player.player.LesserPotion++;
+                        }
+                        else if (input == 2)
+                        {
+                            Player.player.MinorPotion++;
+                        }
+                        else if (input == 3)
+                        {
+                            Player.player.MajorPotion++;
+                        }
+                        Tools.GreenLine($"1 {Consumable.itemList[input - 1].Name} has been added to your inventory!");
                     }
                     Sleep(2000);
 
                     BuyPotionSwitch();
-                    break;                                  
+                    break;
 
                 case 4:
                     BuySwitch();
@@ -442,7 +456,7 @@ namespace Labb3.Store
 
         //GoldWithdraw START
         private static bool GoldWithdraw(int index, string product)
-        {         
+        {
 
 
             if (product == "weapon")
@@ -461,25 +475,26 @@ namespace Labb3.Store
             else if (product == "potion")
             {
                 Consumable.pot.Instantiate();
-                if (Player.player.Gold >= Consumable.itemList[index].goldCost)
+                if (Player.player.Gold >= Consumable.itemList[index].GoldCost)
                 {
-                    Player.player.Gold -= Consumable.itemList[index].goldCost;
+                    Player.player.Gold -= Consumable.itemList[index].GoldCost;
                     purchaseOk = true;
                 }
-                else if (Player.player.Gold < Consumable.itemList[index].goldCost)
+                else if (Player.player.Gold < Consumable.itemList[index].GoldCost)
                 {
                     purchaseOk = false;
                 }
             }
             else if (product == "power-up")
             {
+                //Does not matter wich list I take gold cost from since they are the same
                 PowerUp.powerUp.Instantiate();
-                if (Player.player.Gold >= PowerUp.itemList[index].goldCost)
+                if (Player.player.Gold >= PowerUp.staminaList[index].GoldCost)
                 {
-                    Player.player.Gold -= PowerUp.itemList[index].goldCost;
+                    Player.player.Gold -= PowerUp.staminaList[index].GoldCost;
                     purchaseOk = true;
                 }
-                else if (Player.player.Gold < PowerUp.itemList[index].goldCost)
+                else if (Player.player.Gold < PowerUp.staminaList[index].GoldCost)
                 {
                     purchaseOk = false;
                 }

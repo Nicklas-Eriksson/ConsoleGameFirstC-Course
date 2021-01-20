@@ -87,10 +87,10 @@ namespace Labb3.UtilityTools
                 if (success && nr <= maxLength)
                 {
                     return nr;
-                }                
+                }
                 else
                 {
-                    Error();                   
+                    Error();
                 }
 
                 //Cheat codes START
@@ -122,16 +122,41 @@ namespace Labb3.UtilityTools
         {
             Tools.RedLine("Wrong input, try again\n");
         }
-        
+
+        //Exit Game START
         static public void ExitGame()
         {
             Console.Clear();
-            Tools.YellowLine("Thank you for playing my game");
-            Thread.Sleep(1500);
-            Tools.RedLine("Exiting Game..");
-            Thread.Sleep(1400);
-            Environment.Exit(0);
-        }
-    }
+
+            string input;
+
+            Tools.YellowLine("Are you sure you want to exit?");
+            Tools.YellowLine("To confirm type \"exit\".");
+            Tools.YellowLine("To go back type \"back\".");
+
+            do
+            {
+                input = Console.ReadLine().Trim().ToLower();
+
+                if (input == "exit")
+                {
+                    Tools.YellowLine("Thank you for playing my game");
+                    Thread.Sleep(1500);
+                    Tools.RedLine("Exiting Game..");
+                    Thread.Sleep(1400);
+                    Environment.Exit(0);
+                }
+                else if (input == "back")
+                {
+                    MenuOptions.MainMenuSwitch();
+                }
+                else
+                {
+                    Error();
+                }
+
+            } while (input != "exit" || input != "back");
+        }//Exit Game END
+    }//Class Tools END
 }
 

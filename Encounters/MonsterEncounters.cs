@@ -229,11 +229,11 @@ namespace Labb3.Encounters
                             Console.WriteLine(" -Chose your potion-");
                             int index = Tools.ConvToInt32(3);
 
-                            Console.WriteLine($" You open your bag and scramble for your {Consumable.itemList[index].name}healing potion..");
+                            Console.WriteLine($" You open your bag and scramble for your {Consumable.itemList[index].Name}healing potion..");
                             Console.WriteLine(" With a big chug you down the whole content.");
-                            Tools.GreenLine($"Health + {Consumable.itemList[index].bonus}");
+                            Tools.GreenLine($"Health + {Consumable.itemList[index].Bonus}");
 
-                            Player.player.Hp += Consumable.itemList[index].bonus;
+                            Player.player.Hp += Consumable.itemList[index].Bonus;
 
                             if (Player.player.Hp >= Player.player.MaxHp) //Corrects so that player cant heal for more than max hp
                             {
