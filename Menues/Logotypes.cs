@@ -74,5 +74,63 @@ namespace Labb3.Menues
             }
             Console.ResetColor();
         }
+
+        static public void Fight()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            string[] battle = {
+                "______       _   _   _      ",
+                "| ___ \\     | | | | | |     ",
+                "| |_/ / __ _| |_| |_| | ___ ",
+                "| ___ \\/ _` | __| __| |/ _ \\",
+                "| |_/ / (_| | |_| |_| |  __/",
+                "\\____/ \\__,_|\\__|\\__|_|\\___|\n"
+            };
+
+            foreach (var row in battle)
+            {
+                Console.WriteLine(row);
+            }
+            Console.ResetColor();
+        }
+        static public void Exit()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            string[] exit = {
+                " _____     _ _     _____                      ",
+                "|  ___|   (_) |   |  __ \\                     ",
+                "| |____  ___| |_  | |  \\/ __ _ _ __ ___   ___ ",
+                "|  __\\ \\/ / | __| | | __ / _` | '_ ` _ \\ / _ \\",
+                "| |___>  <| | |_  | |_\\ \\ (_| | | | | | |  __/",
+                "\\____/_/\\_\\_|\\__|  \\____/\\__,_|_| |_| |_|\\___|\n"
+            };
+
+            foreach (var row in exit)
+            {
+                Console.WriteLine(row);
+            }
+            Console.ResetColor();
+        }
+        static public void LoadGame()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            string[] load = {
+                " _                     _   _____                      ",
+                "| |                   | | |  __ \\                     ",
+                "| |     ___   __ _  __| | | |  \\/ __ _ _ __ ___   ___ ",
+                "| |    / _ \\ / _` |/ _` | | | __ / _` | '_ ` _ \\ / _ \\",
+                "| |___| (_) | (_| | (_| | | |_\\ \\ (_| | | | | | |  __/",
+                "\\_____/\\___/ \\__,_|\\__,_|  \\____/\\__,_|_| |_| |_|\\___|\n"
+            };
+
+            foreach (var row in load)
+            {
+                Console.WriteLine(row);
+            }
+            Console.ResetColor();
+        }
     }
 }

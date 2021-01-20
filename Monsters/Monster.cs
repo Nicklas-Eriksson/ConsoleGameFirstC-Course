@@ -6,9 +6,10 @@ using Labb3.Items;
 
 namespace Labb3.Monsters
 {
+    [Serializable]
+
     public class Monster : IMonster
-    {
-        public static Monster monster = new Monster();
+    {        
         public string name { get; set; } 
         public int lvl { get; set;} //level
         public int hp { get; set;} //health (hit points)
@@ -19,9 +20,9 @@ namespace Labb3.Monsters
 
         public void CheckIfAlive()
         {
-            if(monster.hp <= 0)
+            if(hp <= 0)
             {
-                monster.alive = false;
+                alive = false;
             }
         }
     }

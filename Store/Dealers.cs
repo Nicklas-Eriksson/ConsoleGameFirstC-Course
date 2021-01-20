@@ -9,6 +9,8 @@ using Labb3.Character;
 
 namespace Labb3.Store
 {
+    [Serializable]
+
     public static class Dealers
     {
         private static int input;
@@ -463,7 +465,7 @@ namespace Labb3.Store
             {
                 if (Player.player.Gold >= Weapon.weapon.WeaponList[index - 1].GoldCost)
                 {
-                    Tools.YellowLine($"\n-{Weapon.weapon.WeaponList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
+                    Tools.YellowLine($"\n -{Weapon.weapon.WeaponList[index - 1].GoldCost} Gold has been withdrawn from your pouch");
                     Player.player.Gold -= Weapon.weapon.WeaponList[index - 1].GoldCost;
                     purchaseOk = true;
                 }

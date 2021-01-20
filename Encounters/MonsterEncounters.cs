@@ -11,6 +11,8 @@ using Labb3.Menues;
 
 namespace Labb3.Encounters
 {
+    [Serializable]
+
     public class MonsterEncounters
     {
         private static Random rnd = new Random();
@@ -18,6 +20,9 @@ namespace Labb3.Encounters
 
         private static void TextEncounter()
         {
+            Console.Clear();
+            Logo.Fight();
+
             Tools.YellowLine("You decide to keep exploring the god-forsaken dungeon..");
             // Sleep(3000);
             Tools.YellowLine("You grab the doorknob to the next room and slowly turn it..");
@@ -34,6 +39,7 @@ namespace Labb3.Encounters
             Console.Clear();
 
             TextEncounter();
+            
 
             List<string> monsterNames = new List<string>() { "Goblin", "Thief", "Banshee", "Cultist", "Mutant", "Hell Hound", "Elder Thing", "Deep One", " Silent One", "Necromancer", "Deci", "Ogre", "Gargoyle", "Troll", "Nymph", "Kobold", "Satyr", "Decided Rat", "Giant Spider", "Rabid Goblin", "Giant Spider" };
             List<string> lvl10Monsters = new List<string>() { "Azathoth", "B'gnu-Thun", "Bokrug", "Cthulhu", "Dagon", "Dimensional Shambler", "Dunwich Horror", "Formless Spawn", "Ghatanothoa", "Gloon", "Gnoph-Keh", "Great Old One", "Yog-Sothoth", "Yuggoth", "Innsmouth", "Shoggoth", "Outer God", "Nightgaut", "Nyarlathotep" };
@@ -49,10 +55,11 @@ namespace Labb3.Encounters
                 {
                     name = monsterNames[monsterIndex],
                     lvl = Player.player.Lvl,
-                    hp = Player.player.Hp * 2,
-                    dmg = Player.player.Dmg / 2,
+                    hp = 100 * Player.player.Lvl,
+                    dmg = 50 * Player.player.Lvl,
                     expDrop = expDropArray[Player.player.Lvl],
-                    goldDrop = 100 * Player.player.Lvl
+                    goldDrop = 100 * Player.player.Lvl,
+                    alive = true
                 };
 
                 Fight(monster);
@@ -91,22 +98,25 @@ namespace Labb3.Encounters
             Tools.Yellow("||");
             Tools.GreenLine($"Health: {Player.player.Hp}");
             Tools.Yellow("||");
-            Tools.GreenLine($"Healing Potions: {Player.player.LesserPotion} flasks");
-            Tools.GreenLine($"Lesser: {Player.player.LesserPotion} flasks");
-            Tools.GreenLine($"Minor: {Player.player.MinorPotion} flasks");
-            Tools.GreenLine($"Major: {Player.player.MajorPotion} flasks");
+            Tools.GreenLine($"Healing Potions:");
+            Tools.Yellow("||");
+            Tools.GreenLine($"  -Lesser: {Player.player.LesserPotion} flasks");
+            Tools.Yellow("||");
+            Tools.GreenLine($"  -Minor: {Player.player.MinorPotion} flasks");
+            Tools.Yellow("||");
+            Tools.GreenLine($"  -Major: {Player.player.MajorPotion} flasks");
             Tools.YellowLine("-----------------------------\n");
         }
 
         static void FightingMenueText()
         {
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("=========================");
             Console.WriteLine("|| [1] Attack......... ||");//The fighting is turn based. First you strike, than the monster will attack you
             Console.WriteLine("|| [2] Block Attack... ||");//Block attack, take reduced/no dmg, and deal some back
             Console.WriteLine("|| [3] Healing.........||");//Take a swig from a potion, heals up health. Takes reduced damage while healing
             Console.WriteLine("|| [4] Run Away........||");//Tries to escape. Chanse to be hit on the way out
             Console.WriteLine("|| [5] Exit Game.......||");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("=========================");
         }
         static public void Fight(Monster monster)
         {
@@ -128,7 +138,8 @@ namespace Labb3.Encounters
                 wepName = "Fists";
             }
 
-            while (Player.player.Alive == true && Monster.monster.alive == true)
+            
+            while (Player.player.Alive == true && monster.alive == true)
             {
                 Console.Clear();
 
@@ -136,8 +147,7 @@ namespace Labb3.Encounters
                 FightingMenueText();
                 StatsDuringFight(monster);
 
-                //For deciding your options
-
+                
                 input = Tools.ConvToInt32(5);
 
                 switch (input)

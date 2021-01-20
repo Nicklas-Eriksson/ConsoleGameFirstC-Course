@@ -127,6 +127,7 @@ namespace Labb3.UtilityTools
         static public void ExitGame()
         {
             Console.Clear();
+            Logo.Exit();
 
             string input;
 

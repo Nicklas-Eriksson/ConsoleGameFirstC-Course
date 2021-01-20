@@ -22,7 +22,8 @@ namespace Labb3.Menues
             Tools.YellowLine("===========================");
             Tools.YellowLine("|| [1] Explore.......... ||");
             Tools.YellowLine("|| [2] Shop............. ||");
-            Tools.YellowLine("|| [3] Exit Game........ ||");
+            Tools.YellowLine("|| [3] Save Game........ ||");
+            Tools.YellowLine("|| [4] Exit Game........ ||");
             Tools.YellowLine("===========================\n");
 
             //Displays the stats for current charracter
@@ -71,7 +72,7 @@ namespace Labb3.Menues
             Console.Clear();
             MainMenuText();
 
-            input = Tools.ConvToInt32(3);
+            input = Tools.ConvToInt32(4);
 
             switch (input)
             {
@@ -105,7 +106,13 @@ namespace Labb3.Menues
                     Dealers.MainMenuStore();
                     break;
 
-                case 3://Exit Game
+                case 3://Save Game
+
+                    SaveOrLoad.Save();
+                    MainMenuSwitch();
+                    break;
+
+                case 4://Exit Game
 
                     Tools.ExitGame();
                     break;

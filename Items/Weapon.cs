@@ -4,6 +4,8 @@ using System.Text;
 
 namespace Labb3.Items
 {
+    [Serializable]
+
     public class Weapon
     {       
         public static Weapon weapon = new Weapon();

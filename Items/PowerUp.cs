@@ -7,6 +7,8 @@ using static System.Threading.Thread;
 
 namespace Labb3.Items
 {
+    [Serializable]
+
     public class PowerUp : IItem
     {
         public static PowerUp powerUp = new PowerUp();

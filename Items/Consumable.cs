@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Labb3.Items
 {
+    [Serializable]
+
     public class Consumable : IItem
     {
         public static Consumable pot = new Consumable();
