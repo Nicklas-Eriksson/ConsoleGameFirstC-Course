@@ -184,6 +184,9 @@ namespace Labb3.Store
                 Player.player.WeaponDmg = Weapon.weapon.WeaponList[input - 1].Power;
                 Player.player.WeaponIndex = input - 1;
                 /* WeaponIndex is a way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it */
+
+                Item.InventoryList.Add(Weapon.weapon.WeaponList[input - 1]); //Bugg
+                
                 Sleep(2500);
             }
 
@@ -387,11 +390,11 @@ namespace Labb3.Store
                     {
                         if (input == 1)
                         {
-                            Player.player.LesserPotion++;
+                            Player.player.MinorPotion++;
                         }
                         else if (input == 2)
                         {
-                            Player.player.MinorPotion++;
+                            Player.player.GreaterPotion++;
                         }
                         else if (input == 3)
                         {

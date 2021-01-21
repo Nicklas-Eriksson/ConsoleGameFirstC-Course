@@ -19,7 +19,8 @@ namespace Labb3.UtilityTools
         public static void Save()
         {
             Logo.SaveGame();
-            Sleep(3000);
+            Logo.GameSaved();
+            Sleep(1500);
 
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             string path = "saves/" + Player.player.Id.ToString();

@@ -62,8 +62,8 @@ namespace Labb3.Menues
             Console.Write(" Gold:");
             Tools.YellowLine($"{Player.player.Gold}\n");
             Console.WriteLine(" Healing Potions:");
-            Tools.GreenLine($"  Lesser: {Player.player.LesserPotion}");
-            Tools.GreenLine($"  Minor: {Player.player.MinorPotion}");
+            Tools.GreenLine($"  Lesser: {Player.player.MinorPotion}");
+            Tools.GreenLine($"  Minor: {Player.player.GreaterPotion}");
             Tools.GreenLine($"  Major: {Player.player.MajorPotion}\n");
         }
 

@@ -6,7 +6,7 @@ namespace Labb3.Items
 {
     [Serializable]
 
-    public class Weapon
+    public class Weapon : IItem
     {       
         public static Weapon weapon = new Weapon();
 
@@ -17,6 +17,7 @@ namespace Labb3.Items
         private int goldIfSold;
         private List<Weapon> weaponList = new List<Weapon>();
         private List<Weapon> currentWeapon = new List<Weapon>();
+
         //add a string trivia?
 
         public string Name { get => name; set => name = value; }
@@ -26,6 +27,8 @@ namespace Labb3.Items
         public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 2; }
         public List<Weapon> WeaponList { get => weaponList; set => weaponList = value; }
         public List<Weapon> CurrentWeapon { get => currentWeapon; set => currentWeapon = value; }
+        
+
 
 
         //Constructors
@@ -40,6 +43,14 @@ namespace Labb3.Items
             this.goldCost = goldCost;
             this.goldIfSold = goldIfSold;
         }
+        
+        //public List<IItem> Inventory()
+        //{
+        //    inventoryList = new List<IItem>();
+
+
+        //    return inventoryList;
+        //}
 
         void WeaponForge()
         {

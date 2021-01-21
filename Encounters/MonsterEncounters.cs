@@ -8,6 +8,7 @@ using Labb3.Character;
 using Labb3.Store;
 using static System.Threading.Thread;
 using Labb3.Menues;
+using System.Linq;
 
 namespace Labb3.Encounters
 {
@@ -134,12 +135,63 @@ namespace Labb3.Encounters
             Tools.Yellow("||");
             Tools.GreenLine($"Healing Potions:");
             Tools.Yellow("||");
-            Tools.GreenLine($"  -Lesser: {Player.player.LesserPotion} flasks");
+            Tools.GreenLine($"  -Lesser: {Player.player.MinorPotion} flasks");
             Tools.Yellow("||");
-            Tools.GreenLine($"  -Minor: {Player.player.MinorPotion} flasks");
+            Tools.GreenLine($"  -Minor: {Player.player.GreaterPotion} flasks");
             Tools.Yellow("||");
             Tools.GreenLine($"  -Major: {Player.player.MajorPotion} flasks");
             Tools.YellowLine("-----------------------------\n");
+        }
+        static private void ItemDrop()
+        {
+            var item = Item.StuffGenerator();
+
+            //20% chanse a weapon drops
+            int rndChanse = rnd.Next(0, 6);
+            int rndChanse2 = rnd.Next(0, 5);
+
+            //So weapons with index of 0 ti 14 can drop from mobs
+            int rndNr = rnd.Next(0, 3);
+            int rndNr2 = rnd.Next(3, 7);
+            int rndNr3 = rnd.Next(7, 11);
+            int rndNr4 = rnd.Next(11, 15);
+
+          
+
+            if (rndChanse == 0)
+            {
+                Tools.YellowLine("Loot spontaniously appears from thin air!");
+                Tools.YellowLine("Remarkable!\n");
+                Sleep(1400);
+                if (rndChanse2 <= 1)
+                {
+                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr].Name} has been added to your inventory!");
+                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr]);
+                }
+                else if(rndChanse2 == 2)
+                {
+                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr2].Name} has been added to your inventory!");
+                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr2]);
+                }
+                else if(rndChanse2 == 3)
+                {
+                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr3].Name} has been added to your inventory!");
+                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr3]);
+                }
+                else if(rndChanse2 == 4)
+                {
+                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr4].Name} has been added to your inventory!");
+                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr4]);
+                }
+                Sleep(2000);
+            }
+            else if(rndChanse >= 1)
+            {
+                Tools.GreenLine($"{item.Name} has been added to your inventory!");
+                Item.InventoryList.Add(item);
+            }
+
+
         }
 
         static void FightingMenueText()
@@ -153,11 +205,12 @@ namespace Labb3.Encounters
             Console.WriteLine("=========================");
         }
         static public void Fight(Monster monster)
-        {           
+        {
 
             //Player
+            int critNr = rnd.Next(0, 10);
             int pDmg = Player.player.Dmg + Player.player.WeaponDmg;
-            int pIndex = Player.player.WeaponIndex;
+            int pIndex = Player.player.WeaponIndex * (critNr / 5);
             string wepName;
 
             if (pIndex > 0)
@@ -188,7 +241,7 @@ namespace Labb3.Encounters
                     ////////////////
                     //   Attack  //
                     case 1:
-                           
+
                         Console.WriteLine($"\n You raise your {wepName} and attack the {monster.name}!");
                         //Sleep(3000);
 
@@ -282,11 +335,11 @@ namespace Labb3.Encounters
 
                             if (index == 1)
                             {
-                                Player.player.LesserPotion--;
+                                Player.player.MinorPotion--;
                             }
                             else if (index == 2)
                             {
-                                Player.player.MinorPotion--;
+                                Player.player.GreaterPotion--;
                             }
                             else if (index == 3)
                             {

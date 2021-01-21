@@ -17,28 +17,30 @@ namespace Labb3.Items
 
         private string name;
         private int goldCost;
+        private int goldIfSold;
         private int itemLevel;
         private int bonus;
 
         public string Name { get => name; set => name = value; }
         public int GoldCost { get => goldCost; set => goldCost = value; }
+        public int GoldIfSold { get => goldIfSold; set => goldIfSold = value; }
         public int ItemLevel { get => itemLevel; set => itemLevel = value; }
         public int Bonus { get => bonus; set => bonus = value; }
         
         public void Instantiate()
         {
             //Stamina buff
-            PowerUp lesserStamina = new PowerUp()
+            PowerUp minorStamina = new PowerUp()
             {
-                Name = "Lesser Stamina",
+                Name = "Minor Stamina",
                 GoldCost = 100,
                 ItemLevel = 1,
                 Bonus = 50,
 
             };
-            PowerUp minorStamina = new PowerUp()
+            PowerUp greaterStamina = new PowerUp()
             {
-                Name = "Minor Stamina",
+                Name = "Greater Stamina",
                 GoldCost = 200,
                 ItemLevel = 2,
                 Bonus = 100,
@@ -54,17 +56,17 @@ namespace Labb3.Items
             };
 
             //Strength buff
-            PowerUp lesserStrength = new PowerUp()
+            PowerUp minorStrength = new PowerUp()
             {
-                Name = "Lesser Strength",
+                Name = "Minor Strength",
                 GoldCost = 100,
                 ItemLevel = 1,
                 Bonus = 50,
 
             };
-            PowerUp minorStrength = new PowerUp()
+            PowerUp greaterStrength = new PowerUp()
             {
-                Name = "Minor Strength",
+                Name = "Greater Strength",
                 GoldCost = 200,
                 ItemLevel = 2,
                 Bonus = 100,
@@ -81,13 +83,13 @@ namespace Labb3.Items
 
             
             //Stamina
-            staminaList.Add(lesserStamina);//0
-            staminaList.Add(minorStamina);//1
+            staminaList.Add(minorStamina);//0
+            staminaList.Add(greaterStamina);//1
             staminaList.Add(majorStamina);//2
 
             //Strength
-            strengthList.Add(lesserStamina);//0
-            strengthList.Add(minorStamina);//1
+            strengthList.Add(minorStamina);//0
+            strengthList.Add(greaterStamina);//1
             strengthList.Add(majorStamina);//2
 
             Sleep(1300);

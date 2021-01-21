@@ -14,25 +14,26 @@ namespace Labb3.Items
 
         private string name;
         private int goldCost;
+        private int goldIfSold;
         private int itemLevel;
         private int bonus;
 
         public string Name { get => name; set => name = value; }
         public int GoldCost { get => goldCost; set => goldCost = value; }
+        public int GoldIfSold { get => goldIfSold; set => goldIfSold = value; }
         public int ItemLevel { get => itemLevel; set => itemLevel = value; }
         public int Bonus { get => bonus; set => bonus = value; }
 
-
         public void Instantiate()
         {
-            Consumable lesserHealing = new Consumable()
+            Consumable minorHealing = new Consumable()
             {
                 Name = "Lesser Healing Potion",
                 GoldCost = 50,
                 ItemLevel = 1,
                 Bonus = 50
             };
-            Consumable minorHealing = new Consumable()
+            Consumable greaterHealing = new Consumable()
             {
                 Name = "Minor Healing Potion",
                 GoldCost = 150,
@@ -47,8 +48,8 @@ namespace Labb3.Items
                 Bonus = 400
             };
 
-            itemList.Add(lesserHealing);
             itemList.Add(minorHealing);
+            itemList.Add(greaterHealing);
             itemList.Add(majorHealing);
 
         }

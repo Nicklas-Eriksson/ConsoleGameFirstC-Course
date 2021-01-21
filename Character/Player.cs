@@ -25,8 +25,8 @@ namespace Labb3.Character
         private int weaponDmg = 0; //weapon damage. dmg and weaponDmg will be added together during combat
         private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon
         private int gold = 10000; //Will be sufficient for 1 of the 3 starter weapons in the store
-        private int lesserPotion = 1; //can be obtained from shop 
-        private int minorPotion = 0; //can be obtained from shop 
+        private int minorPotion = 1; //can be obtained from shop 
+        private int greaterPotion = 0; //can be obtained from shop 
         private int majorPotion = 0; //can be obtained from  
         private int killsToLevel = 1; //Kills needed for each lvl     
         private List<Weapon> inventoryList = new List<Weapon>();
@@ -43,8 +43,8 @@ namespace Labb3.Character
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
         public int Gold { get => gold; set => gold = value; }
-        public int LesserPotion { get => lesserPotion; set => lesserPotion = value; }
         public int MinorPotion { get => minorPotion; set => minorPotion = value; }
+        public int GreaterPotion { get => greaterPotion; set => greaterPotion = value; }
         public int MajorPotion { get => majorPotion; set => majorPotion = value; }
         public int KillsToLevel { get => killsToLevel; set => killsToLevel = Exp * Lvl; }        
         public List<Weapon> InventoryList { get => inventoryList; set => inventoryList = value; }
@@ -111,7 +111,9 @@ namespace Labb3.Character
                 Console.Write("Gold:");
                 Tools.YellowLine($"{player.Gold}");
                 Console.Write("Potions:");
-                Tools.GreenLine($"{player.LesserPotion}");
+                Tools.GreenLine($"  -Minor Healing Potions: {player.MinorPotion}");
+                Tools.GreenLine($"  -Greater Healing Potions: {player.GreaterPotion}");
+                Tools.GreenLine($"  -Major Healing Potions: {player.MajorPotion}");
             }
         }
     }
