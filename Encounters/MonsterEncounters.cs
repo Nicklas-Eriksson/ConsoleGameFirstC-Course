@@ -39,7 +39,7 @@ namespace Labb3.Encounters
             Console.Clear();
 
             TextEncounter();
-            
+
 
             List<string> monsterNames = new List<string>() { "Goblin", "Thief", "Banshee", "Cultist", "Mutant", "Hell Hound", "Elder Thing", "Deep One", " Silent One", "Necromancer", "Deci", "Ogre", "Gargoyle", "Troll", "Nymph", "Kobold", "Satyr", "Decided Rat", "Giant Spider", "Rabid Goblin", "Giant Spider" };
             List<string> lvl10Monsters = new List<string>() { "Azathoth", "B'gnu-Thun", "Bokrug", "Cthulhu", "Dagon", "Dimensional Shambler", "Dunwich Horror", "Formless Spawn", "Ghatanothoa", "Gloon", "Gnoph-Keh", "Great Old One", "Yog-Sothoth", "Yuggoth", "Innsmouth", "Shoggoth", "Outer God", "Nightgaut", "Nyarlathotep" };
@@ -47,28 +47,62 @@ namespace Labb3.Encounters
             int[] expDropArray = new int[9] { 20, 55, 66, 100, 160, 266, 458, 800, 1422 }; //will use player lvl as index to face off against same lvl monster
 
             int monsterIndex = rnd.Next(0, monsterNames.Count);
-
+            int bonusDmg = rnd.Next(5, 20);
+            int bonusGold = rnd.Next(5, 20);
+            int upOrDown = rnd.Next(0, 2);
 
             if (Player.player.Lvl < 9)
             {
-                Monster monster = new Monster()//Balance this 
+                if (upOrDown == 1 && Player.player.Lvl >= 2) //33% monster is 1 lvl lower
                 {
-                    name = monsterNames[monsterIndex],
-                    lvl = Player.player.Lvl,
-                    hp = 100 * Player.player.Lvl,
-                    dmg = 50 * Player.player.Lvl,
-                    expDrop = expDropArray[Player.player.Lvl],
-                    goldDrop = 100 * Player.player.Lvl,
-                    alive = true
-                };
+                    Monster monster = new Monster()//Balance this 
+                    {
+                        name = monsterNames[monsterIndex],
+                        lvl = Player.player.Lvl - 1,
+                        hp = 100 * (Player.player.Lvl - 1),
+                        dmg = 50 * (Player.player.Lvl + bonusDmg - 1),
+                        expDrop = expDropArray[Player.player.Lvl],
+                        goldDrop = 100 + bonusGold * Player.player.Lvl,
+                        alive = true
+                    };
+                    Fight(monster);
+                }
+                else if (upOrDown == 2)//33% same lvl as player
+                {
+                    Monster monster = new Monster()//Balance this 
+                    {
+                        name = monsterNames[monsterIndex],
+                        lvl = Player.player.Lvl,
+                        hp = 100 * Player.player.Lvl,
+                        dmg = 50 * Player.player.Lvl + bonusDmg,
+                        expDrop = expDropArray[Player.player.Lvl],
+                        goldDrop = 100 + bonusGold * Player.player.Lvl,
+                        alive = true
+                    };
+                    Fight(monster);
+                }
+                else //33% monster is 1 lvl higher
+                {
+                    Monster monster = new Monster()//Balance this 
+                    {
+                        name = monsterNames[monsterIndex],
+                        lvl = Player.player.Lvl + 1,
+                        hp = 100 * (Player.player.Lvl + 1),
+                        dmg = 50 * (Player.player.Lvl + bonusDmg + 1),
+                        expDrop = expDropArray[Player.player.Lvl],
+                        goldDrop = 100 + bonusGold * Player.player.Lvl,
+                        alive = true
+                    };
+                    Fight(monster);
+                }
 
-                Fight(monster);
+
             }
             else if (Player.player.Lvl >= 9)
             {
                 Monster monster = new Monster()//Balance this
                 {
-                    name = monsterNames[monsterIndex],
+                    name = lvl10Monsters[monsterIndex],
                     lvl = Player.player.Lvl,
                     hp = 10000,
                     dmg = 500,
@@ -119,10 +153,7 @@ namespace Labb3.Encounters
             Console.WriteLine("=========================");
         }
         static public void Fight(Monster monster)
-        {
-            //Montster
-            int monsterChanseOnHit = rnd.Next(1, 3); //33% chance to hit on escape
-            int dodge = rnd.Next(1, 5); //20% that the attack is dodged
+        {           
 
             //Player
             int pDmg = Player.player.Dmg + Player.player.WeaponDmg;
@@ -138,16 +169,18 @@ namespace Labb3.Encounters
                 wepName = "Fists";
             }
 
-            
+
             while (Player.player.Alive == true && monster.alive == true)
             {
+                int monsterChanseOnHit = rnd.Next(1, 3); //33% chance to hit on escape
+                int dodge = rnd.Next(1, 5); //20% that the attack is dodged
                 Console.Clear();
 
                 //UI
                 FightingMenueText();
                 StatsDuringFight(monster);
 
-                
+
                 input = Tools.ConvToInt32(5);
 
                 switch (input)
@@ -155,9 +188,7 @@ namespace Labb3.Encounters
                     ////////////////
                     //   Attack  //
                     case 1:
-
-                        //Remove monster index?
-
+                           
                         Console.WriteLine($"\n You raise your {wepName} and attack the {monster.name}!");
                         //Sleep(3000);
 
@@ -197,7 +228,6 @@ namespace Labb3.Encounters
                         Sleep(3000);
                         monster.CheckIfAlive();
                         Player.CheckIfLvlUp(); //Cheks if you can level up
-
 
 
                         Console.WriteLine($" After your hits has landed the {monster.name} hits you with a sweeping strike!");

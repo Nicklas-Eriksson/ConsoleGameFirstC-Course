@@ -9,26 +9,29 @@ using System.Collections.Generic;
 using System.Media;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-
+using System.Threading;
 
 namespace Labb3.StartGame
 {
     [Serializable]
     public static class Start
     {
+
         static public void Game()
         {
-            //SoundPlayer player = new SoundPlayer();
-            //player.SoundLocation = AppDomain.CurrentDomain.BaseDirectory + @"C:\Users\salk1\Music\NinjaMusic.mp3";
-            //player.Play();
+            Console.Title = "Dungeons of Solitude";
+            Console.WindowHeight = 55;
+            Console.WindowWidth = 100;
 
+            //Music
+            SoundPlayer music = new SoundPlayer("music/NinjaMusicWAV.wav");
+            //SoundPlayer music2 = new SoundPlayer("music/BlueLanternWAV.wav");
+            music.PlayLooping();
 
-            Console.Title = "Dungeons of Daggorath";
-            //Logo.DoD();
-            //Sleep(3500);
-            //Logo.RdyP1();
-            //Sleep(2500);
-            //Messange.GameInfo();
+            //Logo.SaveGame();
+            //Console.ReadKey();
+
+            
 
             if (!Directory.Exists("saves"))//Fixa så den inte crachar om inte mappen finns
             {
@@ -44,13 +47,14 @@ namespace Labb3.StartGame
             //Messange.Intro();
             MenuOptions.MainMenuSwitch();
 
+            music.Stop();
 
         }
 
         private static void NewGameOrLoadGame()
         {
             Console.Clear();
-            Logo.DoD();
+            Logo.DoS();
 
             Tools.YellowLine("=====================");
             Tools.YellowLine("|| [1] New Game... ||");

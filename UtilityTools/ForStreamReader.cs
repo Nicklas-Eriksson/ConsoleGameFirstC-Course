@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Text;
 using Labb3.Character;
 using Labb3.Menues;
+using static System.Threading.Thread;
 
 namespace Labb3.UtilityTools
 {  
@@ -14,8 +15,12 @@ namespace Labb3.UtilityTools
     {
         public static int idCounter = 0;
 
+        
         public static void Save()
         {
+            Logo.SaveGame();
+            Sleep(3000);
+
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             string path = "saves/" + Player.player.Id.ToString();
             FileStream file = File.Open(path, FileMode.OpenOrCreate);

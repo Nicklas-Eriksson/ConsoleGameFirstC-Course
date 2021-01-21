@@ -17,7 +17,7 @@ namespace Labb3.Menues
         private static void MainMenuText()
         {
             Console.Clear();
-            Logo.DoD();
+            Logo.DoS();
 
             Tools.YellowLine("===========================");
             Tools.YellowLine("|| [1] Explore.......... ||");
