@@ -19,10 +19,10 @@ namespace Labb3.Character
         private bool alive = true;
         private int lvl = 1; //level
         private int exp = 0; //experience points
-        private int maxExp = 0; //Max exp before lvl up
+        private int maxExp = 50; //Max exp before lvl up
         private int hp = 100; //health
         private int maxHp = 100; //health
-        private int dmg = 10; //damage
+        private int baseDamage = 10; //damage
         private int weaponDmg = 0; //weapon damage. dmg and weaponDmg will be added together during combat
         private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon
         private int gold = 10000; //Will be sufficient for 1 of the 3 starter weapons in the store
@@ -41,17 +41,17 @@ namespace Labb3.Character
         public bool Alive { get => alive; set => alive = value; }
         public int Lvl { get => lvl; set => lvl = value; }
         public int Exp { get => exp; set => exp = MaxExp / KillsToLevel; }
-        public int MaxExp { get => maxExp; set => maxExp = maxExp * Lvl; }
+        public int MaxExp { get => maxExp; set => maxExp = maxExp * (Lvl * 2); }
         public int Hp { get => hp; set => hp = value; }
         public int MaxHp { get => maxHp; set => maxHp = value; }
-        public int Dmg { get => dmg; set => dmg = value; }
+        public int BaseDamage { get => baseDamage; set => baseDamage = value; }
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
         public int Gold { get => gold; set => gold = value; }
         public int MinorPotion { get => minorPotion; set => minorPotion = value; }
         public int GreaterPotion { get => greaterPotion; set => greaterPotion = value; }
         public int MajorPotion { get => majorPotion; set => majorPotion = value; }
-        public int KillsToLevel { get => killsToLevel; set => killsToLevel = Exp * Lvl; }       
+        public int KillsToLevel { get => killsToLevel; set => killsToLevel = 1 * Lvl; }       
         public static List<Weapon> MyWeapons { get => myWeapons; set => myWeapons = value; }
         public static List<Item> MyItems { get => myItems; set => myItems = value; }
         public static List<IItem> ItemList { get => itemList; set => itemList = value; }
@@ -70,7 +70,7 @@ namespace Labb3.Character
                     player.MaxHp += 50 * player.Lvl;
                     player.Hp = player.MaxHp;
 
-                    player.Dmg += 20 * player.lvl;
+                    player.BaseDamage += 20 * player.lvl;
 
                     Tools.Yellow("\n Level up!"); Tools.GreenLine($"New level = {player.Lvl}");
                     Tools.GreenLine($"+{50 * player.Lvl} health");
@@ -121,7 +121,7 @@ namespace Labb3.Character
             if (player.Name == "Hakk" || player.Name == "hakk" || player.Name == "Robin" || player.Name == "Robin Kamo" || player.Name == "robin" || player.Name == "robin kamo")
             {
                 player.MaxHp = 1000000;
-                player.Dmg = 1000000;
+                player.BaseDamage = 1000000;
                 player.Gold = 1000000;
                 player.MajorPotion = 100;
 
@@ -129,7 +129,7 @@ namespace Labb3.Character
                 Console.Write("Health:");
                 Tools.GreenLine($"{player.MaxHp}");
                 Console.Write("Power:");
-                Tools.RedLine($"{player.Dmg}");
+                Tools.RedLine($"{player.BaseDamage}");
                 Console.Write("Gold:");
                 Tools.YellowLine($"{player.Gold}");
                 Console.Write("Potions:");

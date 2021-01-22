@@ -40,32 +40,38 @@ namespace Labb3.Menues
             Tools.YellowLine($"{Player.player.Name}");
             Console.Write(" Health:");
             Tools.GreenLine($"{Player.player.MaxHp}"); ;
-            Console.Write(" Power:");
-            Tools.RedLine($"{Player.player.Dmg}");
+            Console.Write(" Base damage:");
+            Tools.RedLine($"{Player.player.BaseDamage}");
             Console.Write($" Level:");
             Tools.YellowLine($"{Player.player.Lvl}");
             Console.Write($" Experience:");
             Tools.GreenLine($"{Player.player.Exp} / {Player.player.MaxExp}");
+            int wepIndex = Player.player.WeaponIndex;
+
+            if (wepIndex == -1)
+            {
+                Tools.PurpleLine("\n Fists + 20 attack damage");
+
+            }
 
             Tools.PurpleLine("\n -Leather Pouch-");
             List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
 
-            int wepIndex = Player.player.WeaponIndex;
             if (wepIndex >= 0)
             {
                 Console.Write(" Weapon:");
-                Tools.PurpleLine($"{weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} damage");
+                Tools.PurpleLine($"{weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} attack damage");
             }
             else if (wepIndex == -1)
             {
                 Console.Write(" Weapon:");
-                Tools.PurpleLine("Fists");
+                Tools.PurpleLine("None");
             }
             Console.Write(" Gold:");
             Tools.YellowLine($"{Player.player.Gold}\n");
             Console.WriteLine(" Healing Potions:");
-            Tools.GreenLine($"  Lesser: {Player.player.MinorPotion}");
-            Tools.GreenLine($"  Minor: {Player.player.GreaterPotion}");
+            Tools.GreenLine($"  Minor: {Player.player.MinorPotion}");
+            Tools.GreenLine($"  Greater: {Player.player.GreaterPotion}");
             Tools.GreenLine($"  Major: {Player.player.MajorPotion}\n");
         }
 
@@ -109,7 +115,7 @@ namespace Labb3.Menues
                     break;
 
                 case 3://View Inventor
-                                        
+
                     ViewInventory();
                     break;
 
@@ -132,7 +138,7 @@ namespace Labb3.Menues
             Logo.Inventory();
             InventoryMenu();
             Player.DisplayInventory();
-            
+
             Console.WriteLine();
             InventorySwitch();
 
@@ -155,10 +161,10 @@ namespace Labb3.Menues
                 case 1://Change Weapon
                     Tools.YellowLine("\n Enter the number of the Weapon you would like to equip.\n");
                     input = Tools.ConvToInt32(_inventory.Count);
-                    if(_inventory[input-1] is Weapon)
+                    if (_inventory[input - 1] is Weapon)
                     {
                         int foundIndex = 0;
-                        bool contains = Weapon.weapon.WeaponList.Contains(_inventory[input-1] as Weapon);
+                        bool contains = Weapon.weapon.WeaponList.Contains(_inventory[input - 1] as Weapon);
                         if (contains)
                         {
                             foundIndex = Weapon.weapon.WeaponList.IndexOf(_inventory[input - 1] as Weapon);
@@ -174,7 +180,7 @@ namespace Labb3.Menues
                         Tools.Error();
                         Sleep(1300);
                         Tools.RedLine("That item is not a weapon!");
-                        InventorySwitch();                        
+                        InventorySwitch();
                     }
 
                     break;

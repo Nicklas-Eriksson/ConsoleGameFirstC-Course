@@ -234,7 +234,7 @@ namespace Labb3.Encounters
 
             //Player
             int critNr = rnd.Next(0, 10);
-            int pDmg = Player.player.Dmg + Player.player.WeaponDmg;
+            int pDmg = Player.player.BaseDamage + Player.player.WeaponDmg;
             int pIndex = Player.player.WeaponIndex * (critNr / 5);
             string wepName;
 

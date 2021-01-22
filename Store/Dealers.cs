@@ -125,8 +125,8 @@ namespace Labb3.Store
             Tools.YellowLine("==============================================================");
             Console.Write(" Health:");
             Tools.GreenLine($"{Player.player.MaxHp}");
-            Console.Write(" Power:");
-            Tools.RedLine($"{Player.player.Dmg}");
+            Console.Write(" Base damage:");
+            Tools.RedLine($"{Player.player.BaseDamage}");
             Console.Write(" Gold:");
             Tools.YellowLine($"{Player.player.Gold}");
 
@@ -137,7 +137,7 @@ namespace Labb3.Store
             }
             else if (Player.player.WeaponIndex < 0)
             {
-                Console.WriteLine(" Weapon: Fists +0 dmg\n");
+                Tools.PurpleLine("Weapon: Fists +20 attack damage\n");
             }
         }
 
@@ -145,7 +145,7 @@ namespace Labb3.Store
         {
             Console.WriteLine("------------------------------");
             Tools.YellowLine($"[{nr + 1}]: {Weapon.weapon.WeaponList[nr].Name}");
-            Tools.Yellow($"Weapon power: +{Weapon.weapon.WeaponList[nr].Power} damage");
+            Tools.Yellow($"Weapon damage: +{Weapon.weapon.WeaponList[nr].Power} damage");
 
             //This if statement displays how much + or - dmg the weapons in the store gives vs current weapon
             if (Player.player.WeaponIndex >= 0) //Check if higher since default weapon index for fist is -1
@@ -156,7 +156,7 @@ namespace Labb3.Store
                 }
                 else if (Weapon.weapon.WeaponList[nr].Name == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name)
                 {
-                    Tools.BlueLine($"  -Current Weapon-");
+                    Tools.BlueLine($"  -Equipped Weapon-");
                 }
                 else if (Weapon.weapon.WeaponList[nr].Power < Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
                 {
@@ -196,7 +196,6 @@ namespace Labb3.Store
                 Player.MyWeapons.Add(Weapon.weapon.WeaponList[input - 1]);//Should be able to save a list with an implemented interface, but it did not work for me somehow.
                 
 
-
                 Sleep(2500);
             }
 
@@ -211,26 +210,18 @@ namespace Labb3.Store
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("===========================        ==================== ");
-            Tools.YellowLine("|| ------Power-Ups------ ||          --Player Stats-- ");
+            Tools.YellowLine("|| ------Power-Ups------  ||          --Player Stats-- ");
             Tools.YellowLine($"|| [1] Buy Stamina...... ||          Max Health: {Player.player.MaxHp} ");
-            Tools.YellowLine($"|| [2] Buy Strength..... ||          Attack Damage: {Player.player.Dmg} ");
+            Tools.YellowLine($"|| [2] Buy Strength..... ||          Attack Damage: {Player.player.BaseDamage} ");
             Tools.YellowLine($"|| [3] Back............. ||          Gold : {Player.player.Gold} gold ");
             Tools.YellowLine("===========================        =====================\n");
 
             Tools.YellowLine("Okey, listen up!");
             Tools.YellowLine("There are two different types of power-ups..");
-            Tools.Green("Stamina:"); Tools.YellowLine("Increases your maximum health.");
-            Tools.Red("Strength:"); Tools.YellowLine("Increases your damage.\n");
-            Tools.YellowLine("Each type has 3 different degrees of effectiveness:");
-            Tools.YellowLine("-Lesser: +50 bonus for 100 gold");
-            Tools.YellowLine("-Minor: +100 bonus for 200 gold");
-            Tools.YellowLine("-Major: +150 bonus for 300 gold\n");
-            Tools.RedLine("   :~:           :~:   ");
-            Tools.RedLine("   | |           | |   ");
-            Tools.RedLine("  .' '.         .' '.  ");
-            Tools.RedLine(".'     '.     .'     '.");
-            Tools.RedLine("|  Sta  |     |  Str  |");
-            Tools.RedLine("'.......'     '.......'\n");
+            Tools.Green("Stamina:"); Tools.YellowLine("Increases your max health.");
+            Tools.Red("Strength:"); Tools.YellowLine("Increases your attack damage.\n");
+           
+           
         }
         private static void BuyPowerUpSwitch()
         {
@@ -273,12 +264,26 @@ namespace Labb3.Store
             Tools.Yellow("-Minor:"); Tools.Green("+50 hp"); Tools.YellowLine("for 100 gold");
             Tools.Yellow("-Greater:"); Tools.Green("+100 hp"); Tools.YellowLine("for 200 gold");
             Tools.Yellow("-Major:"); Tools.Green("+150 hp"); Tools.YellowLine("for 300 gold\n");
-            Tools.RedLine("   :~:     ");
-            Tools.RedLine("   | |     ");
-            Tools.RedLine("  .' '.    ");
-            Tools.RedLine(".'     '.  ");
-            Tools.RedLine("|  Sta  |  ");
-            Tools.RedLine("'.......'\n");
+            Tools.RedLine(@"
+        00000000000           000000000000         
+      00000000_____00000   000000_____0000000
+    0000000_____________000______________00000
+   0000000_______________0_________________0000
+  000000____________________________________0000
+  00000_____________________________________ 0000
+ 00000________________STAMINA________________00000
+ 00000_____________________________________000000
+  000000_________________________________0000000
+   0000000______________________________0000000
+     000000____________________________000000
+       000000________________________000000
+          00000_____________________0000
+             0000_________________0000
+               0000_____________000
+                 000_________000
+                    000_____00                     
+                      00__00                       
+                        00   ");
         }
         private static void StrengthText()
         {
@@ -294,12 +299,40 @@ namespace Labb3.Store
             Tools.Yellow("-Minor:"); Tools.Red("+50 damage"); Tools.YellowLine("for 100 gold");
             Tools.Yellow("-Greater:"); Tools.Red("+100 damage"); Tools.YellowLine("for 200 gold");
             Tools.Yellow("-Major:"); Tools.Red("+150 damage"); Tools.YellowLine("for 300 gold\n");
-            Tools.RedLine("   :~:     ");
-            Tools.RedLine("   | |     ");
-            Tools.RedLine("  .' '.    ");
-            Tools.RedLine(".'     '.  ");
-            Tools.RedLine("|  Str  |  ");
-            Tools.RedLine("'.......'\n");
+            Tools.RedLine(@"
+              $$$$$$$$$$
+             $$__$_____$$$$$
+             $$_$$__$$____$$$$$$$$
+            $$_$$__$$$$$________$$$
+           $$_$$__$$__$$_$$$__$$__$$
+           $$_$$__$__$$__$$$$$$$$__$$
+            $$$$$_$$_$$$_$$$$$$$$_$$$
+             $$$$$$$$$$$$$_$$___$_$$$$
+                $$_$$$      $$$$$_$$$$
+                 $$$$       $$$$$___$$$
+                           $$_$$____$$$$
+                           $$_$$____$$$$$
+                          $$$$$_____$$$$$$
+                         $__$$_______$$$$$
+                        $$$_$$________$$$$$
+                        $$$___________$$$$$
+                 $$$$   $$____________$$$$$$
+  $$$$$$$$    $$$$$$$$$$ $____________$$$_$$
+ $$$$$$$$$$$$$$$______$$$$$$$___$$____$$_$$$
+$$________$$$$__________$_$$$___$$$_____$$$$
+$$______$$$_____________$$$$$$$$$$$$$$$$$_$$
+$$______$$_______________$$_$$$$$$$$$$$$$$$
+$$_____$_$$$$$__________$$$_$$$$$$$$$$$$$$$
+$$___$$$__$$$$$$$$$$$$$$$$$__$$$$$$$$$$$$$
+$$_$$$$_____$$$$$$$$$$$$________$$$$$$__$
+$$$$$$$$$$$$$$_________$$$$$______$$$$$$$
+$$$$_$$$$$______________$$$$$$$$$$$$$$$$
+$$__$$$$_____$$___________$$$$$$$$$$$$$
+$$_$$$$$$$$$$$$____________$$$$$$$$$$
+$$_$$$$$$$hg$$$____$$$$$$$$__$$$
+$$$$  $$$$$$$$$$$$$$$$$$$$$$$$
+$$         $$$$$$$$$$$$$$$     ");
+            
         }
         private static void BuyStaminaSwitch()
         {
@@ -319,6 +352,7 @@ namespace Labb3.Store
                         Player.player.Hp += PowerUp.staminaList[nr - 1].Bonus;
                         Tools.YellowLine("\n Max health increased!");
                         Tools.GreenLine($"+{PowerUp.staminaList[nr - 1].Bonus}.");
+                        Tools.RedLine($"-{PowerUp.staminaList[nr - 1].GoldCost}");
                         Sleep(1500);
                     }
                     BuyStaminaSwitch();
@@ -343,9 +377,10 @@ namespace Labb3.Store
                     purchaseOk = GoldWithdraw(nr - 1, "power-up");
                     if (purchaseOk)
                     {
-                        Player.player.Dmg += PowerUp.strengthList[nr - 1].Bonus;
+                        Player.player.BaseDamage += PowerUp.strengthList[nr - 1].Bonus;
                         Tools.YellowLine("\n The power flows through you!");
                         Tools.GreenLine($"+{PowerUp.strengthList[nr - 1].Bonus} damage.");
+                        Tools.RedLine($"-{PowerUp.strengthList[nr - 1].GoldCost}");
                         Sleep(1500);
                     }
                     BuyStrengthSwitch();
