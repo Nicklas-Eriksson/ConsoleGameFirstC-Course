@@ -18,6 +18,7 @@ namespace Labb3.UtilityTools
         
         public static void Save()
         {
+            Console.Clear();
             Logo.SaveGame();
             Logo.GameSaved();
             Sleep(1500);

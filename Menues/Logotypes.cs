@@ -57,7 +57,6 @@ ______               _        ______ _                         _____
 
         }
 
-
         static public void Fight()
         {
             Console.Clear();
@@ -119,7 +118,7 @@ ______ _       _     _
             sg.ToCharArray();
 
             //So it looks cool when you are saving.. Even tho the saving process does not take this long...
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 foreach (var item in sg)
                 {

@@ -10,19 +10,19 @@ namespace Labb3.Monsters
 
     public class Monster : IMonster
     {        
-        public string name { get; set; } 
-        public int lvl { get; set;} //level
-        public int hp { get; set;} //health (hit points)
-        public int dmg { get; set;} //damage
-        public int expDrop { get; set;} //experience point drop. Obtained by player by killing monster
-        public int goldDrop { get; set; }//Obtained by player by killing monster
-        public bool alive { get; set; }
+        public string Name { get; set; } 
+        public int Lvl { get; set;} //level
+        public int Hp { get; set;} //health (hit points)
+        public int Dmg { get; set;} //damage
+        public int ExpDrop { get; set;} //experience point drop. Obtained by player by killing monster
+        public int GoldDrop { get; set; }//Obtained by player by killing monster
+        public bool Alive { get; set; }
 
         public void CheckIfAlive()
         {
-            if(hp <= 0)
+            if(Hp <= 0)
             {
-                alive = false;
+                Alive = false;
             }
         }
     }

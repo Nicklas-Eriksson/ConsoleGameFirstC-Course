@@ -1,9 +1,10 @@
 ﻿using Labb3.Character;
 using Labb3.Menues;
+using Labb3.StartGame;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading;
+using static System.Threading.Thread;
 
 namespace Labb3.UtilityTools
 {
@@ -99,7 +100,7 @@ namespace Labb3.UtilityTools
                     Player.player.Gold += 1000000;
                     Tools.GreenLine("Congratulations, you are now filthy rich!\n" +
                         "+1 Million gold added to pouch");
-                    Thread.Sleep(3000);
+                    Sleep(3000);
                     MenuOptions.MainMenuSwitch();
                 }
                 else if (!success && input == "ihavethepower")//lvl 10 cheat
@@ -107,7 +108,7 @@ namespace Labb3.UtilityTools
                     Player.player.Lvl = 10;//lvl 10 cheat
                     Tools.GreenLine("Whooow! You grow up fast dont you!?");
                     Tools.GreenLine("Character level: 10");
-                    Thread.Sleep(3000);
+                    Sleep(3000);
                     MenuOptions.MainMenuSwitch();
                 }
                 //Cheat codes END
@@ -130,58 +131,90 @@ namespace Labb3.UtilityTools
             Logo.Exit();
 
             string input;
-
-            Tools.YellowLine("Are you sure you want to exit?");
-            Tools.Yellow("To confirm type");
-            Tools.RedLine("\"exit\".");
-            Tools.Yellow("To go back type");
-            Tools.RedLine("\"back\".");
-
-            do
+            if (Player.player.Alive == true)
             {
-                Tools.Yellow("Option: ");
-                input = Console.ReadLine().Trim().ToLower();
+                Tools.YellowLine("Are you sure you want to exit?");
+                Tools.Yellow("To confirm type");
+                Tools.RedLine("\"exit\".");
+                Tools.Yellow("To go back type");
+                Tools.RedLine("\"back\".");
 
-                if (input == "exit")
+                do
                 {
-                    Tools.YellowLine("=========================");
-                    Tools.YellowLine("|| Save you exit game? ||");
-                    Tools.YellowLine("|| [1] Yes.............||");
-                    Tools.YellowLine("|| [2] Hell no.........||");
-                    Tools.YellowLine("=========================");
+                    Tools.Yellow("Option: ");
+                    input = Console.ReadLine().Trim().ToLower();
 
-                    int nr = Tools.ConvToInt32(2);
-
-                    switch (nr)
+                    if (input == "exit")
                     {
-                        case 1:
-                            SaveOrLoad.Save();
-                            Tools.YellowLine("Thank you for playing my game");
-                            Thread.Sleep(1500);
-                            Tools.RedLine("Exiting Game..");
-                            Thread.Sleep(1400);
-                            Environment.Exit(0);
-                            break;
-                        case 2:
-                            Tools.YellowLine("Not all progress is good progress I guess!");
-                            Tools.YellowLine("Thank you for playing my game");
-                            Thread.Sleep(1500);
-                            Tools.RedLine("Exiting Game..");
-                            Thread.Sleep(1400);
-                            Environment.Exit(0);
-                            break;
-                    }                    
-                }
-                else if (input == "back")
+                        Console.Clear();
+                        Logo.Exit();
+
+                        Tools.YellowLine("===========================");
+                        Tools.YellowLine("|| Save before you exit? ||");
+                        Tools.YellowLine("|| [1] Yes...............||");
+                        Tools.YellowLine("|| [2] Hell no...........||");
+                        Tools.YellowLine("===========================\n");
+
+                        int nr = Tools.ConvToInt32(2);
+
+                        switch (nr)
+                        {
+                            case 1:
+                                SaveOrLoad.Save();
+                                Tools.YellowLine("\n Thank you for playing my game");
+                                Sleep(1500);
+                                Tools.RedLine("Exiting Game..");
+                                Sleep(1400);
+                                Environment.Exit(0);
+                                break;
+                            case 2:
+                                Tools.YellowLine("\n Not all progress is good progress I guess!");
+                                Tools.YellowLine("Thank you for playing my game");
+                                Sleep(1500);
+                                Tools.RedLine("Exiting Game..");
+                                Sleep(1400);
+                                Environment.Exit(0);
+                                break;
+                        }
+                    }
+                    else if (input == "back")
+                    {
+                        MenuOptions.MainMenuSwitch();
+                    }
+                    else
+                    {
+                        Error();
+                    }
+
+                } while (input != "exit" || input != "back");
+            }//if (alive == true) END
+            else if(Player.player.Alive == false)
+            {
+                Tools.RedLine("You died! Better luck next time!");
+                Sleep(1400);
+                Tools.YellowLine("One more time?!");
+                Tools.YellowLine("==================");
+                Tools.YellowLine("|| [1] Yes........");
+                Tools.YellowLine("|| [2] Hell no!...");
+                Tools.YellowLine("==================");
+
+                int nr = Tools.ConvToInt32(2);
+                if(nr == 1)
                 {
-                    MenuOptions.MainMenuSwitch();
+                    Start.NewGame();
                 }
                 else
                 {
-                    Error();
-                }
+                    Tools.YellowLine("Well.. Not every one can die a hero!");
+                    Sleep(1400);
+                    Tools.YellowLine("Thank you for playing my game");
+                    Sleep(1400);
+                    Tools.RedLine("Exiting Game..");
+                    Sleep(1400);
+                    Environment.Exit(0);
 
-            } while (input != "exit" || input != "back");
+                }
+            }
 
         }//Exit Game END
     }//Class Tools END

@@ -17,6 +17,7 @@ namespace Labb3.Store
         private static bool purchaseOk;
 
 
+
         //Buy or Sell START
         private static void BuyOrSellText()
         {
@@ -170,6 +171,8 @@ namespace Labb3.Store
 
         static public void BuyWeapon()
         {
+            List<IItem> IItemList = new List<IItem>(); //Interface list <----
+
             Logo.Shop();
 
             DisplayWeapon();
@@ -180,13 +183,16 @@ namespace Labb3.Store
 
             if (sucessfulPurchase == true)
             {
+
                 Tools.GreenLine($"\n {Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
                 Player.player.WeaponDmg = Weapon.weapon.WeaponList[input - 1].Power;
                 Player.player.WeaponIndex = input - 1;
                 /* WeaponIndex is a way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it */
 
-                Item.InventoryList.Add(Weapon.weapon.WeaponList[input - 1]); //Bugg
-                
+                IItemList.Add(Weapon.weapon.WeaponList[input - 1]);
+                Item.SetList(IItemList); //adds this list to the main Interface list for holding inventory items
+
+
                 Sleep(2500);
             }
 
@@ -254,14 +260,14 @@ namespace Labb3.Store
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("===========================");
-            Tools.YellowLine("|| --------Buy--------  ||");
-            Tools.YellowLine("|| [1] Lesser Stamina.. ||");
-            Tools.YellowLine("|| [2] Minor Stamina... ||");
-            Tools.YellowLine("|| [3] Major Stamina... ||");
-            Tools.YellowLine("|| [4] Back............ ||");
+            Tools.YellowLine("|| ---------Buy--------  ||");
+            Tools.YellowLine("|| [1] Minor Stamina.... ||");
+            Tools.YellowLine("|| [2] Greater Stamina.. ||");
+            Tools.YellowLine("|| [3] Major Stamina.... ||");
+            Tools.YellowLine("|| [4] Back............. ||");
             Tools.YellowLine("===========================\n");
-            Tools.Yellow("-Lesser:"); Tools.Green("+50 hp"); Tools.YellowLine("for 100 gold");
-            Tools.Yellow("-Minor:"); Tools.Green("+100 hp"); Tools.YellowLine("for 200 gold");
+            Tools.Yellow("-Minor:"); Tools.Green("+50 hp"); Tools.YellowLine("for 100 gold");
+            Tools.Yellow("-Greater:"); Tools.Green("+100 hp"); Tools.YellowLine("for 200 gold");
             Tools.Yellow("-Major:"); Tools.Green("+150 hp"); Tools.YellowLine("for 300 gold\n");
             Tools.RedLine("   :~:     ");
             Tools.RedLine("   | |     ");
@@ -274,15 +280,15 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine("===========================");
-            Tools.YellowLine("|| ---------Buy--------  ||");
-            Tools.YellowLine("|| [1] Lesser Strength.. ||");
-            Tools.YellowLine("|| [2] Minor Strength... ||");
-            Tools.YellowLine("|| [3] Major Strength... ||");
-            Tools.YellowLine("|| [4] Back............. ||");
-            Tools.YellowLine("===========================\n");
-            Tools.Yellow("-Lesser:"); Tools.Red("+50 damage"); Tools.YellowLine("for 100 gold");
-            Tools.Yellow("-Minor:"); Tools.Red("+100 damage"); Tools.YellowLine("for 200 gold");
+            Tools.YellowLine("============================");
+            Tools.YellowLine("|| ----------Buy--------  ||");
+            Tools.YellowLine("|| [1] Minor Strength.... ||");
+            Tools.YellowLine("|| [2] Greater Strength.. ||");
+            Tools.YellowLine("|| [3] Major Strength.... ||");
+            Tools.YellowLine("|| [4] Back.............. ||");
+            Tools.YellowLine("============================\n");
+            Tools.Yellow("-Minor:"); Tools.Red("+50 damage"); Tools.YellowLine("for 100 gold");
+            Tools.Yellow("-Greater:"); Tools.Red("+100 damage"); Tools.YellowLine("for 200 gold");
             Tools.Yellow("-Major:"); Tools.Red("+150 damage"); Tools.YellowLine("for 300 gold\n");
             Tools.RedLine("   :~:     ");
             Tools.RedLine("   | |     ");
@@ -307,9 +313,9 @@ namespace Labb3.Store
                     {
                         Player.player.MaxHp += PowerUp.staminaList[nr - 1].Bonus;
                         Player.player.Hp += PowerUp.staminaList[nr - 1].Bonus;
-                        Tools.YellowLine("Max health increased!");
+                        Tools.YellowLine("\n Max health increased!");
                         Tools.GreenLine($"+{PowerUp.staminaList[nr - 1].Bonus}.");
-                        Sleep(1400);
+                        Sleep(1500);
                     }
                     BuyStaminaSwitch();
                     break;
@@ -334,9 +340,9 @@ namespace Labb3.Store
                     if (purchaseOk)
                     {
                         Player.player.Dmg += PowerUp.strengthList[nr - 1].Bonus;
-                        Tools.YellowLine("The power flows through you!");
+                        Tools.YellowLine("\n The power flows through you!");
                         Tools.GreenLine($"+{PowerUp.strengthList[nr - 1].Bonus} damage.");
-                        Sleep(1400);
+                        Sleep(1500);
                     }
                     BuyStrengthSwitch();
                     break;
@@ -355,13 +361,13 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine("==============================");
-            Tools.YellowLine("|| ------Healing Potions------ ||");
-            Tools.YellowLine("|| [1] Lesser Healing Potion.. ||");
-            Tools.YellowLine("|| [2] Minor Healing potion... ||");
-            Tools.YellowLine("|| [3] Major Healing potion... ||");
-            Tools.YellowLine("|| [4] Back................... ||");
-            Tools.YellowLine("============================== \n");
+            Tools.YellowLine("==================================");
+            Tools.YellowLine("|| -------Healing Potions------ ||");
+            Tools.YellowLine("|| [1] Minor Healing Potion.... ||");
+            Tools.YellowLine("|| [2] Greater Healing potion.. ||");
+            Tools.YellowLine("|| [3] Major Healing potion.... ||");
+            Tools.YellowLine("|| [4] Back.................... ||");
+            Tools.YellowLine("==================================\n");
 
 
             Tools.YellowLine("This red little bottle will maby one day be your life saver.. ");
@@ -400,7 +406,7 @@ namespace Labb3.Store
                         {
                             Player.player.MajorPotion++;
                         }
-                        Tools.GreenLine($"1 {Consumable.itemList[input - 1].Name} has been added to your inventory!");
+                        Tools.GreenLine($"\n 1 {Consumable.itemList[input - 1].Name} has been added to your inventory!");
                     }
                     Sleep(2000);
 
@@ -416,25 +422,46 @@ namespace Labb3.Store
 
 
         //Sell START
-        private static void SellText()
+        private static void SellTextMenu()
         {
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("===================================");
             Tools.YellowLine("|| -------------Sell------------- ||");
             Tools.YellowLine("|| Enter the number of the iteam  ||");
-            Tools.YellowLine("||    you would like to sell      ||");
+            Tools.YellowLine("||    you would like to sell.      ||");
+            Tools.Yellow    ("||   To go back write"); Tools.Red("\"back\""); Tools.YellowLine("    ||");
             Tools.YellowLine("=================================== \n");
         }
         private static void SellSwitch()
         {
-            SellText();
-            Player.DisplayInventory();
+            bool success;
+            do
+            {
+                SellTextMenu();
+                Player.DisplayInventory();
 
-            input = Tools.ConvToInt32(Player.player.InventoryList.Count);
+                Tools.Yellow("Option: ");
 
-            Console.WriteLine($"There you go, {Weapon.weapon.WeaponList[input - 1].GoldIfSold} gold coins.");
-            Player.player.Gold += Weapon.weapon.WeaponList[input - 1].GoldIfSold; //You get half the cost back from selling
+                string _input = Console.ReadLine().Trim().ToLower();
+
+                if (_input == "back" || _input == "b")
+                {
+                    BuyOrSellSwitch();
+                }
+
+                success = Int32.TryParse(_input, out int nr);
+                if (!success)
+                {
+                    Tools.Error();
+                }
+            } while (!success);
+
+            List<IItem> items = new List<IItem>();
+            items = Item.GetList();
+                      
+            Tools.GreenLine($"There you go, {items[input - 1].GoldIfSold} gold coins.");
+            Player.player.Gold += items[input - 1].GoldIfSold;
 
             Sleep(2000);
             BuyOrSellSwitch();

@@ -28,9 +28,6 @@ namespace Labb3.StartGame
             //SoundPlayer music2 = new SoundPlayer("music/BlueLanternWAV.wav");
             music.PlayLooping();
 
-            //Logo.SaveGame();
-            //Console.ReadKey();
-
             
 
             if (!Directory.Exists("saves"))//Fixa så den inte crachar om inte mappen finns
@@ -44,7 +41,7 @@ namespace Labb3.StartGame
             Console.ReadKey(); //Ta bort sen
 
             //Sleep(1400);
-            //Messange.Intro();
+            
             MenuOptions.MainMenuSwitch();
 
             music.Stop();
@@ -77,15 +74,18 @@ namespace Labb3.StartGame
             }
         }
 
-        private static void NewGame()
+        public static void NewGame()
         {
             Tools.Yellow("\n Enter character name: ");
             Player.player.Name = Console.ReadLine().Trim();//Stor bokstav på första??
             Tools.YellowLine($"\nGreetings {Player.player.Name}..\n");
+            Player.GodMode(); //Checks if user is admin or Robin
+            /* Names to activate GodMode: Hakk, hakk, Robin, robin, Robin Kamo, robin kamo */
+
             Player.player.Id = SaveOrLoad.idCounter + 1;//Kanske inte behövs..
 
-            Player.GodMode(); //Checks if user is admin or Robin
-            /* Names to avtivate god mode: Hakk, hakk, Robin, robin, Robin Kamo, robin kamo */
+            //Messange.Intro();
+
         }
     }
 }

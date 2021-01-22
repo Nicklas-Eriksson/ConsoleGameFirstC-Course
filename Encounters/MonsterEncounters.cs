@@ -58,13 +58,13 @@ namespace Labb3.Encounters
                 {
                     Monster monster = new Monster()//Balance this 
                     {
-                        name = monsterNames[monsterIndex],
-                        lvl = Player.player.Lvl - 1,
-                        hp = 100 * (Player.player.Lvl - 1),
-                        dmg = 50 * (Player.player.Lvl + bonusDmg - 1),
-                        expDrop = expDropArray[Player.player.Lvl],
-                        goldDrop = 100 + bonusGold * Player.player.Lvl,
-                        alive = true
+                        Name = monsterNames[monsterIndex],
+                        Lvl = Player.player.Lvl - 1,
+                        Hp = 100 * (Player.player.Lvl - 1),
+                        Dmg = 50 * (Player.player.Lvl + bonusDmg - 1),
+                        ExpDrop = expDropArray[Player.player.Lvl],
+                        GoldDrop = 100 + bonusGold * Player.player.Lvl,
+                        Alive = true
                     };
                     Fight(monster);
                 }
@@ -72,13 +72,13 @@ namespace Labb3.Encounters
                 {
                     Monster monster = new Monster()//Balance this 
                     {
-                        name = monsterNames[monsterIndex],
-                        lvl = Player.player.Lvl,
-                        hp = 100 * Player.player.Lvl,
-                        dmg = 50 * Player.player.Lvl + bonusDmg,
-                        expDrop = expDropArray[Player.player.Lvl],
-                        goldDrop = 100 + bonusGold * Player.player.Lvl,
-                        alive = true
+                        Name = monsterNames[monsterIndex],
+                        Lvl = Player.player.Lvl,
+                        Hp = 100 * Player.player.Lvl,
+                        Dmg = 50 * Player.player.Lvl + bonusDmg,
+                        ExpDrop = expDropArray[Player.player.Lvl],
+                        GoldDrop = 100 + bonusGold * Player.player.Lvl,
+                        Alive = true
                     };
                     Fight(monster);
                 }
@@ -86,13 +86,13 @@ namespace Labb3.Encounters
                 {
                     Monster monster = new Monster()//Balance this 
                     {
-                        name = monsterNames[monsterIndex],
-                        lvl = Player.player.Lvl + 1,
-                        hp = 100 * (Player.player.Lvl + 1),
-                        dmg = 50 * (Player.player.Lvl + bonusDmg + 1),
-                        expDrop = expDropArray[Player.player.Lvl],
-                        goldDrop = 100 + bonusGold * Player.player.Lvl,
-                        alive = true
+                        Name = monsterNames[monsterIndex],
+                        Lvl = Player.player.Lvl + 1,
+                        Hp = 100 * (Player.player.Lvl + 1),
+                        Dmg = 50 * (Player.player.Lvl + bonusDmg + 1),
+                        ExpDrop = expDropArray[Player.player.Lvl],
+                        GoldDrop = 100 + bonusGold * Player.player.Lvl,
+                        Alive = true
                     };
                     Fight(monster);
                 }
@@ -103,13 +103,13 @@ namespace Labb3.Encounters
             {
                 Monster monster = new Monster()//Balance this
                 {
-                    name = lvl10Monsters[monsterIndex],
-                    lvl = Player.player.Lvl,
-                    hp = 10000,
-                    dmg = 500,
-                    expDrop = 10000,
-                    goldDrop = 10000,
-                    alive = true
+                    Name = lvl10Monsters[monsterIndex],
+                    Lvl = Player.player.Lvl,
+                    Hp = 10000,
+                    Dmg = 500,
+                    ExpDrop = 10000,
+                    GoldDrop = 10000,
+                    Alive = true
                 };
 
                 Fight(monster);
@@ -120,11 +120,11 @@ namespace Labb3.Encounters
         {
             Tools.YellowLine("-----------------------------");
             Tools.Yellow("|| ");
-            Console.WriteLine($"{monster.name}");
+            Console.WriteLine($"{monster.Name}");
             Tools.Yellow("||");
-            Tools.RedLine($"Level: {monster.lvl}");
+            Tools.RedLine($"Level: {monster.Lvl}");
             Tools.Yellow("||");
-            Tools.RedLine($"Health: {monster.hp}");
+            Tools.RedLine($"Health: {monster.Hp}");
             Tools.YellowLine("-----------------------------");
             Tools.Yellow("|| ");
             Console.WriteLine($"{Player.player.Name}");
@@ -144,7 +144,7 @@ namespace Labb3.Encounters
         }
         static private void ItemDrop()
         {
-            var item = Item.StuffGenerator();
+            //var item = Item.StuffGenerator();
 
             //20% chanse a weapon drops
             int rndChanse = rnd.Next(0, 6);
@@ -156,9 +156,11 @@ namespace Labb3.Encounters
             int rndNr3 = rnd.Next(7, 11);
             int rndNr4 = rnd.Next(11, 15);
 
-          
+            List<IItem> itemList = new List<IItem>();
+            Item randomItem = new Item();
+            randomItem = Item.StuffGenerator();
 
-            if (rndChanse == 0)
+            if (rndChanse == 0) //1 in 5 a weapon will drop
             {
                 Tools.YellowLine("Loot spontaniously appears from thin air!");
                 Tools.YellowLine("Remarkable!\n");
@@ -166,29 +168,51 @@ namespace Labb3.Encounters
                 if (rndChanse2 <= 1)
                 {
                     Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr].Name} has been added to your inventory!");
-                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr]);
+                    itemList.Add(Weapon.weapon.WeaponList[rndNr]);
+                    Item.SetList(itemList);
+
                 }
-                else if(rndChanse2 == 2)
+                else if (rndChanse2 == 2)
                 {
                     Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr2].Name} has been added to your inventory!");
-                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr2]);
+                    itemList.Add(Weapon.weapon.WeaponList[rndNr2]);
+                    Item.SetList(itemList);
+                    if(rndNr == 1)
+                    {
+                        Tools.GreenLine($"{randomItem.Name} has been added to your inventory!");
+                        itemList.Add(randomItem);
+                        Item.SetList(itemList);
+                    }
                 }
-                else if(rndChanse2 == 3)
+                else if (rndChanse2 == 3)
                 {
                     Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr3].Name} has been added to your inventory!");
-                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr3]);
+                    itemList.Add(Weapon.weapon.WeaponList[rndNr3]);
+                    Item.SetList(itemList);
                 }
-                else if(rndChanse2 == 4)
+                else if (rndChanse2 == 4)
                 {
                     Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr4].Name} has been added to your inventory!");
-                    Item.InventoryList.Add(Weapon.weapon.WeaponList[rndNr4]);
+                    itemList.Add(Weapon.weapon.WeaponList[rndNr4]);
+                    Item.SetList(itemList);
                 }
+
+                if (rndNr == 1) // 33% to drop extra trash
+                {
+                    Sleep(1400);
+                    Tools.GreenLine($"{randomItem.Name} has been added to your inventory!");
+                    itemList.Add(randomItem);
+                    Item.SetList(itemList);
+                }
+
                 Sleep(2000);
             }
-            else if(rndChanse >= 1)
+            else if (rndChanse >= 1) //4 in 5 a random useless iteam will drop (can be sold for gold)
             {
-                Tools.GreenLine($"{item.Name} has been added to your inventory!");
-                Item.InventoryList.Add(item);
+                
+                Tools.GreenLine($"{randomItem.Name} has been added to your inventory!");
+                itemList.Add(randomItem);
+                Item.SetList(itemList);
             }
 
 
@@ -223,7 +247,7 @@ namespace Labb3.Encounters
             }
 
 
-            while (Player.player.Alive == true && monster.alive == true)
+            while (Player.player.Alive == true && monster.Alive == true)
             {
                 int monsterChanseOnHit = rnd.Next(1, 3); //33% chance to hit on escape
                 int dodge = rnd.Next(1, 5); //20% that the attack is dodged
@@ -242,50 +266,50 @@ namespace Labb3.Encounters
                     //   Attack  //
                     case 1:
 
-                        Console.WriteLine($"\n You raise your {wepName} and attack the {monster.name}!");
+                        Console.WriteLine($"\n You raise your {wepName} and attack the {monster.Name}!");
                         //Sleep(3000);
 
                         if (dodge == 1)
                         {
                             Console.WriteLine(" As you try to strike your attack miss..");
-                            Console.WriteLine($" The {monster.name} strikes you while you gather your wits");
-                            Tools.RedLine($"-{monster.dmg / 2} health.");
-                            Player.player.Hp -= monster.dmg / 2; //Player takes half monster dmg  
+                            Console.WriteLine($" The {monster.Name} strikes you while you gather your wits");
+                            Tools.RedLine($"-{monster.Dmg / 2} health.");
+                            Player.player.Hp -= monster.Dmg / 2; //Player takes half monster dmg  
                             Player.CheckIfAlive();
                             Sleep(3000);
                         }
                         else //Hit
                         {
-                            Console.WriteLine($" As you strike the {monster.name} it screams in pain.");
-                            Console.Write($" The {monster.name} was delt ");
+                            Console.WriteLine($" As you strike the {monster.Name} it screams in pain.");
+                            Console.Write($" The {monster.Name} was delt ");
                             Tools.GreenLine($"{pDmg} damage");
-                            monster.hp -= pDmg;
+                            monster.Hp -= pDmg;
                             Player.CheckIfAlive();
                             Sleep(3000);
                         }
 
 
                         //Monsters turn to attack
-                        Console.WriteLine($" As you prepare for one more attack on the {monster.name},");
+                        Console.WriteLine($" As you prepare for one more attack on the {monster.Name},");
                         //Sleep(3000);
                         Console.WriteLine($" you suddenly come to a halt when you see its lifeless corpse.");
                         //Sleep(3000);
                         Console.WriteLine($" It has fallen dead onto the floor and blood is seeping from its open wounds..");
                         //Sleep(3000);
-                        Tools.GreenLine($"+ {monster.expDrop} experience points!");
-                        Tools.YellowLine($"+ {monster.goldDrop} gold added to pouch!");
+                        Tools.GreenLine($"+ {monster.ExpDrop} experience points!");
+                        Tools.YellowLine($"+ {monster.GoldDrop} gold added to pouch!");
 
-                        Player.player.Exp += monster.expDrop;
-                        Player.player.Gold += monster.goldDrop;
+                        Player.player.Exp += monster.ExpDrop;
+                        Player.player.Gold += monster.GoldDrop;
 
                         Sleep(3000);
                         monster.CheckIfAlive();
                         Player.CheckIfLvlUp(); //Cheks if you can level up
 
 
-                        Console.WriteLine($" After your hits has landed the {monster.name} hits you with a sweeping strike!");
-                        Tools.RedLine($"-{monster.dmg} damage");
-                        Player.player.Hp -= monster.dmg;
+                        Console.WriteLine($" After your hits has landed the {monster.Name} hits you with a sweeping strike!");
+                        Tools.RedLine($"-{monster.Dmg} damage");
+                        Player.player.Hp -= monster.Dmg;
                         Player.CheckIfAlive();
 
                         break;
@@ -298,16 +322,16 @@ namespace Labb3.Encounters
                         Console.WriteLine($" You raise your {wepName} in a defensive stance.");
                         if (monsterChanseOnHit >= 1)// 66% chance on hit
                         {
-                            Console.WriteLine($" The {monster.name} strikes you with all their power and hits you for {monster.dmg} damage.");
-                            Player.player.Hp -= monster.dmg;
+                            Console.WriteLine($" The {monster.Name} strikes you with all their power and hits you for {monster.Dmg} damage.");
+                            Player.player.Hp -= monster.Dmg;
                             Player.CheckIfAlive();
 
                         }
                         else if (monsterChanseOnHit == 3)// 33% chance to miss
                         {
-                            Console.WriteLine($" The {monster.name} misses you with their attack and you frantically strike back");
-                            Console.WriteLine($" You hit the {monster.name} for {pDmg / 2} damage.");
-                            monster.hp -= pDmg / 2;
+                            Console.WriteLine($" The {monster.Name} misses you with their attack and you frantically strike back");
+                            Console.WriteLine($" You hit the {monster.Name} for {pDmg / 2} damage.");
+                            monster.Hp -= pDmg / 2;
                             monster.CheckIfAlive();
                         }
                         Sleep(2000);
@@ -356,18 +380,18 @@ namespace Labb3.Encounters
 
                         Console.WriteLine("With darting eyes you look for the door you just came in from.");
                         Console.WriteLine("You turn around and head for the exit.");
-                        Console.WriteLine($"But as you do the {monster.name} takes a swing at you!");
+                        Console.WriteLine($"But as you do the {monster.Name} takes a swing at you!");
 
                         if (monsterChanseOnHit >= 1) // 33% chace the monster hits you on your way out
                         {
-                            Console.WriteLine($"The sweeping strike from the {monster.name} hits you for as you try to run away.");
-                            Tools.RedLine($"-{monster.dmg / 2}");
-                            Player.player.Hp -= monster.dmg / 2;
+                            Console.WriteLine($"The sweeping strike from the {monster.Name} hits you for as you try to run away.");
+                            Tools.RedLine($"-{monster.Dmg / 2}");
+                            Player.player.Hp -= monster.Dmg / 2;
                             Player.CheckIfAlive();
                         }
                         else if (monsterChanseOnHit > 1)// 66% miss
                         {
-                            Console.WriteLine($"The {monster.name} barely misses you, as you slam the door shut.");
+                            Console.WriteLine($"The {monster.Name} barely misses you, as you slam the door shut.");
                             Sleep(2000);
                             MenuOptions.MainMenuSwitch(); //Back to menu
                         }

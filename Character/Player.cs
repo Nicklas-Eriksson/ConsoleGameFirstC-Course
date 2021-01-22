@@ -47,7 +47,8 @@ namespace Labb3.Character
         public int GreaterPotion { get => greaterPotion; set => greaterPotion = value; }
         public int MajorPotion { get => majorPotion; set => majorPotion = value; }
         public int KillsToLevel { get => killsToLevel; set => killsToLevel = Exp * Lvl; }        
-        public List<Weapon> InventoryList { get => inventoryList; set => inventoryList = value; }
+        public List<Weapon> InventoryList { get => inventoryList; set => inventoryList = value; } // ta bort?
+        public static List<IItem> itemList = new List<IItem>();
 
         //Method for leveling the character
         public static void CheckIfLvlUp()
@@ -87,9 +88,13 @@ namespace Labb3.Character
         //Displays iteams obtained by player, and shows the gold amount it sells for
         public static void DisplayInventory()
         {
-            for (int i = 0; i < player.InventoryList.Count; i++)
+            //Item item = new Item();
+            itemList = Item.GetList();
+
+
+            for (int i = 0; i < itemList.Count; i++)
             {
-                Tools.YellowLine($"{i + 1}: {player.InventoryList[i].Name} - sell for {player.InventoryList[i].GoldIfSold} gold\n");
+                Tools.YellowLine($"{i + 1}: {itemList[i].Name} - sell for {itemList[i].GoldIfSold} gold.\n");
             }
         }
 

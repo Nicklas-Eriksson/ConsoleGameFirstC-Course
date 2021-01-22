@@ -9,22 +9,16 @@ namespace Labb3.Items
 {
     [Serializable]
 
-    public class PowerUp : IItem
+    public class PowerUp : AbstractItem
     {
         public static PowerUp powerUp = new PowerUp();
         public static List<PowerUp> staminaList = new List<PowerUp>();
         public static List<PowerUp> strengthList = new List<PowerUp>();
 
-        private string name;
-        private int goldCost;
-        private int goldIfSold;
-        private int itemLevel;
+     
         private int bonus;
 
-        public string Name { get => name; set => name = value; }
-        public int GoldCost { get => goldCost; set => goldCost = value; }
-        public int GoldIfSold { get => goldIfSold; set => goldIfSold = value; }
-        public int ItemLevel { get => itemLevel; set => itemLevel = value; }
+    
         public int Bonus { get => bonus; set => bonus = value; }
         
         public void Instantiate()

@@ -6,13 +6,13 @@ namespace Labb3.Monsters
 {
     public interface IMonster
     {
-        string name { get; set; }
-        int lvl { get; set; }
-        int hp { get; set; }
-        int dmg { get; set; }
-        int expDrop { get; set; }
-        int goldDrop { get; set; }
-        bool alive { get; set; }
+        string Name { get; set; }
+        int Lvl { get; set; }
+        int Hp { get; set; }
+        int Dmg { get; set; }
+        int ExpDrop { get; set; }
+        int GoldDrop { get; set; }
+        bool Alive { get; set; }
 
         void CheckIfAlive();
     }
