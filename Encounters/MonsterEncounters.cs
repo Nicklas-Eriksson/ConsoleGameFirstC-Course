@@ -60,10 +60,10 @@ namespace Labb3.Encounters
                     {
                         Name = monsterNames[monsterIndex],
                         Lvl = Player.player.Lvl - 1,
-                        Hp = 100 * (Player.player.Lvl - 1),
-                        Dmg = 50 * (Player.player.Lvl + bonusDmg - 1),
+                        Hp = (100 * Player.player.Lvl) - 1,
+                        Dmg = (50 * Player.player.Lvl) + bonusDmg - 1,
                         ExpDrop = expDropArray[Player.player.Lvl],
-                        GoldDrop = 100 + bonusGold * Player.player.Lvl,
+                        GoldDrop = (100 + bonusGold) * Player.player.Lvl,
                         Alive = true
                     };
                     Fight(monster);
@@ -75,9 +75,9 @@ namespace Labb3.Encounters
                         Name = monsterNames[monsterIndex],
                         Lvl = Player.player.Lvl,
                         Hp = 100 * Player.player.Lvl,
-                        Dmg = 50 * Player.player.Lvl + bonusDmg,
+                        Dmg = (50 * Player.player.Lvl) + bonusDmg,
                         ExpDrop = expDropArray[Player.player.Lvl],
-                        GoldDrop = 100 + bonusGold * Player.player.Lvl,
+                        GoldDrop = (100 + bonusGold) * Player.player.Lvl,
                         Alive = true
                     };
                     Fight(monster);
@@ -88,10 +88,10 @@ namespace Labb3.Encounters
                     {
                         Name = monsterNames[monsterIndex],
                         Lvl = Player.player.Lvl + 1,
-                        Hp = 100 * (Player.player.Lvl + 1),
-                        Dmg = 50 * (Player.player.Lvl + bonusDmg + 1),
+                        Hp = (100 * Player.player.Lvl) + 1,
+                        Dmg = (50 * Player.player.Lvl) + bonusDmg + 1,
                         ExpDrop = expDropArray[Player.player.Lvl],
-                        GoldDrop = 100 + bonusGold * Player.player.Lvl,
+                        GoldDrop = (100 + bonusGold) * Player.player.Lvl,
                         Alive = true
                     };
                     Fight(monster);
@@ -101,7 +101,7 @@ namespace Labb3.Encounters
             }
             else if (Player.player.Lvl >= 9)
             {
-                Monster monster = new Monster()//Balance this
+                Monster monster = new Monster()//mini boss?
                 {
                     Name = lvl10Monsters[monsterIndex],
                     Lvl = Player.player.Lvl,
@@ -144,7 +144,7 @@ namespace Labb3.Encounters
         }
         static private void ItemDrop()
         {
-            //var item = Item.StuffGenerator();
+            var item = Item.StuffGenerator();
 
             //20% chanse a weapon drops
             int rndChanse = rnd.Next(0, 6);
@@ -157,12 +157,13 @@ namespace Labb3.Encounters
             int rndNr4 = rnd.Next(11, 15);
 
             List<IItem> itemList = new List<IItem>();
-            Item randomItem = new Item();
-            randomItem = Item.StuffGenerator();
+
+            Item randomItem = Item.StuffGenerator();
 
             if (rndChanse == 0) //1 in 5 a weapon will drop
             {
                 Tools.YellowLine("Loot spontaniously appears from thin air!");
+                Sleep(1400);
                 Tools.YellowLine("Remarkable!\n");
                 Sleep(1400);
                 if (rndChanse2 <= 1)
@@ -177,7 +178,7 @@ namespace Labb3.Encounters
                     Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr2].Name} has been added to your inventory!");
                     itemList.Add(Weapon.weapon.WeaponList[rndNr2]);
                     Item.SetList(itemList);
-                    if(rndNr == 1)
+                    if (rndNr == 1)
                     {
                         Tools.GreenLine($"{randomItem.Name} has been added to your inventory!");
                         itemList.Add(randomItem);
@@ -209,7 +210,7 @@ namespace Labb3.Encounters
             }
             else if (rndChanse >= 1) //4 in 5 a random useless iteam will drop (can be sold for gold)
             {
-                
+
                 Tools.GreenLine($"{randomItem.Name} has been added to your inventory!");
                 itemList.Add(randomItem);
                 Item.SetList(itemList);
@@ -254,6 +255,7 @@ namespace Labb3.Encounters
                 Console.Clear();
 
                 //UI
+                Logo.Fight();
                 FightingMenueText();
                 StatsDuringFight(monster);
 
@@ -288,29 +290,36 @@ namespace Labb3.Encounters
                             Sleep(3000);
                         }
 
+                        bool monsterAlive = monster.CheckIfAlive();
 
-                        //Monsters turn to attack
-                        Console.WriteLine($" As you prepare for one more attack on the {monster.Name},");
-                        //Sleep(3000);
-                        Console.WriteLine($" you suddenly come to a halt when you see its lifeless corpse.");
-                        //Sleep(3000);
-                        Console.WriteLine($" It has fallen dead onto the floor and blood is seeping from its open wounds..");
-                        //Sleep(3000);
-                        Tools.GreenLine($"+ {monster.ExpDrop} experience points!");
-                        Tools.YellowLine($"+ {monster.GoldDrop} gold added to pouch!");
+                        if (!monsterAlive)
+                        {
+                            Console.WriteLine($" As you prepare for one more attack on the {monster.Name},");
+                            //Sleep(3000);
+                            Console.WriteLine($" you suddenly come to a halt when you see its lifeless corpse.");
+                            //Sleep(3000);
+                            Console.WriteLine($" It has fallen dead onto the floor and blood is seeping from its open wounds..");
+                            //Sleep(3000);
+                            Tools.GreenLine($"+ {monster.ExpDrop} experience points!");
+                            Tools.YellowLine($"+ {monster.GoldDrop} gold added to pouch!");
 
-                        Player.player.Exp += monster.ExpDrop;
-                        Player.player.Gold += monster.GoldDrop;
+                            Player.player.Exp += monster.ExpDrop;
+                            Player.player.Gold += monster.GoldDrop;
+                            Player.CheckIfLvlUp(); //Cheks if you can level up
 
-                        Sleep(3000);
-                        monster.CheckIfAlive();
-                        Player.CheckIfLvlUp(); //Cheks if you can level up
+                            ItemDrop();
 
+                            Sleep(3000);
+                        }
+                        else if (monsterAlive)
+                        {
+                            //Monsters turn to attack
+                            Console.WriteLine($" After your hits has landed the {monster.Name} hits you with a sweeping strike!");
+                            Tools.RedLine($"-{monster.Dmg} damage");
+                            Player.player.Hp -= monster.Dmg;
+                            Player.CheckIfAlive();
 
-                        Console.WriteLine($" After your hits has landed the {monster.Name} hits you with a sweeping strike!");
-                        Tools.RedLine($"-{monster.Dmg} damage");
-                        Player.player.Hp -= monster.Dmg;
-                        Player.CheckIfAlive();
+                        }
 
                         break;
 
@@ -318,19 +327,22 @@ namespace Labb3.Encounters
                     //   Block   //
                     case 2:
 
-
                         Console.WriteLine($" You raise your {wepName} in a defensive stance.");
+                        Sleep(1400);
                         if (monsterChanseOnHit >= 1)// 66% chance on hit
                         {
-                            Console.WriteLine($" The {monster.Name} strikes you with all their power and hits you for {monster.Dmg} damage.");
-                            Player.player.Hp -= monster.Dmg;
+                            Console.WriteLine($" The {monster.Name} strikes you with all their power and hits you for {monster.Dmg/2} damage.");
+                            Sleep(1400);
+                            Console.WriteLine($" Their attack was not that effective..");
+                            Player.player.Hp -= monster.Dmg/2;                            
                             Player.CheckIfAlive();
 
                         }
                         else if (monsterChanseOnHit == 3)// 33% chance to miss
                         {
-                            Console.WriteLine($" The {monster.Name} misses you with their attack and you frantically strike back");
-                            Console.WriteLine($" You hit the {monster.Name} for {pDmg / 2} damage.");
+                            Console.WriteLine($" The {monster.Name} misses you with their attack and you quickly counter attack!");
+                            Sleep(1400);
+                            Console.WriteLine($" You hit the {monster.Name} for {pDmg / 2} damage.");                            
                             monster.Hp -= pDmg / 2;
                             monster.CheckIfAlive();
                         }
@@ -343,14 +355,22 @@ namespace Labb3.Encounters
                     case 3:
                         while (Player.player.Hp < Player.player.MaxHp)
                         {
-                            Console.WriteLine(" -Chose your potion-");
+                            Tools.YellowLine("\n -Chose your potion-");
+                            Tools.Yellow("1: Minor Healing Potion: ");
+                            Tools.GreenLine($"{Player.player.MinorPotion} left");
+                            Tools.Yellow("2: Greater Healing Potion: ");
+                            Tools.GreenLine($"{Player.player.GreaterPotion} left");
+                            Tools.Yellow("3: Major Healing Potion: ");
+                            Tools.GreenLine($"{Player.player.MajorPotion} left");
+
                             int index = Tools.ConvToInt32(3);
+                            Tools.YellowLine($" You open your bag and scramble for your {Consumable.itemList[index-1].Name}healing potion..");
+                            Sleep(1400);
 
-                            Console.WriteLine($" You open your bag and scramble for your {Consumable.itemList[index].Name}healing potion..");
                             Console.WriteLine(" With a big chug you down the whole content.");
-                            Tools.GreenLine($"Health + {Consumable.itemList[index].Bonus}");
+                            Tools.GreenLine($"Health + {Consumable.itemList[index-1].Bonus}");
 
-                            Player.player.Hp += Consumable.itemList[index].Bonus;
+                            Player.player.Hp += Consumable.itemList[index-1].Bonus;
 
                             if (Player.player.Hp >= Player.player.MaxHp) //Corrects so that player cant heal for more than max hp
                             {
@@ -379,14 +399,18 @@ namespace Labb3.Encounters
                     case 4:
 
                         Console.WriteLine("With darting eyes you look for the door you just came in from.");
+                        Sleep(1400);
                         Console.WriteLine("You turn around and head for the exit.");
+                        Sleep(1400);
                         Console.WriteLine($"But as you do the {monster.Name} takes a swing at you!");
+                        Sleep(1400);
 
                         if (monsterChanseOnHit >= 1) // 33% chace the monster hits you on your way out
                         {
                             Console.WriteLine($"The sweeping strike from the {monster.Name} hits you for as you try to run away.");
                             Tools.RedLine($"-{monster.Dmg / 2}");
                             Player.player.Hp -= monster.Dmg / 2;
+                            Sleep(1400);
                             Player.CheckIfAlive();
                         }
                         else if (monsterChanseOnHit > 1)// 66% miss
@@ -395,7 +419,6 @@ namespace Labb3.Encounters
                             Sleep(2000);
                             MenuOptions.MainMenuSwitch(); //Back to menu
                         }
-                        Sleep(2000);
                         break;
 
                     ////////////////

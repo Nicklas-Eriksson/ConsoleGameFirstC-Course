@@ -5,6 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Reflection;
 using System.Text;
 using Labb3.Character;
+using Labb3.Items;
 using Labb3.Menues;
 using static System.Threading.Thread;
 
@@ -63,7 +64,12 @@ namespace Labb3.UtilityTools
             Tools.YellowLine("\n Enter the number of the save you want to load.\n");
             
             int nr = Tools.ConvToInt32(savedPlayers.Count);
-                       
+
+            //Test
+            Player.ItemList.AddRange(Player.MyWeapons);
+            //Player.ItemList.AddRange(Player.MyItems);
+            
+            
             
             return savedPlayers[nr-1];
         }

@@ -33,6 +33,7 @@ namespace Labb3.Store
         }
         private static void BuyOrSellSwitch()
         {
+
             BuyOrSellText();
 
             input = Tools.ConvToInt32(4);
@@ -191,6 +192,9 @@ namespace Labb3.Store
 
                 IItemList.Add(Weapon.weapon.WeaponList[input - 1]);
                 Item.SetList(IItemList); //adds this list to the main Interface list for holding inventory items
+
+                Player.MyWeapons.Add(Weapon.weapon.WeaponList[input - 1]);//Should be able to save a list with an implemented interface, but it did not work for me somehow.
+                
 
 
                 Sleep(2500);
@@ -426,22 +430,23 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine("===================================");
+            Tools.YellowLine("====================================");
             Tools.YellowLine("|| -------------Sell------------- ||");
-            Tools.YellowLine("|| Enter the number of the iteam  ||");
-            Tools.YellowLine("||    you would like to sell.      ||");
-            Tools.Yellow    ("||   To go back write"); Tools.Red("\"back\""); Tools.YellowLine("    ||");
-            Tools.YellowLine("=================================== \n");
+            Tools.YellowLine("|| Enter the number of the item   ||");
+            Tools.YellowLine("||    you would like to sell.     ||");
+            Tools.Yellow    ("||   To go back write"); Tools.Red("\"back\""); Tools.YellowLine("     ||");
+            Tools.YellowLine("==================================== \n");
         }
         private static void SellSwitch()
         {
             bool success;
+            int nr;
             do
             {
                 SellTextMenu();
                 Player.DisplayInventory();
 
-                Tools.Yellow("Option: ");
+                Tools.Yellow("\n Option: ");
 
                 string _input = Console.ReadLine().Trim().ToLower();
 
@@ -450,18 +455,24 @@ namespace Labb3.Store
                     BuyOrSellSwitch();
                 }
 
-                success = Int32.TryParse(_input, out int nr);
+                success = Int32.TryParse(_input, out nr);
                 if (!success)
                 {
                     Tools.Error();
+                    Sleep(1300);
                 }
             } while (!success);
 
             List<IItem> items = new List<IItem>();
             items = Item.GetList();
+
+            if (Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name)
+            {
+                Tools.RedLine("You can't sell an equipped weapon!");
+            }
                       
-            Tools.GreenLine($"There you go, {items[input - 1].GoldIfSold} gold coins.");
-            Player.player.Gold += items[input - 1].GoldIfSold;
+            Tools.GreenLine($"{items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
+            Player.player.Gold += items[nr - 1].GoldIfSold;
 
             Sleep(2000);
             BuyOrSellSwitch();

@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Labb3.Items
 {
+    
     public interface IItem
     {
         string Name { get; set; }

@@ -10,6 +10,8 @@ using static System.Threading.Thread;
 
 namespace Labb3.Menues
 {
+    [Serializable]
+
     public static class MenuOptions
     {
         private static int input;
@@ -22,13 +24,13 @@ namespace Labb3.Menues
             Tools.YellowLine("===========================");
             Tools.YellowLine("|| [1] Explore.......... ||");
             Tools.YellowLine("|| [2] Shop............. ||");
-            Tools.YellowLine("|| [3] Save Game........ ||");
-            Tools.YellowLine("|| [4] Exit Game........ ||");
+            Tools.YellowLine("|| [3] View Inventory... ||");
+            Tools.YellowLine("|| [4] Save Game........ ||");
+            Tools.YellowLine("|| [5] Exit Game........ ||");
             Tools.YellowLine("===========================\n");
 
             //Displays the stats for current charracter
             PlayerStats();
-
         }
 
         private static void PlayerStats()
@@ -45,7 +47,7 @@ namespace Labb3.Menues
             Console.Write($" Experience:");
             Tools.GreenLine($"{Player.player.Exp} / {Player.player.MaxExp}");
 
-            Tools.PurpleLine("\n -Inventory-");
+            Tools.PurpleLine("\n -Leather Pouch-");
             List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
 
             int wepIndex = Player.player.WeaponIndex;
@@ -72,7 +74,7 @@ namespace Labb3.Menues
             Console.Clear();
             MainMenuText();
 
-            input = Tools.ConvToInt32(4);
+            input = Tools.ConvToInt32(5);
 
             switch (input)
             {
@@ -106,17 +108,96 @@ namespace Labb3.Menues
                     Dealers.MainMenuStore();
                     break;
 
-                case 3://Save Game
+                case 3://View Inventor
+                                        
+                    ViewInventory();
+                    break;
+
+                case 4://Save Game
 
                     SaveOrLoad.Save();
                     MainMenuSwitch();
                     break;
 
-                case 4://Exit Game
+                case 5://Exit Game
 
                     Tools.ExitGame();
                     break;
             }
+        }
+
+        private static void ViewInventory()
+        {
+            Console.Clear();
+            Logo.Inventory();
+            InventoryMenu();
+            Player.DisplayInventory();
+            
+            Console.WriteLine();
+            InventorySwitch();
+
+            List<IItem> inventory = new List<IItem>();
+            inventory = Item.GetList();
+
+
+
+
+        }
+
+        private static void InventorySwitch()
+        {
+            List<IItem> _inventory = new List<IItem>();
+            _inventory = Item.GetList();
+
+            input = Tools.ConvToInt32(3);
+            switch (input)
+            {
+                case 1://Change Weapon
+                    Tools.YellowLine("\n Enter the number of the Weapon you would like to equip.\n");
+                    input = Tools.ConvToInt32(_inventory.Count);
+                    if(_inventory[input-1] is Weapon)
+                    {
+                        int foundIndex = 0;
+                        bool contains = Weapon.weapon.WeaponList.Contains(_inventory[input-1] as Weapon);
+                        if (contains)
+                        {
+                            foundIndex = Weapon.weapon.WeaponList.IndexOf(_inventory[input - 1] as Weapon);
+                        }
+
+                        Player.player.WeaponIndex = foundIndex;
+                        Tools.YellowLine($"{Weapon.weapon.WeaponList[foundIndex].Name} is nor your current weapon.");
+                        Sleep(1800);
+                        MainMenuSwitch();
+                    }
+                    else
+                    {
+                        Tools.Error();
+                        Sleep(1300);
+                        Tools.RedLine("That item is not a weapon!");
+                        InventorySwitch();                        
+                    }
+
+                    break;
+
+                case 2://Inspect Item
+                    //
+                    break;
+
+                case 3://Back to main menu
+                    MainMenuSwitch();
+                    break;
+
+            }
+        }
+
+        private static void InventoryMenu()
+        {
+            Tools.YellowLine("=========================");
+            Tools.YellowLine("|| -----Inventory----- ||");
+            Tools.YellowLine("|| [1] Change Weapon.. ||");
+            Tools.YellowLine("|| [2] Inspect Item... ||");
+            Tools.YellowLine("|| [3] Back........... ||");
+            Tools.YellowLine("=========================\n");
         }
     }
 }

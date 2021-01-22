@@ -14,6 +14,6 @@ namespace Labb3.Monsters
         int GoldDrop { get; set; }
         bool Alive { get; set; }
 
-        void CheckIfAlive();
+        bool CheckIfAlive();
     }
 }

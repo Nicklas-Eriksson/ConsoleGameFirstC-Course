@@ -14,11 +14,14 @@ using System.Threading;
 namespace Labb3.StartGame
 {
     [Serializable]
+
     public static class Start
     {
 
         static public void Game()
         {
+           
+
             Console.Title = "Dungeons of Solitude";
             Console.WindowHeight = 55;
             Console.WindowWidth = 100;

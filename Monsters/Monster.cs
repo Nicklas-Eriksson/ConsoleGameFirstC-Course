@@ -18,12 +18,13 @@ namespace Labb3.Monsters
         public int GoldDrop { get; set; }//Obtained by player by killing monster
         public bool Alive { get; set; }
 
-        public void CheckIfAlive()
+        public bool CheckIfAlive()
         {
             if(Hp <= 0)
             {
                 Alive = false;
             }
+            return Alive;
         }
     }
     public class MiniBoss : Monster
