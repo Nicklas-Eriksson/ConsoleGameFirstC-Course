@@ -25,7 +25,7 @@ namespace Labb3.Character
         private int baseDamage = 10; //damage
         private int weaponDmg = 0; //weapon damage. dmg and weaponDmg will be added together during combat
         private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon
-        private int gold = 10000; //Will be sufficient for 1 of the 3 starter weapons in the store
+        private int gold = 0; //Will be sufficient for 1 of the 3 starter weapons in the store
         private int minorPotion = 1; //can be obtained from shop 
         private int greaterPotion = 0; //can be obtained from shop 
         private int majorPotion = 0; //can be obtained from  
@@ -95,24 +95,35 @@ namespace Labb3.Character
         //Displays iteams obtained by player, and shows the gold amount it sells for
         public static void DisplayInventory()
         {
-            
-            
-
-
+                      
             ItemList = Item.GetList();
 
-            for (int i = 0; i < ItemList.Count; i++)
+            if(ItemList.Count == 0)
             {
-                if (Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name == ItemList[i].Name)
+                Tools.YellowLine("-Inventory is empty-\n");
+                Sleep(1400);
+                Tools.RedLine("Come back when you got something to sell!");
+                Sleep(1400);
+                Tools.RedLine("You filthy rat!");
+                Sleep(1400);
+            }
+            else
+            {
+                for (int i = 0; i < ItemList.Count; i++)
                 {
-                    Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
-                    Tools.PurpleLine("- Equipped weapon - ");
-                }
-                else
-                {
-                    Tools.Yellow($"{i + 1}: {ItemList[i].Name}"); Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold.\n");
+                    if (Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name == ItemList[i].Name)
+                    {
+                        Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
+                        Tools.PurpleLine("- Equipped weapon - ");
+                    }
+                    else
+                    {
+                        Tools.Yellow($"{i + 1}: {ItemList[i].Name}"); Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold.\n");
+                    }
                 }
             }
+
+            
         }
 
         //Cheat codes for when character name is given

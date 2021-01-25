@@ -7,34 +7,37 @@ namespace Labb3.Items
 {
     [Serializable]
 
-    public class Consumable : AbstractItem
+    public class Potions : AbstractItem
     {
-        public static Consumable pot = new Consumable();
-        public static List<Consumable> itemList = new List<Consumable>();
+        public static Potions pot = new Potions();
+        public static List<Potions> itemList = new List<Potions>();
                 
         private int bonus;               
         public int Bonus { get => bonus; set => bonus = value; }
 
-        public void Instantiate()
+        public static void Instantiate()
         {
-            Consumable minorHealing = new Consumable()
+            Potions minorHealing = new Potions()
             {
                 Name = "Minor Healing Potion",
                 GoldCost = 50,
+                GoldIfSold = 25,
                 ItemLevel = 1,
                 Bonus = 50
             };
-            Consumable greaterHealing = new Consumable()
+            Potions greaterHealing = new Potions()
             {
                 Name = "Greater Healing Potion",
                 GoldCost = 150,
                 ItemLevel = 2,
+                GoldIfSold = 75,
                 Bonus = 150
             };
-            Consumable majorHealing = new Consumable()
+            Potions majorHealing = new Potions()
             {
                 Name = "Major Healing Potion",
                 GoldCost = 400,
+                GoldIfSold = 200,
                 ItemLevel = 3,
                 Bonus = 400
             };

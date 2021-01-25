@@ -55,12 +55,12 @@ namespace Labb3.Menues
             }
 
             Tools.PurpleLine("\n -Leather Pouch-");
-            List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
+            //List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
 
             if (wepIndex >= 0)
             {
                 Console.Write(" Weapon:");
-                Tools.PurpleLine($"{weaponList[wepIndex].Name} + {weaponList[wepIndex].Power} attack damage");
+                Tools.PurpleLine($"{Weapon.weapon.WeaponList[wepIndex].Name} + {Weapon.weapon.WeaponList[wepIndex].Power} attack damage");
             }
             else if (wepIndex == -1)
             {

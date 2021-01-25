@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Labb3.Character;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Labb3.Items
@@ -256,35 +258,13 @@ namespace Labb3.Items
             weaponList.Add(bennysWhip);
             weaponList.Add(josefinesRevolver);
             weaponList.Add(davidsSpear);
-
         }
+
         public List<Weapon> GetFullWeaponList()
         {
             WeaponForge();
+
             return weaponList;
         }
-        public void SetCurrentWeapon(Weapon wep)
-        {
-            WeaponForge();
-            currentWeapon.Add(wep);
-        }
-        public List<Weapon> GetCurrentWeapon()
-        {
-            WeaponForge();
-            return currentWeapon;
-        }
-
-        public void instantiateList()
-        {           
-            if (weapon.WeaponList.Count == 0)
-            {
-                weapon.WeaponList = Weapon.weapon.GetFullWeaponList();
-            }
-        }
-
-        
-
-    } //Weapon class End
-
-    
+    } //Weapon class End        
 }

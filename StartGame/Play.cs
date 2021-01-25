@@ -55,6 +55,8 @@ namespace Labb3.StartGame
         {
             Console.Clear();
             Logo.DoS();
+            Weapon.weapon.GetFullWeaponList();
+
 
             Tools.YellowLine("=====================");
             Tools.YellowLine("|| [1] New Game... ||");
@@ -81,7 +83,7 @@ namespace Labb3.StartGame
         {
             Tools.Yellow("\n Enter character name: ");
             Player.player.Name = Console.ReadLine().Trim();//Stor bokstav på första??
-            Tools.YellowLine($"\nGreetings {Player.player.Name}..\n");
+            Tools.YellowLine($"\n Greetings {Player.player.Name}..\n");
             Player.GodMode(); //Checks if user is admin or Robin
             /* Names to activate GodMode: Hakk, hakk, Robin, robin, Robin Kamo, robin kamo */
 
