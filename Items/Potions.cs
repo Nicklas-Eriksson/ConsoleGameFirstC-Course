@@ -19,7 +19,7 @@ namespace Labb3.Items
         {
             Potions minorHealing = new Potions()
             {
-                Name = "Minor Healing Potion",
+                Name = "Minor healing potion",
                 GoldCost = 50,
                 GoldIfSold = 25,
                 ItemLevel = 1,
@@ -27,7 +27,7 @@ namespace Labb3.Items
             };
             Potions greaterHealing = new Potions()
             {
-                Name = "Greater Healing Potion",
+                Name = "Greater healing potion",
                 GoldCost = 150,
                 ItemLevel = 2,
                 GoldIfSold = 75,
@@ -35,7 +35,7 @@ namespace Labb3.Items
             };
             Potions majorHealing = new Potions()
             {
-                Name = "Major Healing Potion",
+                Name = "Major healing potion",
                 GoldCost = 400,
                 GoldIfSold = 200,
                 ItemLevel = 3,

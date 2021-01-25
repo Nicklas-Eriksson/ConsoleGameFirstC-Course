@@ -20,12 +20,13 @@ namespace Labb3.Character
         private int lvl = 1; //level
         private int exp = 0; //experience points
         private int maxExp = 50; //Max exp before lvl up
-        private int hp = 100; //health
-        private int maxHp = 100; //health
-        private int baseDamage = 10; //damage
+        private int maxHp = 175; //Max health
+        private int hp = 175; //current health
+        private int baseDamage = 20; //damage
+        private int fistDamage = 30; //damage
         private int weaponDmg = 0; //weapon damage. dmg and weaponDmg will be added together during combat
         private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon
-        private int gold = 0; //Will be sufficient for 1 of the 3 starter weapons in the store
+        private int gold = 0; //Obtains by killing monsters and selling stuff
         private int minorPotion = 1; //can be obtained from shop 
         private int greaterPotion = 0; //can be obtained from shop 
         private int majorPotion = 0; //can be obtained from  
@@ -45,6 +46,7 @@ namespace Labb3.Character
         public int Hp { get => hp; set => hp = value; }
         public int MaxHp { get => maxHp; set => maxHp = value; }
         public int BaseDamage { get => baseDamage; set => baseDamage = value; }
+        public int FistDamage { get => fistDamage; set => fistDamage = value; }
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
         public int Gold { get => gold; set => gold = value; }

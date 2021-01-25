@@ -50,7 +50,8 @@ namespace Labb3.Menues
 
             if (wepIndex == -1)
             {
-                Tools.PurpleLine("\n Fists + 20 attack damage");
+                Tools.PurpleLine($"\n Fists + {Player.player.FistDamage} attack damage");
+                
 
             }
 
