@@ -143,8 +143,7 @@ namespace Labb3.Menues
             Console.WriteLine();
             InventorySwitch();
 
-            List<IItem> inventory = new List<IItem>();
-            inventory = Item.GetList();
+            List<IItem> inventory = Item.GetList();//Bort??
 
 
 
@@ -153,14 +152,13 @@ namespace Labb3.Menues
 
         private static void InventorySwitch()
         {
-            List<IItem> _inventory = new List<IItem>();
-            _inventory = Item.GetList();
+            List<IItem> _inventory = Item.GetList();
 
             input = Tools.ConvToInt32(3);
             switch (input)
             {
                 case 1://Change Weapon
-                    Tools.YellowLine("\n Enter the number of the Weapon you would like to equip.\n");
+                    Tools.YellowLine("\n Enter the number of the weapon you would like to equip.\n");
                     input = Tools.ConvToInt32(_inventory.Count);
                     if (_inventory[input - 1] is Weapon)
                     {

@@ -198,9 +198,11 @@ namespace Labb3.Store
 
                 IItemList.Add(Weapon.weapon.WeaponList[input - 1]);
                 Item.SetList(IItemList); //adds this list to the main Interface list for holding inventory items
+                Weapon.weapon.WeaponList.RemoveAt(input - 1); //test
 
+
+                //test
                 Player.MyWeapons.Add(Weapon.weapon.WeaponList[input - 1]);//Should be able to save a list with an implemented interface, but it did not work for me somehow.
-
 
                 Sleep(2500);
             }
@@ -265,7 +267,8 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine(@"===========================
+            Tools.YellowLine(@"
+            ===========================
             || ---------Buy--------  ||
             || [1] Minor Stamina.... ||
             || [2] Greater Stamina.. ||
@@ -364,8 +367,8 @@ $$         $$$$$$$$$$$$$$$     ");
                         Player.player.MaxHp += PowerUp.staminaList[nr - 1].Bonus;
                         Player.player.Hp += PowerUp.staminaList[nr - 1].Bonus;
                         Tools.YellowLine("\n Max health increased!");
-                        Tools.GreenLine($"+{PowerUp.staminaList[nr - 1].Bonus}.");
-                        Tools.RedLine($"-{PowerUp.staminaList[nr - 1].GoldCost}");
+                        Tools.GreenLine($"+{PowerUp.staminaList[nr - 1].Bonus} max health.");
+                        Tools.YellowLine($"-{PowerUp.staminaList[nr - 1].GoldCost} gold.");
                         Sleep(1500);
                     }
                     BuyStaminaSwitch();
@@ -392,8 +395,8 @@ $$         $$$$$$$$$$$$$$$     ");
                     {
                         Player.player.BaseDamage += PowerUp.strengthList[nr - 1].Bonus;
                         Tools.YellowLine("\n The power flows through you!");
-                        Tools.GreenLine($"+{PowerUp.strengthList[nr - 1].Bonus} damage.");
-                        Tools.RedLine($"-{PowerUp.strengthList[nr - 1].GoldCost}");
+                        Tools.GreenLine($"+{PowerUp.strengthList[nr - 1].Bonus} base damage.");
+                        Tools.YellowLine($"-{PowerUp.strengthList[nr - 1].GoldCost} gold");
                         Sleep(1500);
                     }
                     BuyStrengthSwitch();
@@ -436,10 +439,7 @@ $$         $$$$$$$$$$$$$$$     ");
 
             List<IItem> IItemList = new List<IItem>();
 
-
-
             input = Tools.ConvToInt32(4);
-
 
             switch (input)
             {
@@ -453,8 +453,6 @@ $$         $$$$$$$$$$$$$$$     ");
                         if (input == 1)
                         {
                             Player.player.MinorPotion++;
-
-
                         }
                         else if (input == 2)
                         {
@@ -526,7 +524,7 @@ $$         $$$$$$$$$$$$$$$     ");
                 }
                 else
                 {
-                    Tools.GreenLine($"{items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
+                    Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
                     Player.player.Gold += items[nr - 1].GoldIfSold;
                     items.RemoveAt(nr - 1);
                     Sleep(2000);

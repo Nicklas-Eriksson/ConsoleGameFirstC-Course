@@ -18,8 +18,7 @@ namespace Labb3.Items
         private List<Weapon> currentWeapon = new List<Weapon>();
 
         //add a string trivia?
-        public int Power { get => power; set => power = value; }
-                
+        public int Power { get => power; set => power = ItemLevel * 50; }                
         public List<Weapon> WeaponList { get => weaponList; set => weaponList = value; }
         public List<Weapon> CurrentWeapon { get => currentWeapon; set => currentWeapon = value; }
         
@@ -45,192 +44,189 @@ namespace Labb3.Items
             {
                 Name = "Blundt Sword",
                 ItemLevel = 1,
-                Power = 100,
-                GoldCost = 100,
-                GoldIfSold = this.GoldIfSold
             };
             Weapon rustyDagger = new Weapon()//1
             {
                 Name = "Rusty Dagger",
                 ItemLevel = 1,
-                Power = 100,
-                GoldCost = 100,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon unbalancedAxe = new Weapon()//2
             {
                 Name = "Unbalanced Axe",
                 ItemLevel = 1,
-                Power = 100,
-                GoldCost = 100,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon vorpalBlade = new Weapon()//3
             {
                 Name = "Vorpal Blade",
                 ItemLevel = 2,
-                Power = 200,
-                GoldCost = 200,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon railGuns = new Weapon()//4
             {
                 Name = "Rail Guns",
                 ItemLevel = 2,
-                Power = 200,
-                GoldCost = 200,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon lightsaber = new Weapon()//5
             {
                 Name = "Lightsaber",
                 ItemLevel = 3,
-                Power = 300,
-                GoldCost = 300,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon harbringer = new Weapon()//6
             {
                 Name = "Harbringer",
                 ItemLevel = 3,
-                Power = 300,
-                GoldCost = 300,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon needle = new Weapon()//7
             {
                 Name = "Arya's Needle",
                 ItemLevel = 4,
-                Power = 400,
-                GoldCost = 400,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon keyblade = new Weapon()//8
             {
                 Name = "Sora's Keyblade",
                 ItemLevel = 5,
-                Power = 500,
-                GoldCost = 500,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon oblivion = new Weapon()//9
             {
                 Name = "Oblivion Keyblade",
                 ItemLevel = 5,
-                Power = 500,
-                GoldCost = 500,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon oathkeeper = new Weapon()//10
             {
                 Name = "Oathkeeper Keyblade",
                 ItemLevel = 6,
-                Power = 600,
-                GoldCost = 600,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon thorsHammer = new Weapon()//11
             {
                 Name = "Thors Hammer",
                 ItemLevel = 6,
-                Power = 600,
-                GoldCost = 600,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon theElderWand = new Weapon()//12
             {
                 Name = "The Elder Wand",
                 ItemLevel = 7,
-                Power = 700,
-                GoldCost = 700,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon infinityGuantlet = new Weapon()//13
             {
                 Name = "Infinity Guantlet",
                 ItemLevel = 7,
-                Power = 700,
-                GoldCost = 700,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon gatlinGun = new Weapon()//14
             {
                 Name = "Gatlin Gun",
                 ItemLevel = 8,
-                Power = 800,
-                GoldCost = 800,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon muramasBlade = new Weapon()//15
             {
                 Name = "Muramas Blade",
                 ItemLevel = 8,
-                Power = 800,
-                GoldCost = 800,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon dreamRod = new Weapon()//16
             {
                 Name = "Dream Rod",
                 ItemLevel = 9,
-                Power = 900,
-                GoldCost = 900,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon olympiaSword = new Weapon()//17
             {
                 Name = "Olympia Sword",
                 ItemLevel = 9,
-                Power = 900,
-                GoldCost = 900,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon kakashisShuriken = new Weapon()//18
             {
                 Name = "Kakashi's Shuriken",
                 ItemLevel = 10,
-                Power = 1000,
-                GoldCost = 1000,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon håkansLongsword = new Weapon()//19
             {
                 Name = "Håkan's Longsword",
                 ItemLevel = 10,
-                Power = 1000,
-                GoldCost = 1000,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon tinasLongbow = new Weapon()//20
             {
                 Name = "Tina's Ivory Longbow",
                 ItemLevel = 10,
-                Power = 1000,
-                GoldCost = 1000,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon bennysWhip = new Weapon()//21
             {
                 Name = "Benny's Leather Whip",
                 ItemLevel = 10,
-                Power = 1000,
-                GoldCost = 1000,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon josefinesRevolver = new Weapon()//22
             {
                 Name = "Josefine's Golden Revolver",
                 ItemLevel = 10,
-                Power = 1000,
-                GoldCost = 1000,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
             Weapon davidsSpear = new Weapon()//23
             {
                 Name = "David's Glowing Spear",
                 ItemLevel = 10,
-                Power = 1000,
-                GoldCost = 1000,
+                Power = this.power,
+                GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
                         

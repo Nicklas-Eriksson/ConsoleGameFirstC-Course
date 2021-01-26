@@ -15,8 +15,8 @@ namespace Labb3.Items
         private int itemLevel;
 
         public string Name { get => name; set => name = value; }
-        public int GoldCost { get => goldCost; set => goldCost = value; }
-        public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 2; }
+        public int GoldCost { get => goldCost; set => goldCost = itemLevel * 20 ; }
+        public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 3; }
         public int ItemLevel { get => itemLevel; set => itemLevel = value; }
     }
 
@@ -41,14 +41,14 @@ namespace Labb3.Items
         public static Item StuffGenerator()
         {
             Random rnd = new Random();
-            int rndNr = rnd.Next(0, stuffNames.Count);
+            int rndName = rnd.Next(0, stuffNames.Count);
+            int rndGold = rnd.Next(5, 200);
 
-            int rndNr2 = rnd.Next(5, 200);
             Item item = new Item()
             {
-                Name = stuffNames[rndNr],
-                GoldCost = 0,
-                GoldIfSold = rndNr2
+                Name = stuffNames[rndName],
+                GoldCost = rndGold,
+                GoldIfSold = 0
             };
 
             return item;
