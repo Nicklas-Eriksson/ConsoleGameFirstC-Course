@@ -29,31 +29,23 @@ namespace Labb3.Monsters
     }
     public class MiniBoss : Monster
     {
-        private string specialAttackName;
-        private int specialAttackPower;
-        private string loot;
-        private int lootWorth;
+        private string rareLoot = "Golden egg";
+        private int rareLootGold = 1000;
+        
+        public string RareLoot { get => rareLoot; set => rareLoot = value; }
+        public int RareLootGold { get => rareLootGold; set => rareLootGold = value; }
 
-        public string SpecialAttackName { get => specialAttackName; set => specialAttackName = value; }
-        public int SpecialAttackPower { get => specialAttackPower; set => specialAttackPower = value; }
-        public string Loot { get => loot; set => loot = value; }
-        public int LootWorth { get => lootWorth; set => lootWorth = value; }
 
-        public MiniBoss(string specialAttackName, int specialAttackPower, string loot)
-        {
-            this.specialAttackName = specialAttackName;
-            this.specialAttackPower = specialAttackPower;
-            this.loot = loot;
-        }
-        public MiniBoss() { }//Empty Constructor
+        public MiniBoss()
+        {}
     }
     public class LastBoss : MiniBoss
     {
-        private string rareLoot;
-        private int rareLootWorth;
+        private string specialAttackName;
+        private int specialAttackPower;
 
-        public string RareLoot { get => rareLoot; set => rareLoot = value; }
-        public int RareLootWorth { get => rareLootWorth; set => rareLootWorth = value; }
+        public string SpecialAttackName { get => specialAttackName; set => specialAttackName = value; }
+        public int SpecialAttackPower { get => specialAttackPower; set => specialAttackPower = value; }
 
         public LastBoss()
         {}

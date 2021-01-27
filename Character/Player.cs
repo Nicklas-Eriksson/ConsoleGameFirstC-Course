@@ -13,7 +13,6 @@ namespace Labb3.Character
     {
         public static Player player = new Player();
 
-
         private string name;
         private int id;
         private bool alive = true;
@@ -76,9 +75,7 @@ namespace Labb3.Character
                     Tools.GreenLine($"  +{25 * player.Lvl} max health");
                     Tools.GreenLine($"  +{5 * player.Lvl} base damage");
 
-                    Tools.PurpleLine("\n -Press any key to continue-");
-                    Console.ReadKey();
-
+                    
                 }
                 Sleep(4000);
             }
@@ -96,7 +93,7 @@ namespace Labb3.Character
                 Player.player.Alive = false;
                 Console.WriteLine("You died! Game over!");
                 Sleep(5000);
-                Tools.ExitGame();
+                Tools.ExitGame(false);
             }
         }
 
@@ -151,8 +148,6 @@ namespace Labb3.Character
                     }
                 }
             }
-
-
         }
 
         //Cheat codes for when character name is given

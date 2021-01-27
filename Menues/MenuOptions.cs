@@ -128,7 +128,7 @@ namespace Labb3.Menues
 
                 case 5://Exit Game
 
-                    Tools.ExitGame();
+                    Tools.ExitGame(false);
                     break;
             }
         }

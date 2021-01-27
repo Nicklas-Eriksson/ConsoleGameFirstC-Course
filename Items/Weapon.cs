@@ -9,19 +9,18 @@ namespace Labb3.Items
     [Serializable]
 
     public class Weapon : AbstractItem
-    {       
+    {
         public static Weapon weapon = new Weapon();
 
-       
         private int power;
         private List<Weapon> weaponList = new List<Weapon>();
         private List<Weapon> currentWeapon = new List<Weapon>();
 
         //add a string trivia?
-        public int Power { get => power; set => power = ItemLevel * 50; }                
+        public int Power { get => power; set => power = ItemLevel * 50; }
         public List<Weapon> WeaponList { get => weaponList; set => weaponList = value; }
         public List<Weapon> CurrentWeapon { get => currentWeapon; set => currentWeapon = value; }
-        
+
         //Constructors
         public Weapon()
         {
@@ -34,12 +33,12 @@ namespace Labb3.Items
             this.GoldCost = goldCost;
             this.GoldIfSold = goldIfSold;
         }
-        
+
 
         void WeaponForge()
         {
             //Weapons will be obtained in shop and/or through loot
-            
+
             Weapon blundtSword = new Weapon()//0
             {
                 Name = "Blundt Sword",
@@ -229,7 +228,7 @@ namespace Labb3.Items
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
-                        
+
             weaponList.Add(blundtSword);
             weaponList.Add(rustyDagger);
             weaponList.Add(unbalancedAxe);

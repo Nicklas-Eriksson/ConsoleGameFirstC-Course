@@ -14,8 +14,7 @@ namespace Labb3.Items
         public static PowerUp powerUp = new PowerUp();
         public static List<PowerUp> staminaList = new List<PowerUp>();
         public static List<PowerUp> strengthList = new List<PowerUp>();
-
-     
+             
         private int bonus;
 
     
@@ -30,7 +29,6 @@ namespace Labb3.Items
                 GoldCost = 100,
                 ItemLevel = 1,
                 Bonus = 50,
-
             };
             PowerUp greaterStamina = new PowerUp()
             {
@@ -38,7 +36,6 @@ namespace Labb3.Items
                 GoldCost = 200,
                 ItemLevel = 2,
                 Bonus = 100,
-
             };
             PowerUp majorStamina = new PowerUp()
             {
@@ -46,7 +43,6 @@ namespace Labb3.Items
                 GoldCost = 300,
                 ItemLevel = 3,
                 Bonus = 150,
-
             };
 
             //Strength buff
@@ -56,7 +52,6 @@ namespace Labb3.Items
                 GoldCost = 100,
                 ItemLevel = 1,
                 Bonus = 50,
-
             };
             PowerUp greaterStrength = new PowerUp()
             {
@@ -64,7 +59,6 @@ namespace Labb3.Items
                 GoldCost = 200,
                 ItemLevel = 2,
                 Bonus = 100,
-
             };
             PowerUp majorStrength = new PowerUp()
             {
@@ -72,7 +66,6 @@ namespace Labb3.Items
                 GoldCost = 300,
                 ItemLevel = 3,
                 Bonus = 150,
-
             };
 
             

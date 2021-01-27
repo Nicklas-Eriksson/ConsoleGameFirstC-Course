@@ -10,7 +10,6 @@ namespace Labb3.Items
         string Name { get; set; }
         int GoldCost { get; set; }
         int GoldIfSold { get; set; }
-        int ItemLevel { get; set; }
-       
+        int ItemLevel { get; set; }       
     }
 }

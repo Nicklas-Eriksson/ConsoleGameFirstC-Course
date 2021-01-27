@@ -9,6 +9,7 @@ using Labb3.Store;
 using static System.Threading.Thread;
 using Labb3.Menues;
 using System.Linq;
+using Labb3.Story;
 
 namespace Labb3.Encounters
 {
@@ -16,12 +17,12 @@ namespace Labb3.Encounters
 
     public class MonsterEncounters
     {
+        private static LastBoss demiLich = new LastBoss();
+        private static MiniBoss miniboss = new MiniBoss();
         private static Random rnd = new Random();
         private static int input;
         private static int readOnce = 0;
         private static int specialAttack = 0;
-
-        private static LastBoss demiLich = new LastBoss();
 
         private static void TextEncounter()
         {
@@ -39,77 +40,52 @@ namespace Labb3.Encounters
             Tools.YellowLine("Before you stands a hideous creature..\n");
             // Sleep(3000);
         }
+
         public static void EncounterGenerator()
         {
             Console.Clear();
-
             TextEncounter();
-
 
             List<string> monsterNames = new List<string>() { "Goblin", "Thief", "Banshee", "Cultist", "Mutant", "Hell Hound", "Elder Thing", "Deep One", " Silent One", "Necromancer", "Deci", "Ogre", "Gargoyle", "Troll", "Nymph", "Kobold", "Satyr", "Decided Rat", "Giant Spider", "Rabid Goblin", "Giant Spider" };
             List<string> miniBossNames = new List<string>() { "Azathoth", "B'gnu-Thun", "Bokrug", "Cthulhu", "Dagon", "Dimensional Shambler", "Dunwich Horror", "Formless Spawn", "Ghatanothoa", "Gloon", "Gnoph-Keh", "Great Old One", "Yog-Sothoth", "Yuggoth", "Innsmouth", "Shoggoth", "Outer God", "Nightgaut", "Nyarlathotep" };
 
             int[] expDropArray = new int[9] { 20, 23, 27, 41, 54, 92, 161, 285, 513 };
-
-
             int monsterIndex = rnd.Next(0, monsterNames.Count);
             int monsterIndex2 = rnd.Next(0, miniBossNames.Count);
             int bonusDmg = rnd.Next(1, 15);
             int bonusGold = rnd.Next(5, 20);
-            int upOrDown = rnd.Next(0, 2);
+            //int upOrDown = rnd.Next(0, 2);
+            int belowEvenAbove = rnd.Next(-1, 2);
 
             if (Player.player.Lvl < 9)
             {
-                if (upOrDown == 1 && Player.player.Lvl >= 2) //33% monster is 1 lvl lower
+                int lvlVariation = Player.player.Lvl;
+
+                if (Player.player.Lvl >= 2)
                 {
-                    Monster monster = new Monster()
-                    {
-                        Name = monsterNames[monsterIndex],
-                        Lvl = Player.player.Lvl - 1,
-                        Hp = 100 * (Player.player.Lvl - 1),
-                        Dmg = 20 * (Player.player.Lvl - 1) + bonusDmg,
-                        ExpDrop = expDropArray[Player.player.Lvl - 2],
-                        GoldDrop = (100 + bonusGold) * Player.player.Lvl,
-                        Alive = true
-                    };
-                    Fight(monster);
+                    lvlVariation = Player.player.Lvl + belowEvenAbove;
                 }
-                else if (upOrDown == 2)//33% same lvl as player
+
+                Monster monster2 = new Monster()
                 {
-                    Monster monster = new Monster()
-                    {
-                        Name = monsterNames[monsterIndex],
-                        Lvl = Player.player.Lvl,
-                        Hp = 100 * Player.player.Lvl,
-                        Dmg = 20 * Player.player.Lvl + bonusDmg,
-                        ExpDrop = expDropArray[Player.player.Lvl - 1],
-                        GoldDrop = (100 + bonusGold) * Player.player.Lvl,
-                        Alive = true
-                    };
-                    Fight(monster);
-                }
-                else //33% monster is 1 lvl higher
-                {
-                    Monster monster = new Monster()
-                    {
-                        Name = monsterNames[monsterIndex],
-                        Lvl = Player.player.Lvl + 1,
-                        Hp = 100 * (Player.player.Lvl + 1),
-                        Dmg = 20 * (Player.player.Lvl + 1) + bonusDmg,
-                        ExpDrop = expDropArray[Player.player.Lvl],
-                        GoldDrop = (100 + bonusGold) * Player.player.Lvl,
-                        Alive = true
-                    };
-                    Fight(monster);
-                }
+                    Name = monsterNames[monsterIndex],
+                    Lvl = lvlVariation,
+                    Hp = 100 * lvlVariation,
+                    Dmg = (20 * lvlVariation) + bonusDmg,
+                    ExpDrop = expDropArray[lvlVariation],
+                    GoldDrop = (100 + bonusGold) * lvlVariation,
+                    Alive = true
+                };
+                Fight(monster2);
+
 
             }
             else if (Player.player.Lvl == 9)
             {
-                MiniBoss miniBoss = new MiniBoss()
+                Monster miniBoss = new Monster()
                 {
                     Name = miniBossNames[monsterIndex2],
-                    Lvl = Player.player.Lvl,
+                    Lvl = Player.player.Lvl + 1,
                     Hp = 500 * (Player.player.Lvl + 1),
                     Dmg = 450 + (bonusDmg * 5),
                     ExpDrop = expDropArray[Player.player.Lvl - 1],
@@ -127,17 +103,83 @@ namespace Labb3.Encounters
                 demiLich.Dmg = 700 + (bonusDmg * 5);
                 demiLich.SpecialAttackName = "Ice lance";
                 demiLich.SpecialAttackPower = 1000;
-                demiLich.Loot = "Ruby eyes";
-                demiLich.LootWorth = 5000;
-                demiLich.RareLoot = "Golden egg";
-                demiLich.RareLootWorth = 10000;
                 demiLich.Alive = true;
-
-
-
 
                 Fight(demiLich);
             }
+
+            //if (Player.player.Lvl < 9)
+            //{   
+            //    if (upOrDown == 1 && Player.player.Lvl >= 2) //33% monster is 1 lvl lower
+            //    {
+            //        Monster monster = new Monster()
+            //        {
+            //            Name = monsterNames[monsterIndex],
+            //            Lvl = Player.player.Lvl - 1,
+            //            Hp = 100 * (Player.player.Lvl - 1),
+            //            Dmg = 20 * (Player.player.Lvl - 1) + bonusDmg,
+            //            ExpDrop = expDropArray[Player.player.Lvl - 2],
+            //            GoldDrop = (100 + bonusGold) * Player.player.Lvl,
+            //            Alive = true
+            //        };
+            //        Fight(monster);
+            //    }
+            //    else if (upOrDown == 2)//33% same lvl as player
+            //    {
+            //        Monster monster = new Monster()
+            //        {
+            //            Name = monsterNames[monsterIndex],
+            //            Lvl = Player.player.Lvl,
+            //            Hp = 100 * Player.player.Lvl,
+            //            Dmg = 20 * Player.player.Lvl + bonusDmg,
+            //            ExpDrop = expDropArray[Player.player.Lvl - 1],
+            //            GoldDrop = (100 + bonusGold) * Player.player.Lvl,
+            //            Alive = true
+            //        };
+            //        Fight(monster);
+            //    }
+            //    else //33% monster is 1 lvl higher
+            //    {
+            //        Monster monster = new Monster()
+            //        {
+            //            Name = monsterNames[monsterIndex],
+            //            Lvl = Player.player.Lvl + 1,
+            //            Hp = 100 * (Player.player.Lvl + 1),
+            //            Dmg = 20 * (Player.player.Lvl + 1) + bonusDmg,
+            //            ExpDrop = expDropArray[Player.player.Lvl],
+            //            GoldDrop = (100 + bonusGold) * Player.player.Lvl,
+            //            Alive = true
+            //        };
+            //        Fight(monster);
+            //    }
+            //}
+            //else if (Player.player.Lvl == 9)
+            //{
+            //    Monster miniBoss = new Monster()
+            //    {
+            //        Name = miniBossNames[monsterIndex2],
+            //        Lvl = Player.player.Lvl + 1,
+            //        Hp = 500 * (Player.player.Lvl + 1),
+            //        Dmg = 450 + (bonusDmg * 5),
+            //        ExpDrop = expDropArray[Player.player.Lvl - 1],
+            //        GoldDrop = 500,
+            //        Alive = true
+            //    };
+
+            //    Fight(miniBoss);
+            //}
+            //else
+            //{
+            //    demiLich.Name = "Demi-Lich";
+            //    demiLich.Lvl = 11;
+            //    demiLich.Hp = 10000;
+            //    demiLich.Dmg = 700 + (bonusDmg * 5);
+            //    demiLich.SpecialAttackName = "Ice lance";
+            //    demiLich.SpecialAttackPower = 1000;
+            //    demiLich.Alive = true;
+
+            //    Fight(demiLich);
+            //}
         }
 
         static void StatsDuringFight(Monster monster)
@@ -166,6 +208,8 @@ namespace Labb3.Encounters
             Tools.GreenLine($"  -Major: {Player.player.MajorPotion}");
             Tools.YellowLine("-----------------------------\n");
         }
+
+        //ItemDrop START
         static private void ItemDrop()
         {
             var randomItem = Item.StuffGenerator();
@@ -182,12 +226,13 @@ namespace Labb3.Encounters
 
             List<IItem> itemList = new List<IItem>();
 
-            if (rndChanse == 0) //1 in 5 a weapon will drop
+            if (rndChanse == 0 && Player.player.Lvl < 9) //1 in 5 a weapon will drop
             {
                 Tools.YellowLine("\n Loot spontaniously appears from thin air!");
                 Sleep(1400);
                 Tools.YellowLine("Remarkable!\n");
                 Sleep(1400);
+
                 if (rndChanse2 <= 1)
                 {
                     Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr].Name} has been added to your inventory!");
@@ -222,6 +267,13 @@ namespace Labb3.Encounters
 
                 Sleep(2000);
             }
+            else if (Player.player.Lvl == 9)
+            {
+                Tools.GreenLine($"\n {miniboss.RareLoot} has been added to your inventory!");
+                var goldenEgg = new Item() { Name = "Golden egg", GoldCost = 1000, GoldIfSold = 10000, ItemLevel = 10 };
+                itemList.Add(goldenEgg);
+            }
+
             if (rndNr == 1) // 33% to drop extra trash
             {
                 Sleep(1400);
@@ -234,9 +286,7 @@ namespace Labb3.Encounters
 
             Tools.PurpleLine("\n -Press any key to continue-");
             Console.ReadKey();
-
-
-        }
+        }//ItemDrop END
 
         static void FightingMenueText()
         {
@@ -248,6 +298,7 @@ namespace Labb3.Encounters
             Console.WriteLine("|| [5] Exit Game.......||");
             Console.WriteLine("=========================");
         }
+
         static public void Fight(Monster monster)
         {
             //Player
@@ -282,13 +333,11 @@ namespace Labb3.Encounters
                 FightingMenueText();
                 StatsDuringFight(monster);
 
-
                 while (readOnce == 0)//hmm
                 {
                     Potions.Instantiate();
                     readOnce = 1;
                 }
-
 
                 input = Tools.ConvToInt32(5);
 
@@ -299,13 +348,12 @@ namespace Labb3.Encounters
                     case 1:
 
                         Tools.YellowLine($"\n -{pName} Turn-");
-                        Console.Write($"\n You raise your"); Tools.Purple($"{wepName}");
-                        Console.WriteLine($"\n and attack the {monster.Name}!");
+                        Console.Write($"\n You raise your"); Tools.Purple($"{wepName}"); Console.WriteLine($"and attack the {monster.Name}!");
                         Sleep(1500);
 
                         if (dodge == 1)
                         {
-                            Console.Write(" As you try to strike you stumble and"); Tools.Yellow(" miss"); Console.WriteLine(" your attack...");
+                            Console.Write(" As you try to strike you stumble and"); Tools.Yellow("miss"); Console.WriteLine(" your attack...");
                             Sleep(1500);
 
                             if (monster is LastBoss)
@@ -325,10 +373,8 @@ namespace Labb3.Encounters
                                 Player.player.Hp -= monster.Dmg / 2; //Player takes half monster dmg  
                             }
 
-
                             Tools.PurpleLine("\n -Press any key to continue-");
                             Console.ReadKey();
-
 
                             Player.CheckIfAlive();
                         }
@@ -354,23 +400,25 @@ namespace Labb3.Encounters
                             Player.CheckIfAlive();
                         }
 
-
                         bool monsterAlive = monster.CheckIfAlive();
-
 
                         if (!monsterAlive)
                         {
-                            if(monster is LastBoss)
+                            if (monster is LastBoss)
                             {
-                                Console.WriteLine($"As your last strike has landed the {demiLich.Name} bones start to rattle as they fall down to the floor.");
+                                Console.WriteLine($" As your last strike has landed the {demiLich.Name} bones start to rattle as they fall down to the floor.");
                                 Sleep(1600);
-                                Console.WriteLine("Just as soon as the bones hit the floorboards they instantaniously turn to dust.");
+                                Console.WriteLine(" Just as soon as the bones hit the floorboards they instantaniously turn to dust.");
                                 Sleep(1600);
-                                Console.WriteLine($"As the dust settles left is only the eyes of the {demiLich.Name}. ");
+                                Console.WriteLine($" As the dust settles left is only the eyes of the {demiLich.Name}. ");
                                 Sleep(1400);
-                                Console.WriteLine("2 blood red rubys are all that is left.");
+                                Console.WriteLine(" 2 blood red rubys are all that is left.");
                                 Sleep(1400);
 
+                                Tools.PurpleLine("\n -Press any key to continue-");
+                                Console.ReadKey();
+
+                                Messange.Outro();
                             }
                             else
                             {
@@ -383,14 +431,12 @@ namespace Labb3.Encounters
                                 Tools.GreenLine($"+ {monster.ExpDrop} experience points!");
                                 Tools.YellowLine($"+ {monster.GoldDrop} gold added to pouch!");
 
-
                                 Player.player.Exp += monster.ExpDrop;
                                 Player.player.Gold += monster.GoldDrop;
                                 Player.CheckIfLvlUp(); //Cheks if you can level up
 
                                 ItemDrop();
                             }
-                            
 
                             Sleep(3000);
                         }
@@ -471,7 +517,6 @@ namespace Labb3.Encounters
 
                             Player.player.Hp -= monster.Dmg / 2;
                             Player.CheckIfAlive();
-
                         }
                         else if (monsterChanseOnHit == 3)// 33% chance to miss
                         {
@@ -525,7 +570,6 @@ namespace Labb3.Encounters
                                     {
                                         Tools.RedLine("You don't have any left!");
                                     }
-
                                 }
                                 else if (Potions.itemList[index - 1].Name == "Greater healing potion")
                                 {
@@ -574,7 +618,6 @@ namespace Labb3.Encounters
                         {
                             Tools.RedLine("Your health is already at max!");
                             Sleep(2000);
-
                         }
                         break;
 
@@ -614,7 +657,7 @@ namespace Labb3.Encounters
                     //    Exit   //
                     case 5://Exit Game
 
-                        Tools.ExitGame();
+                        Tools.ExitGame(false);
                         break;
 
                 }//Switch end

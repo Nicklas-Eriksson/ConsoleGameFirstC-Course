@@ -125,13 +125,21 @@ namespace Labb3.UtilityTools
         }
 
         //Exit Game START
-        static public void ExitGame()
+        static public void ExitGame(bool wonGame)
         {
             Console.Clear();
             Logo.Exit();
 
             string input;
-            if (Player.player.Alive == true)
+            if (wonGame)
+            {
+                Tools.YellowLine("\n Thank you for playing my game");
+                Sleep(1500);
+                Tools.RedLine("Exiting Game..");
+                Sleep(1400);
+                Environment.Exit(0);
+            }
+            else if (Player.player.Alive == true && !wonGame)
             {
                 Tools.YellowLine("Are you sure you want to exit?");
                 Tools.Yellow("To confirm type");
@@ -187,16 +195,18 @@ namespace Labb3.UtilityTools
                     }
 
                 } while (input != "exit" || input != "back");
+
             }//if (alive == true) END
+
             else if(Player.player.Alive == false)
             {
                 Tools.RedLine("You died! Better luck next time!");
                 Sleep(1400);
                 Tools.YellowLine("One more time?!");
-                Tools.YellowLine("==================");
-                Tools.YellowLine("|| [1] Yes........");
-                Tools.YellowLine("|| [2] Hell no!...");
-                Tools.YellowLine("==================");
+                Tools.YellowLine("===================");
+                Tools.YellowLine("|| [1] Yes.......||");
+                Tools.YellowLine("|| [2] Hell no!..||");
+                Tools.YellowLine("===================");
 
                 int nr = Tools.ConvToInt32(2);
                 if(nr == 1)
@@ -212,7 +222,6 @@ namespace Labb3.UtilityTools
                     Tools.RedLine("Exiting Game..");
                     Sleep(1400);
                     Environment.Exit(0);
-
                 }
             }
 

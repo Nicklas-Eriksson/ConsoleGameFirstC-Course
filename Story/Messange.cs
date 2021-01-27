@@ -60,12 +60,15 @@ namespace Labb3.Story
         static public void Outro()
         {
             Console.Clear();
+            Logo.YouWon();
+
             Tools.YellowLine("You has beaten the game! Congratulations, now the world is free from horror and you can finaly rest..\n");
             Sleep(1600);
 
-            Tools.PurpleLine("-Press any key to continue-");
+            Tools.PurpleLine("-Press any key to exit the game-");
             Console.ReadKey();
-            Logo.YouWon();
+
+            Tools.ExitGame(true);
         }
     }
 }

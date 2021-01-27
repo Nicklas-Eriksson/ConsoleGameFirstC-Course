@@ -19,19 +19,14 @@ namespace Labb3.StartGame
     {
 
         static public void Game()
-        {
-           
-
+        {         
             Console.Title = "Dungeons of Solitude";
             Console.WindowHeight = 55;
             Console.WindowWidth = 100;
 
             //Music
             SoundPlayer music = new SoundPlayer("music/NinjaMusicWAV.wav");
-            //SoundPlayer music2 = new SoundPlayer("music/BlueLanternWAV.wav");
-            music.PlayLooping();
-
-            
+            music.PlayLooping();                        
 
             if (!Directory.Exists("saves"))//Fixa så den inte crachar om inte mappen finns
             {
@@ -40,15 +35,14 @@ namespace Labb3.StartGame
 
             NewGameOrLoadGame();
 
-            Console.WriteLine("Press a key to keep going /debug");
-            Console.ReadKey(); //Ta bort sen
+            Tools.PurpleLine("\n -Press any key to continue-");
+            Console.ReadKey();
 
             //Sleep(1400);
-            
+
             MenuOptions.MainMenuSwitch();
 
             music.Stop();
-
         }
 
         private static void NewGameOrLoadGame()
@@ -74,7 +68,7 @@ namespace Labb3.StartGame
                     Player.player = SaveOrLoad.Load();
                     break;
                 case 3:
-                    Tools.ExitGame();
+                    Tools.ExitGame(false);
                     break;
             }
         }

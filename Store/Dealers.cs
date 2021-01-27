@@ -52,7 +52,7 @@ namespace Labb3.Store
                     MenuOptions.MainMenuSwitch();
                     break;
                 case 4:
-                    Tools.ExitGame();
+                    Tools.ExitGame(false);
                     break;
             }
         }
@@ -94,7 +94,7 @@ namespace Labb3.Store
                     BuyOrSellSwitch();
                     break;
                 case 5://Exit
-                    Tools.ExitGame();
+                    Tools.ExitGame(false);
                     break;
             }
         }
