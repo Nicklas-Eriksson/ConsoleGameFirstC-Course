@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Labb3.Menues;
 using Labb3.UtilityTools;
 using static System.Threading.Thread;

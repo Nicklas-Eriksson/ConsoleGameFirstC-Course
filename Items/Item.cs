@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using System.Text;
-
 namespace Labb3.Items
 {
     [Serializable]
@@ -15,8 +13,8 @@ namespace Labb3.Items
         private int itemLevel;
 
         public string Name { get => name; set => name = value; }
-        public int GoldCost { get => goldCost; set => goldCost = itemLevel * 20 ; }
-        public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 3; }
+        public int GoldCost { get => goldCost; set => goldCost = itemLevel * 100 ; }
+        public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 4; }
         public int ItemLevel { get => itemLevel; set => itemLevel = value; }
     }
 

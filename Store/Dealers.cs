@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Labb3.Menues;
 using Labb3.UtilityTools;
 using Labb3.Items;
 using static System.Threading.Thread;
 using Labb3.Character;
-using System.Linq;
 
 namespace Labb3.Store
 {
@@ -16,7 +14,6 @@ namespace Labb3.Store
     {
         private static int input;
         private static bool purchaseOk;
-
 
 
         //Buy or Sell START
@@ -102,7 +99,7 @@ namespace Labb3.Store
 
         //Buy Weapons START
 
-        
+
 
         private static void DisplayPlayerGoldAndSuch()
         {
@@ -117,7 +114,7 @@ namespace Labb3.Store
             if (Player.player.WeaponIndex >= 0)
             {
                 Console.Write(" Equipped Weapon:");
-                Tools.YellowLine($"{Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name} +{Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} damage");
+                Tools.YellowLine($"{Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name} +{Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} damage");
             }
             else if (Player.player.WeaponIndex < 0)
             {
@@ -141,12 +138,9 @@ namespace Labb3.Store
             }
             Console.WriteLine("------------------------------");
 
-
-
         }
         private static void BuyWeaponText(int nr)//will be looped through in BuyInstruct()
         {
-
             Console.WriteLine("------------------------------");
             Tools.YellowLine($"[{nr + 1}]: {Weapon.weapon.WeaponList[nr].Name}");
             Tools.Yellow($"Weapon damage: +{Weapon.weapon.WeaponList[nr].Power} damage");
@@ -158,9 +152,9 @@ namespace Labb3.Store
                 {
                     Tools.GreenLine($" +{Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
                 }
-                else if (Weapon.weapon.WeaponList[nr].Name == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name)
+                else if (Weapon.weapon.WeaponList[nr].Power == Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
                 {
-                    Tools.BlueLine($"  -Equipped Weapon-");
+                    Tools.BlueLine($" +{Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
                 }
                 else if (Weapon.weapon.WeaponList[nr].Power < Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
                 {
@@ -180,11 +174,9 @@ namespace Labb3.Store
 
             Logo.Shop();
 
-
             DisplayWeapons();
 
             input = Tools.ConvToInt32(Weapon.weapon.WeaponList.Count);
-
 
             bool sucessfulPurchase = GoldWithdraw(input, "weapon");
 
@@ -193,16 +185,29 @@ namespace Labb3.Store
 
                 Tools.GreenLine($"\n {Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
                 Player.player.WeaponDmg = Weapon.weapon.WeaponList[input - 1].Power;
-                Player.player.WeaponIndex = input - 1;
+
+                int wepIndex = 0;
+                for (int i = 0; i < Weapon.weapon.FullWeaponList.Count; i++)                
+                {
+                    if (Weapon.weapon.FullWeaponList[i].Name == Weapon.weapon.WeaponList[input - 1].Name)
+                    {
+                        wepIndex = i;
+                        break;
+                    }
+                }
+                               
+
+                Player.player.WeaponIndex = wepIndex;
                 /* WeaponIndex is a way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it */
 
                 IItemList.Add(Weapon.weapon.WeaponList[input - 1]);
                 Item.SetList(IItemList); //adds this list to the main Interface list for holding inventory items
                 Weapon.weapon.WeaponList.RemoveAt(input - 1); //test
+                Player.player.WeaponName = Weapon.weapon.WeaponList[input - 1].Name;
 
 
                 //test
-                Player.MyWeapons.Add(Weapon.weapon.WeaponList[input - 1]);//Should be able to save a list with an implemented interface, but it did not work for me somehow.
+                // Player.MyWeapons.Add(Weapon.weapon.WeaponList[input - 1]);//Should be able to save a list with an implemented interface, but it did not work for me somehow.
 
                 Sleep(2500);
             }
@@ -516,7 +521,7 @@ $$         $$$$$$$$$$$$$$$     ");
                     Tools.Error();
                     Sleep(1300);
                 }
-                else if (Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name)
+                else if (Player.player.WeaponName == items[nr - 1].Name)
                 {
                     Tools.RedLine("You can't sell an equipped weapon!");
                     success = false;

@@ -1,8 +1,5 @@
-﻿using Labb3.Character;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Labb3.Items
 {
@@ -14,11 +11,13 @@ namespace Labb3.Items
 
         private int power;
         private List<Weapon> weaponList = new List<Weapon>();
+        private List<Weapon> fullWeaponList = new List<Weapon>();
         private List<Weapon> currentWeapon = new List<Weapon>();
 
         //add a string trivia?
         public int Power { get => power; set => power = ItemLevel * 50; }
         public List<Weapon> WeaponList { get => weaponList; set => weaponList = value; }
+        public List<Weapon> FullWeaponList { get => fullWeaponList; set => fullWeaponList = value; }
         public List<Weapon> CurrentWeapon { get => currentWeapon; set => currentWeapon = value; }
 
         //Constructors
@@ -34,7 +33,6 @@ namespace Labb3.Items
             this.GoldIfSold = goldIfSold;
         }
 
-
         void WeaponForge()
         {
             //Weapons will be obtained in shop and/or through loot
@@ -43,6 +41,9 @@ namespace Labb3.Items
             {
                 Name = "Blundt Sword",
                 ItemLevel = 1,
+                Power = this.power,
+                GoldCost = this.GoldCost,
+                GoldIfSold = this.GoldIfSold
             };
             Weapon rustyDagger = new Weapon()//1
             {
@@ -228,7 +229,8 @@ namespace Labb3.Items
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
             };
-
+            
+            //Weapon List
             weaponList.Add(blundtSword);
             weaponList.Add(rustyDagger);
             weaponList.Add(unbalancedAxe);
@@ -253,6 +255,32 @@ namespace Labb3.Items
             weaponList.Add(bennysWhip);
             weaponList.Add(josefinesRevolver);
             weaponList.Add(davidsSpear);
+
+            //Full Weapon List
+            fullWeaponList.Add(blundtSword);
+            fullWeaponList.Add(rustyDagger);
+            fullWeaponList.Add(unbalancedAxe);
+            fullWeaponList.Add(vorpalBlade);
+            fullWeaponList.Add(railGuns);
+            fullWeaponList.Add(lightsaber);
+            fullWeaponList.Add(harbringer);
+            fullWeaponList.Add(needle);
+            fullWeaponList.Add(keyblade);
+            fullWeaponList.Add(oblivion);
+            fullWeaponList.Add(oathkeeper);
+            fullWeaponList.Add(thorsHammer);
+            fullWeaponList.Add(theElderWand);
+            fullWeaponList.Add(infinityGuantlet);
+            fullWeaponList.Add(gatlinGun);
+            fullWeaponList.Add(muramasBlade);
+            fullWeaponList.Add(dreamRod);
+            fullWeaponList.Add(olympiaSword);
+            fullWeaponList.Add(kakashisShuriken);
+            fullWeaponList.Add(håkansLongsword);
+            fullWeaponList.Add(tinasLongbow);
+            fullWeaponList.Add(bennysWhip);
+            fullWeaponList.Add(josefinesRevolver);
+            fullWeaponList.Add(davidsSpear);
         }
 
         public List<Weapon> GetFullWeaponList()

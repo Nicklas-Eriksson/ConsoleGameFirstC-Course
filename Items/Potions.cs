@@ -1,7 +1,5 @@
-﻿using Labb3.Character;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Labb3.Items
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Labb3.UtilityTools;
 using Labb3.Items;
 using static System.Threading.Thread;
@@ -25,6 +24,7 @@ namespace Labb3.Character
         private int fistDamage = 30; //damage
         private int weaponDmg = 0; //weapon damage. dmg and weaponDmg will be added together during combat
         private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon
+        private string weaponName = ""; 
         private int gold = 0; //Obtains by killing monsters and selling stuff
         private int minorPotion = 1; //can be obtained from shop 
         private int greaterPotion = 0; //can be obtained from shop 
@@ -47,6 +47,7 @@ namespace Labb3.Character
         public int FistDamage { get => fistDamage; set => fistDamage = value; }
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
+        public string WeaponName { get => weaponName; set => weaponName = value; }
         public int Gold { get => gold; set => gold = value; }
         public int MinorPotion { get => minorPotion; set => minorPotion = value; }
         public int GreaterPotion { get => greaterPotion; set => greaterPotion = value; }
@@ -116,7 +117,7 @@ namespace Labb3.Character
             {
                 for (int i = 0; i < ItemList.Count; i++)
                 {
-                    if (Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name == ItemList[i].Name)
+                    if (Player.player.WeaponName == ItemList[i].Name)
                     {
                         Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
                         Tools.PurpleLine("- Equipped weapon - ");

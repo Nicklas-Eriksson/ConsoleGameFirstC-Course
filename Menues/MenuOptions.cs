@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Labb3.Encounters;
 using Labb3.Items;
 using Labb3.Store;
@@ -51,8 +50,6 @@ namespace Labb3.Menues
             if (wepIndex == -1)
             {
                 Tools.PurpleLine($"\n Fists + {Player.player.FistDamage} attack damage");
-                
-
             }
 
             Tools.PurpleLine("\n -Leather Pouch-");
@@ -61,7 +58,7 @@ namespace Labb3.Menues
             if (wepIndex >= 0)
             {
                 Console.Write(" Weapon:");
-                Tools.PurpleLine($"{Weapon.weapon.WeaponList[wepIndex].Name} + {Weapon.weapon.WeaponList[wepIndex].Power} attack damage");
+                Tools.PurpleLine($"{Weapon.weapon.FullWeaponList[wepIndex].Name} + {Weapon.weapon.FullWeaponList[wepIndex].Power} attack damage");
             }
             else if (wepIndex == -1)
             {
@@ -77,8 +74,7 @@ namespace Labb3.Menues
         }
 
         public static void MainMenuSwitch()
-        {
-            Console.Clear();
+        {            
             MainMenuText();
 
             input = Tools.ConvToInt32(5);

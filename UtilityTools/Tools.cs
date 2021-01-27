@@ -2,8 +2,6 @@
 using Labb3.Menues;
 using Labb3.StartGame;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using static System.Threading.Thread;
 
 namespace Labb3.UtilityTools
@@ -99,8 +97,11 @@ namespace Labb3.UtilityTools
                 {
                     Player.player.Gold += 1000000;
                     Tools.GreenLine("Congratulations, you are now filthy rich!\n" +
-                        "+1 Million gold added to pouch");
-                    Sleep(3000);
+                        " +1 Million gold added to pouch");
+
+                    Tools.PurpleLine("\n -Press any key to continue-");
+                    Console.ReadKey();
+
                     MenuOptions.MainMenuSwitch();
                 }
                 else if (!success && input == "ihavethepower")//lvl 10 cheat
@@ -108,7 +109,10 @@ namespace Labb3.UtilityTools
                     Player.player.Lvl = 10;//lvl 10 cheat
                     Tools.GreenLine("Whooow! You grow up fast dont you!?");
                     Tools.GreenLine("Character level: 10");
-                    Sleep(3000);
+
+                    Tools.PurpleLine("\n -Press any key to continue-");
+                    Console.ReadKey();
+
                     MenuOptions.MainMenuSwitch();
                 }
                 //Cheat codes END

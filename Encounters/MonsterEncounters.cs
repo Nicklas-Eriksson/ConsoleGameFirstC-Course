@@ -1,14 +1,11 @@
 ﻿using Labb3.UtilityTools;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Labb3.Monsters;
 using Labb3.Items;
 using Labb3.Character;
-using Labb3.Store;
 using static System.Threading.Thread;
 using Labb3.Menues;
-using System.Linq;
 using Labb3.Story;
 
 namespace Labb3.Encounters

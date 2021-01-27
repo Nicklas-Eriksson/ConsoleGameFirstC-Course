@@ -2,14 +2,9 @@
 using Labb3.Menues;
 using Labb3.Character;
 using Labb3.UtilityTools;
-using Labb3.Story;
-using static System.Threading.Thread;
 using Labb3.Items;
-using System.Collections.Generic;
 using System.Media;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Threading;
 
 namespace Labb3.StartGame
 {

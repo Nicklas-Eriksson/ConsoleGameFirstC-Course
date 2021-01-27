@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Text;
-using Labb3.Items;
 
 namespace Labb3.Monsters
 {
