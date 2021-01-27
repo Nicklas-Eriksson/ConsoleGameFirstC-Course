@@ -14,7 +14,7 @@ namespace Labb3.Items
 
         public string Name { get => name; set => name = value; }
         public int GoldCost { get => goldCost; set => goldCost = itemLevel * 100 ; }
-        public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 4; }
+        public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 5; }
         public int ItemLevel { get => itemLevel; set => itemLevel = value; }
     }
 

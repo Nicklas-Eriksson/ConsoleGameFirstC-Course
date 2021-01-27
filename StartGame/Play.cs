@@ -21,8 +21,8 @@ namespace Labb3.StartGame
 
             //Music
             SoundPlayer music = new SoundPlayer("music/NinjaMusicWAV.wav");
-            music.PlayLooping();                        
-
+            music.PlayLooping();
+                        
             if (!Directory.Exists("saves"))//Fixa så den inte crachar om inte mappen finns
             {
                 Directory.CreateDirectory("saves");
@@ -30,8 +30,7 @@ namespace Labb3.StartGame
 
             NewGameOrLoadGame();
 
-            Tools.PurpleLine("\n -Press any key to continue-");
-            Console.ReadKey();
+            Tools.PressEnterToContinue();
 
             //Sleep(1400);
 

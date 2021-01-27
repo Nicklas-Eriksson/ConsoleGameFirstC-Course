@@ -99,8 +99,7 @@ namespace Labb3.UtilityTools
                     Tools.GreenLine("Congratulations, you are now filthy rich!\n" +
                         " +1 Million gold added to pouch");
 
-                    Tools.PurpleLine("\n -Press any key to continue-");
-                    Console.ReadKey();
+                    Tools.PressEnterToContinue();
 
                     MenuOptions.MainMenuSwitch();
                 }
@@ -110,8 +109,7 @@ namespace Labb3.UtilityTools
                     Tools.GreenLine("Whooow! You grow up fast dont you!?");
                     Tools.GreenLine("Character level: 10");
 
-                    Tools.PurpleLine("\n -Press any key to continue-");
-                    Console.ReadKey();
+                    Tools.PressEnterToContinue();
 
                     MenuOptions.MainMenuSwitch();
                 }
@@ -126,6 +124,25 @@ namespace Labb3.UtilityTools
         static public void Error()
         {
             Tools.RedLine("Wrong input, try again\n");
+        }
+
+        static public void PressEnterToContinue()
+        {
+            bool success = false;
+
+            Tools.Purple("\n -Press"); Tools.Yellow("[Enter]"); Tools.PurpleLine("to continue-");
+
+            do
+            {
+                if (Console.ReadKey().Key == ConsoleKey.Enter)
+                {
+                    success = true;
+                }
+                else
+                {                 
+                    success = false;
+                }
+            } while (!success);
         }
 
         //Exit Game START
@@ -202,7 +219,7 @@ namespace Labb3.UtilityTools
 
             }//if (alive == true) END
 
-            else if(Player.player.Alive == false)
+            else if (Player.player.Alive == false)
             {
                 Tools.RedLine("You died! Better luck next time!");
                 Sleep(1400);
@@ -213,7 +230,7 @@ namespace Labb3.UtilityTools
                 Tools.YellowLine("===================");
 
                 int nr = Tools.ConvToInt32(2);
-                if(nr == 1)
+                if (nr == 1)
                 {
                     Start.NewGame();
                 }

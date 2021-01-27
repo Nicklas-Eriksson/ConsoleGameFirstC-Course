@@ -26,19 +26,19 @@ namespace Labb3.Story
                 "As you grow stronger, so will also the monsters, and keep a close look on your\n" +
                 "healt. You don't want to be caught out without any..\n");
 
-            Console.WriteLine("Press any key when you are done reading...");
-            Console.ReadKey();
+            Tools.PressEnterToContinue();
+
             Console.Clear();
         }
         static public void Intro()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             string intro = "As you wander closer to your destination, you feel light on\n" +
-                "your feet. With a brad smile you fantisize about all the treasure that\n" +
+                "your feet. With a broad smile you fantasize about all the treasure that\n" +
                 "you will come across down in that forsaken dungeon.\n" +
-                "Roumors has it became a smugglers den after it was shut down for bussines 55 years ago..\n" +
+                "Rumors has it become a smuggler's den after it was shut down for business 55 years ago..\n" +
                 "The smugglers are long gone by now, since the plague had its way  all those years ago.\n" +
-                "So you stride onward, confident and armored with bravery and your wooden practise sword\n" +
+                "So you stride onward, confident and armored with bravery and your wooden practice sword\n" +
                 "that your dad made for you at your 18th birthday last year.\n";
             intro.ToCharArray();
 
@@ -51,8 +51,7 @@ namespace Labb3.Story
 
             Sleep(1600);
 
-            Tools.PurpleLine("-Press any key to continue-");
-            Console.ReadKey();
+            Tools.PressEnterToContinue();
         }
 
         static public void Outro()

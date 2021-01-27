@@ -203,7 +203,7 @@ namespace Labb3.Store
                 IItemList.Add(Weapon.weapon.WeaponList[input - 1]);
                 Item.SetList(IItemList); //adds this list to the main Interface list for holding inventory items
                 Weapon.weapon.WeaponList.RemoveAt(input - 1); //test
-                Player.player.WeaponName = Weapon.weapon.WeaponList[input - 1].Name;
+               
 
 
                 //test
@@ -521,7 +521,7 @@ $$         $$$$$$$$$$$$$$$     ");
                     Tools.Error();
                     Sleep(1300);
                 }
-                else if (Player.player.WeaponName == items[nr - 1].Name)
+                else if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name)
                 {
                     Tools.RedLine("You can't sell an equipped weapon!");
                     success = false;

@@ -103,80 +103,7 @@ namespace Labb3.Encounters
                 demiLich.Alive = true;
 
                 Fight(demiLich);
-            }
-
-            //if (Player.player.Lvl < 9)
-            //{   
-            //    if (upOrDown == 1 && Player.player.Lvl >= 2) //33% monster is 1 lvl lower
-            //    {
-            //        Monster monster = new Monster()
-            //        {
-            //            Name = monsterNames[monsterIndex],
-            //            Lvl = Player.player.Lvl - 1,
-            //            Hp = 100 * (Player.player.Lvl - 1),
-            //            Dmg = 20 * (Player.player.Lvl - 1) + bonusDmg,
-            //            ExpDrop = expDropArray[Player.player.Lvl - 2],
-            //            GoldDrop = (100 + bonusGold) * Player.player.Lvl,
-            //            Alive = true
-            //        };
-            //        Fight(monster);
-            //    }
-            //    else if (upOrDown == 2)//33% same lvl as player
-            //    {
-            //        Monster monster = new Monster()
-            //        {
-            //            Name = monsterNames[monsterIndex],
-            //            Lvl = Player.player.Lvl,
-            //            Hp = 100 * Player.player.Lvl,
-            //            Dmg = 20 * Player.player.Lvl + bonusDmg,
-            //            ExpDrop = expDropArray[Player.player.Lvl - 1],
-            //            GoldDrop = (100 + bonusGold) * Player.player.Lvl,
-            //            Alive = true
-            //        };
-            //        Fight(monster);
-            //    }
-            //    else //33% monster is 1 lvl higher
-            //    {
-            //        Monster monster = new Monster()
-            //        {
-            //            Name = monsterNames[monsterIndex],
-            //            Lvl = Player.player.Lvl + 1,
-            //            Hp = 100 * (Player.player.Lvl + 1),
-            //            Dmg = 20 * (Player.player.Lvl + 1) + bonusDmg,
-            //            ExpDrop = expDropArray[Player.player.Lvl],
-            //            GoldDrop = (100 + bonusGold) * Player.player.Lvl,
-            //            Alive = true
-            //        };
-            //        Fight(monster);
-            //    }
-            //}
-            //else if (Player.player.Lvl == 9)
-            //{
-            //    Monster miniBoss = new Monster()
-            //    {
-            //        Name = miniBossNames[monsterIndex2],
-            //        Lvl = Player.player.Lvl + 1,
-            //        Hp = 500 * (Player.player.Lvl + 1),
-            //        Dmg = 450 + (bonusDmg * 5),
-            //        ExpDrop = expDropArray[Player.player.Lvl - 1],
-            //        GoldDrop = 500,
-            //        Alive = true
-            //    };
-
-            //    Fight(miniBoss);
-            //}
-            //else
-            //{
-            //    demiLich.Name = "Demi-Lich";
-            //    demiLich.Lvl = 11;
-            //    demiLich.Hp = 10000;
-            //    demiLich.Dmg = 700 + (bonusDmg * 5);
-            //    demiLich.SpecialAttackName = "Ice lance";
-            //    demiLich.SpecialAttackPower = 1000;
-            //    demiLich.Alive = true;
-
-            //    Fight(demiLich);
-            //}
+            }            
         }
 
         static void StatsDuringFight(Monster monster)
@@ -232,15 +159,15 @@ namespace Labb3.Encounters
 
                 if (rndChanse2 <= 1)
                 {
-                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.WeaponList[rndNr]);
+                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr].Name} has been added to your inventory!");
+                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr]);
                     Item.SetList(itemList);
 
                 }
                 else if (rndChanse2 == 2)
                 {
-                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr2].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.WeaponList[rndNr2]);
+                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr2].Name} has been added to your inventory!");
+                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr2]);
                     Item.SetList(itemList);
                     if (rndNr == 1)
                     {
@@ -251,14 +178,14 @@ namespace Labb3.Encounters
                 }
                 else if (rndChanse2 == 3)
                 {
-                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr3].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.WeaponList[rndNr3]);
+                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr3].Name} has been added to your inventory!");
+                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr3]);
                     Item.SetList(itemList);
                 }
                 else if (rndChanse2 == 4)
                 {
-                    Tools.GreenLine($"{Weapon.weapon.WeaponList[rndNr4].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.WeaponList[rndNr4]);
+                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr4].Name} has been added to your inventory!");
+                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr4]);
                     Item.SetList(itemList);
                 }
 
@@ -281,8 +208,8 @@ namespace Labb3.Encounters
 
             Sleep(2000);
 
-            Tools.PurpleLine("\n -Press any key to continue-");
-            Console.ReadKey();
+            Tools.PressEnterToContinue();
+
         }//ItemDrop END
 
         static void FightingMenueText()
@@ -310,7 +237,7 @@ namespace Labb3.Encounters
 
             if (pIndex >= 0) //if weapon is equipped
             {
-                wepName = Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name;
+                wepName = Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name;
                 pDmg = Player.player.BaseDamage + Player.player.WeaponDmg + crit;
             }
             else //fists
@@ -345,7 +272,7 @@ namespace Labb3.Encounters
                     case 1:
 
                         Tools.YellowLine($"\n -{pName} Turn-");
-                        Console.Write($"\n You raise your"); Tools.Purple($"{wepName}"); Console.WriteLine($"and attack the {monster.Name}!");
+                        Console.Write($"\n You raise your"); Tools.Purple($"{wepName}"); Console.WriteLine($" and attack the {monster.Name}!");
                         Sleep(1500);
 
                         if (dodge == 1)
@@ -357,7 +284,7 @@ namespace Labb3.Encounters
                             {
                                 Tools.YellowLine($"\n -{demiLich.Name} Turn-");
                                 Console.WriteLine($" As you clumsily stumbles forward {monster.Name} slices you with a his dagger seemingly made from ice.\n ");
-                                Tools.GreenLine($"{pName} health: -{demiLich.Dmg / 2}.");
+                                Tools.GreenLine($"{pName} health: -{demiLich.Dmg / 2}");
                                 Sleep(1500);
                                 Player.player.Hp -= demiLich.Dmg / 2; //Player takes half monster dmg  
                             }
@@ -365,13 +292,12 @@ namespace Labb3.Encounters
                             {
                                 Tools.YellowLine($"\n -{mName} Turn-");
                                 Console.WriteLine($" The {monster.Name} strikes you while you gather your wits.\n ");
-                                Tools.GreenLine($"{pName} health: -{monster.Dmg / 2}.");
+                                Tools.GreenLine($"{pName} health: -{monster.Dmg / 2}");
                                 Sleep(1500);
                                 Player.player.Hp -= monster.Dmg / 2; //Player takes half monster dmg  
                             }
 
-                            Tools.PurpleLine("\n -Press any key to continue-");
-                            Console.ReadKey();
+                            Tools.PressEnterToContinue();
 
                             Player.CheckIfAlive();
                         }
@@ -381,7 +307,7 @@ namespace Labb3.Encounters
                             {
                                 Console.WriteLine($" With gathered curage you strike against the {demiLich.Name}, he does not even flintch.\n ");
                                 Sleep(1500);
-                                Tools.RedLine($"{demiLich.Name} health: -{pDmg}.");
+                                Tools.RedLine($"{demiLich.Name} health: -{pDmg}");
                                 Sleep(1500);
                                 demiLich.Hp -= pDmg;
                             }
@@ -389,7 +315,7 @@ namespace Labb3.Encounters
                             {
                                 Console.WriteLine($" As you strike the {monster.Name}, it screams in pain.\n ");
                                 Sleep(1500);
-                                Tools.RedLine($"{monster.Name} health: -{pDmg}.");
+                                Tools.RedLine($"{monster.Name} health: -{pDmg}");
                                 Sleep(1500);
                                 monster.Hp -= pDmg;
                             }
@@ -412,14 +338,13 @@ namespace Labb3.Encounters
                                 Console.WriteLine(" 2 blood red rubys are all that is left.");
                                 Sleep(1400);
 
-                                Tools.PurpleLine("\n -Press any key to continue-");
-                                Console.ReadKey();
+                                Tools.PressEnterToContinue();
 
                                 Messange.Outro();
                             }
                             else
                             {
-                                Console.WriteLine($" As you prepare for one more attack on the {monster.Name},");
+                                Console.WriteLine($"\n As you prepare for one more attack on the {monster.Name},");
                                 Sleep(1400);
                                 Console.WriteLine($" you suddenly come to a halt when you see it laying lifeless right before you.");
                                 Sleep(1400);
@@ -458,7 +383,7 @@ namespace Labb3.Encounters
                                 Sleep(3000);
                                 Console.WriteLine($" You can not seem to look away, his glare is paralyzing you momentarily in place..\n ");
                                 Sleep(1400);
-                                Tools.GreenLine($"{pName} health: -{demiLich.Dmg}.");
+                                Tools.GreenLine($"{pName} health: -{demiLich.Dmg}");
                                 Player.player.Hp -= demiLich.Dmg;
                             }
                             else if (specialAttack % 2 == 0 && monster is LastBoss)
@@ -480,12 +405,11 @@ namespace Labb3.Encounters
                             {
                                 Console.WriteLine($" The {monster.Name} takes a step back, and lunges towards you and hits you with a sweeping strike!\n");
                                 Sleep(1400);
-                                Tools.GreenLine($"{pName} health: -{monster.Dmg}.");
+                                Tools.GreenLine($"{pName} health: -{monster.Dmg}");
                                 Player.player.Hp -= monster.Dmg;
                             }
 
-                            Tools.PurpleLine("\n -Press any key to continue-");
-                            Console.ReadKey();
+                            Tools.PressEnterToContinue();
 
                             Player.CheckIfAlive();
                         }
@@ -506,11 +430,10 @@ namespace Labb3.Encounters
                             Console.WriteLine($" The {monster.Name} strikes you with all their power and hits you for half the damage!");
                             Console.WriteLine($" Their attack was not that effective..");
                             Sleep(2000);
-                            Tools.GreenLine($"{pName} health: -{monster.Dmg / 2}.");
+                            Tools.GreenLine($"{pName} health: -{monster.Dmg / 2}");
                             Sleep(1400);
 
-                            Tools.PurpleLine("-Press any key to continue-");
-                            Console.ReadKey();
+                            Tools.PressEnterToContinue();
 
                             Player.player.Hp -= monster.Dmg / 2;
                             Player.CheckIfAlive();
@@ -521,10 +444,9 @@ namespace Labb3.Encounters
                             Console.WriteLine($" The {monster.Name} misses you with their attack and you quickly counter attack!");
                             Sleep(1400);
                             Console.WriteLine($" You hit the {monster.Name} for half your damage.");
-                            Tools.RedLine($"{mName} health: -{pDmg / 2}.");
+                            Tools.RedLine($"{mName} health: -{pDmg / 2}");
 
-                            Tools.PurpleLine("\n -Press any key to continue-");
-                            Console.ReadKey();
+                            Tools.PressEnterToContinue();
 
                             monster.Hp -= pDmg / 2;
                             monster.CheckIfAlive();
@@ -606,8 +528,7 @@ namespace Labb3.Encounters
                                     Player.player.Hp = Player.player.MaxHp;
                                 }
 
-                                Tools.PurpleLine("\n -Press any key to continue-");
-                                Console.ReadKey();
+                                Tools.PressEnterToContinue();
 
                             } while (!success);
                         }
@@ -633,8 +554,7 @@ namespace Labb3.Encounters
                             Console.WriteLine($"The sweeping strike from the {monster.Name} hits you for as you try to run away.");
                             Tools.RedLine($"-{monster.Dmg / 2}");
 
-                            Tools.PurpleLine("\n -Press any key to continue-");
-                            Console.ReadKey();
+                            Tools.PressEnterToContinue();
 
                             Player.player.Hp -= monster.Dmg / 2;
                             Player.CheckIfAlive();
@@ -643,8 +563,7 @@ namespace Labb3.Encounters
                         {
                             Console.WriteLine($"The {monster.Name} barely misses you, as you slam the door shut.");
 
-                            Tools.PurpleLine("\n -Press any key to continue-");
-                            Console.ReadKey();
+                            Tools.PressEnterToContinue();
 
                             MenuOptions.MainMenuSwitch(); //Back to menu
                         }
