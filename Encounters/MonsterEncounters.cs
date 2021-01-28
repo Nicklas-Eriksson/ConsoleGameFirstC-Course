@@ -50,7 +50,7 @@ namespace Labb3.Encounters
             int monsterIndex = rnd.Next(0, monsterNames.Count);
             int monsterIndex2 = rnd.Next(0, miniBossNames.Count);
             int bonusDmg = rnd.Next(1, 15);
-            int bonusGold = rnd.Next(5, 20);
+            int bonusGold = rnd.Next(5, 20); 
             int belowEvenAbove = rnd.Next(-1, 2);
 
             if (Player.player.Lvl < 9)

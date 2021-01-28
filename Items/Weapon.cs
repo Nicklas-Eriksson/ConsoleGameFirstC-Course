@@ -12,9 +12,8 @@ namespace Labb3.Items
         private int goldCost;
 
         //add a string trivia?
-        public int Power { get => power; set => power = ItemLevel * 50; }
+        public int Power { get => power; set => power = ItemLevel * 20; }
         public int GoldCost { get => goldCost; set => goldCost = 100*ItemLevel; }
-        //public int GoldIfSold { get => GoldIfSold; set => GoldIfSold = goldCost / 3; }
 
         public List<Weapon> WeaponList { get; set; } = new List<Weapon>();
         public List<Weapon> FullWeaponList { get; set; } = new List<Weapon>();
@@ -41,7 +40,7 @@ namespace Labb3.Items
             Weapon rustyDagger = new Weapon()//1
             {
                 Name = "Rusty Dagger",
-                ItemLevel = 1,
+                ItemLevel = 2,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -49,7 +48,7 @@ namespace Labb3.Items
             Weapon vorpalBlade = new Weapon()//3
             {
                 Name = "Vorpal Blade",
-                ItemLevel = 2,
+                ItemLevel = 5,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -57,7 +56,7 @@ namespace Labb3.Items
             Weapon lightsaber = new Weapon()//5
             {
                 Name = "Lightsaber",
-                ItemLevel = 3,
+                ItemLevel = 8,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -65,7 +64,7 @@ namespace Labb3.Items
             Weapon needle = new Weapon()//7
             {
                 Name = "Arya's Needle",
-                ItemLevel = 4,
+                ItemLevel = 13,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -73,7 +72,7 @@ namespace Labb3.Items
             Weapon keyblade = new Weapon()//8
             {
                 Name = "Sora's Keyblade",
-                ItemLevel = 5,
+                ItemLevel = 16,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -81,7 +80,7 @@ namespace Labb3.Items
             Weapon thorsHammer = new Weapon()//11
             {
                 Name = "Thors Hammer",
-                ItemLevel = 6,
+                ItemLevel = 19,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -89,7 +88,7 @@ namespace Labb3.Items
             Weapon infinityGuantlet = new Weapon()//13
             {
                 Name = "Infinity Gauntlet",
-                ItemLevel = 7,
+                ItemLevel = 20,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -97,7 +96,7 @@ namespace Labb3.Items
             Weapon gatlingGun = new Weapon()//14
             {
                 Name = "Gatling Gun",
-                ItemLevel = 8,
+                ItemLevel = 23,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -105,7 +104,7 @@ namespace Labb3.Items
             Weapon olympiaSword = new Weapon()//17
             {
                 Name = "Olympia Sword",
-                ItemLevel = 9,
+                ItemLevel = 26,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -113,7 +112,7 @@ namespace Labb3.Items
             Weapon kakashisShuriken = new Weapon()//18
             {
                 Name = "Kakashi's Shuriken",
-                ItemLevel = 10,
+                ItemLevel = 30,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -121,7 +120,7 @@ namespace Labb3.Items
             Weapon håkansLongsword = new Weapon()//19
             {
                 Name = "Håkan's Longsword",
-                ItemLevel = 10,
+                ItemLevel = 30,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -129,7 +128,7 @@ namespace Labb3.Items
             Weapon tinasLongbow = new Weapon()//20
             {
                 Name = "Tina's Longbow",
-                ItemLevel = 10,
+                ItemLevel = 30,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -137,7 +136,7 @@ namespace Labb3.Items
             Weapon bennysWhip = new Weapon()//21
             {
                 Name = "Benny's Whip",
-                ItemLevel = 10,
+                ItemLevel = 30,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -145,7 +144,7 @@ namespace Labb3.Items
             Weapon josefinesRevolver = new Weapon()//22
             {
                 Name = "Josefine's Revolver",
-                ItemLevel = 10,
+                ItemLevel = 30,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold
@@ -153,7 +152,7 @@ namespace Labb3.Items
             Weapon davidsSpear = new Weapon()//23
             {
                 Name = "David's Spear",
-                ItemLevel = 10,
+                ItemLevel = 30,
                 Power = this.power,
                 GoldCost = this.GoldCost,
                 GoldIfSold = this.GoldIfSold

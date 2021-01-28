@@ -9,7 +9,7 @@ namespace Labb3.Items
         private int goldIfSold;
 
         public string Name { get; set; }
-        public int GoldIfSold { get => goldIfSold; set => goldIfSold = ItemLevel * 33; }// goldIfSold = ItemLevel * 33;
+        public int GoldIfSold { get => goldIfSold; set => goldIfSold = ItemLevel * 33; }
         public int ItemLevel { get; set; }
     }
 
@@ -37,12 +37,10 @@ namespace Labb3.Items
         {
             var rnd = new Random();
             int rndName = rnd.Next(0, stuffNames.Count);
-            int rndItemLvl = rnd.Next(1, 11);
 
             rndItem.Name = stuffNames[rndName];
             rndItem.GoldIfSold = this.GoldIfSold;
             rndItem.ItemLevel = 5;
-
         }
         public static Item RandomItem()
         {
