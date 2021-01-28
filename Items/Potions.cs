@@ -43,6 +43,7 @@ namespace Labb3.Items
         }
         public static void Instantiate()
         {
+            potionList.Clear();
             pot.PotionForge();
         }
     }

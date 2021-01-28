@@ -25,9 +25,9 @@ namespace Labb3.Character
         private int weaponDmg; //weapon damage. dmg and weaponDmg will be added together during combat
         private int weaponIndex = -1; //set to -1 so wooden sword can be set as a kind of starter weapon
         private int gold; //Obtains by killing monsters and selling stuff
-        private int minorPotion = 2; //can be obtained from shop
+        private int minorPotion = 1; //can be obtained from shop
         private int greaterPotion; //can be obtained from shop
-        private int majorPotion; //can be obtained from
+        private int majorPotion; //can be obtained from shop
         private static List<Weapon> myWeapons = new List<Weapon>();
         private static List<Item> myItems = new List<Item>();
         private static List<IItem> itemList = new List<IItem>();
@@ -37,7 +37,7 @@ namespace Labb3.Character
         public bool Alive { get => alive; set => alive = value; }
         public int Lvl { get => lvl; set => lvl = value; }
         public int Exp { get => exp; set => exp = value; }
-        public int MaxExp { get => maxExp; set => maxExp = value; } // doubles the exp needed to lvl up
+        public int MaxExp { get => maxExp; set => maxExp = value; }
         public int Hp { get => hp; set => hp = value; }
         public int MaxHp { get => maxHp; set => maxHp = value; }
         public int BaseDamage { get => baseDamage; set => baseDamage = value; }

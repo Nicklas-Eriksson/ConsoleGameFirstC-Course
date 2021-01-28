@@ -293,7 +293,7 @@ namespace Labb3.UtilityTools
             Tools.CursorWriteWhite(" -Name: ", 56, -5);
             Tools.CursorWriteGreen($"{Player.player.Name}", 63, -5);
             Tools.CursorWriteWhite(" -Health:", 56, -4);
-            Tools.CursorWriteGreen($"{Player.player.MaxHp}", 64, -4);
+            Tools.CursorWriteGreen($"{Player.player.Hp}", 64, -4);
             Tools.CursorWriteWhite(" -Base damage:", 56, -3);
             Tools.CursorWriteRed($"{Player.player.BaseDamage}", 70, -3);
             Tools.CursorWriteWhite(" -Level:", 56, -2);

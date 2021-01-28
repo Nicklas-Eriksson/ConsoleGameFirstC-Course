@@ -43,7 +43,7 @@ namespace Labb3.Encounters
             Console.Clear();
             TextEncounter();
 
-            List<string> monsterNames = new List<string>() { "Goblin", "Thief", "Banshee", "Cultist", "Mutant", "Hell Hound", "Elder Thing", "Deep One", " Silent One", "Necromancer", "Deci", "Ogre", "Gargoyle", "Troll", "Nymph", "Kobold", "Satyr", "Decided Rat", "Giant Spider", "Rabid Goblin", "Giant Spider" };
+            List<string> monsterNames = new List<string>() { "Goblin", "Thief", "Banshee", "Cultist", "Mutant", "Hell Hound", "Elder Thing", "Deep One", "Silent One", "Necromancer", "Deci", "Ogre", "Gargoyle", "Troll", "Nymph", "Kobold", "Satyr", "Decided Rat", "Giant Spider", "Rabid Goblin", "Giant Spider" };
             List<string> miniBossNames = new List<string>() { "Azathoth", "B'gnu-Thun", "Bokrug", "Cthulhu", "Dagon", "Dimensional Shambler", "Dunwich Horror", "Formless Spawn", "Ghatanothoa", "Gloon", "Gnoph-Keh", "Great Old One", "Yog-Sothoth", "Yuggoth", "Innsmouth", "Shoggoth", "Outer God", "Nightgaut", "Nyarlathotep" };
 
             int[] expDropArray = new int[9] { 20, 23, 27, 41, 54, 92, 161, 285, 20000 };
@@ -133,50 +133,47 @@ namespace Labb3.Encounters
         //ItemDrop START
         static private void ItemDrop()
         {
-            var randomItem = Item.StuffGenerator();
+            var randomItem = Item.RandomItem();
 
             //chance on weapon drops
-            int chanseOnLoot = rnd.Next(0, 3); //33% chance on drop
+            int chanseOnLoot = rnd.Next(0, 2); //50% chance on drop
             int chanseOnWeaponLoot = rnd.Next(0, 4);//25% to drop weapon too
 
             //So weapons with index of 0 ti 6 can drop from mobs
             int rndNr = rnd.Next(0, 3);
             int rndNr2 = rnd.Next(0, 7);
 
-            if (chanseOnLoot == 0 && Player.player.Lvl < 9) 
+            if (Player.player.Lvl < 9 && chanseOnLoot == 0)
             {
                 Tools.YellowLine("\n Loot spontaneously appears from thin air!");
                 Sleep(1400);
                 Tools.YellowLine("Remarkable!\n");
                 Sleep(1400);
 
+                Tools.GreenLine($"-{randomItem.Name} has been added to your inventory!");
+                Item.InventoryList.Add(randomItem);
+
                 if (chanseOnWeaponLoot <= 1) //if 0 or 1 is rolled this drops (bad weapons)
                 {
-                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr].Name} has been added to your inventory!");
-                    Item.InventoryList.Add(Weapon.weapon.FullWeaponList[rndNr]); // Item.SetList(itemList);
+                    Tools.GreenLine($"-{Weapon.weapon.FullWeaponList[rndNr].Name} has been added to your inventory!");
+                    Item.InventoryList.Add(Weapon.weapon.FullWeaponList[rndNr]);
                 }
                 else if (chanseOnWeaponLoot > 1) //if 2 or 3 is rolled this drops (better weapons)
                 {
-                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr2].Name} has been added to your inventory!");
+                    Tools.GreenLine($"-{Weapon.weapon.FullWeaponList[rndNr2].Name} has been added to your inventory!");
                     Item.InventoryList.Add(Weapon.weapon.FullWeaponList[rndNr2]);
-                    if (rndNr == 1)
-                    {
-                        Tools.GreenLine($"\n {randomItem.Name} has been added to your inventory!");
-                        Item.InventoryList.Add(randomItem);
-                    }
                 }
 
                 Sleep(1400);
             }
             else if (Player.player.Lvl == 9)
             {
-                Tools.GreenLine($"\n {miniboss.RareLoot} has been added to your inventory!");
-                var goldenEgg = new Item() { Name = "Golden egg", GoldIfSold = 10000, ItemLevel = 10 };
+                Tools.GreenLine($"\n -{miniboss.RareLoot} has been added to your inventory!");
+                var goldenEgg = new Item() { Name = miniboss.RareLoot, GoldIfSold = miniboss.RareLootGold, ItemLevel = 10 };
                 Item.InventoryList.Add(goldenEgg);
             }
-            Sleep(2000);
-
             Tools.PressEnterToContinue();
+
         }//ItemDrop END
 
         private static void FightingMenueText()
