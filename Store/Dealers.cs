@@ -254,19 +254,21 @@ namespace Labb3.Store
         {
             Console.Clear();
             Logo.Shop();
+            PowerUp.powerUp.Instantiate();
             Tools.YellowLine(@"
-            ===========================
-            || ---------Buy--------  ||
-            || [1] Minor Stamina.... ||
-            || [2] Greater Stamina.. ||
-            || [3] Major Stamina.... ||
-            || [4] Back............. ||");
+ ===========================
+ || ---------Buy--------  ||
+ || [1] Minor Stamina.... ||
+ || [2] Greater Stamina.. ||
+ || [3] Major Stamina.... ||
+ || [4] Back............. ||");
             Tools.DrawCharacterStatus();
-            Tools.YellowLine("==========================");
+            Tools.YellowLine("==========================\n");
 
-            Tools.Yellow("\n -Minor:"); Tools.Green("+50 hp"); Tools.YellowLine("for 100 gold");
-            Tools.Yellow("-Greater:"); Tools.Green("+100 hp"); Tools.YellowLine("for 200 gold");
-            Tools.Yellow("-Major:"); Tools.Green("+150 hp"); Tools.YellowLine("for 300 gold\n");
+            for (int i = 0; i < PowerUp.staminaList.Count; i++)
+            {
+                Tools.Yellow($"-{PowerUp.staminaList[i].Name}:"); Tools.Green($"+{PowerUp.staminaList[i].Bonus} hp"); Tools.YellowLine($"for {PowerUp.staminaList[i].GoldCost} gold");
+            }
         }
 
         private static void StrengthText()
@@ -283,43 +285,10 @@ namespace Labb3.Store
 
             Tools.DrawCharacterStatus();
 
-            Tools.Yellow("-Minor:"); Tools.Red("+50 damage"); Tools.YellowLine("for 100 gold");
-            Tools.Yellow("-Greater:"); Tools.Red("+100 damage"); Tools.YellowLine("for 200 gold");
-            Tools.Yellow("-Major:"); Tools.Red("+150 damage"); Tools.YellowLine("for 300 gold\n");
-
-            Tools.RedLine(@"
-              $$$$$$$$$$
-             $$__$_____$$$$$
-             $$_$$__$$____$$$$$$$$
-            $$_$$__$$$$$________$$$
-           $$_$$__$$__$$_$$$__$$__$$
-           $$_$$__$__$$__$$$$$$$$__$$
-            $$$$$_$$_$$$_$$$$$$$$_$$$
-             $$$$$$$$$$$$$_$$___$_$$$$
-                $$_$$$      $$$$$_$$$$
-                 $$$$       $$$$$___$$$
-                           $$_$$____$$$$
-                           $$_$$____$$$$$
-                          $$$$$_____$$$$$$
-                         $__$$_______$$$$$
-                        $$$_$$________$$$$$
-                        $$$___________$$$$$
-                 $$$$   $$____________$$$$$$
-  $$$$$$$$    $$$$$$$$$$ $____________$$$_$$
- $$$$$$$$$$$$$$$______$$$$$$$___$$____$$_$$$
-$$________$$$$__________$_$$$___$$$_____$$$$
-$$______$$$_____________$$$$$$$$$$$$$$$$$_$$
-$$______$$_______________$$_$$$$$$$$$$$$$$$
-$$_____$_$$$$$__________$$$_$$$$$$$$$$$$$$$
-$$___$$$__$$$$$$$$$$$$$$$$$__$$$$$$$$$$$$$
-$$_$$$$_____$$$$$$$$$$$$________$$$$$$__$
-$$$$$$$$$$$$$$_________$$$$$______$$$$$$$
-$$$$_$$$$$______________$$$$$$$$$$$$$$$$
-$$__$$$$_____$$___________$$$$$$$$$$$$$
-$$_$$$$$$$$$$$$____________$$$$$$$$$$
-$$_$$$$$$$$$$$$____$$$$$$$$__$$$
-$$$$  $$$$$$$$$$$$$$$$$$$$$$$$
-$$         $$$$$$$$$$$$$$$     ");
+            for (int i = 0; i < PowerUp.strengthList.Count; i++)
+            {
+                Tools.Yellow($"-{PowerUp.strengthList[i].Name}:"); Tools.Green($"+{PowerUp.strengthList[i].Bonus} damage"); Tools.YellowLine($"for {PowerUp.strengthList[i].GoldCost} gold");
+            }
         }
 
         private static void BuyStaminaSwitch()

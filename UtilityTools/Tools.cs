@@ -107,7 +107,6 @@ namespace Labb3.UtilityTools
                 {
                     if (!success && input == "greedisgood" || !success && input == "ihavethepower" || !success && input == "whosyourdaddy")
                     {
-                        break;
                     }
                     else
                     {
