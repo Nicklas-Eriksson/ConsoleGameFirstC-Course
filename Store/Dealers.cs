@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Labb3.Character;
+using Labb3.Items;
 using Labb3.Menues;
 using Labb3.UtilityTools;
-using Labb3.Items;
+using System;
+using System.Collections.Generic;
 using static System.Threading.Thread;
-using Labb3.Character;
 
 namespace Labb3.Store
 {
     [Serializable]
-
     public static class Dealers
     {
         private static int input;
         private static bool purchaseOk;
-
 
         //Buy or Sell START
         private static void BuyOrSellText()
@@ -29,9 +27,9 @@ namespace Labb3.Store
             Tools.YellowLine("|| [4] Exit Game........ ||");
             Tools.YellowLine("===========================\n");
         }
+
         private static void BuyOrSellSwitch()
         {
-
             BuyOrSellText();
 
             input = Tools.ConvToInt32(4);
@@ -45,14 +43,17 @@ namespace Labb3.Store
                 case 2:
                     SellSwitch();
                     break;
+
                 case 3:
                     MenuOptions.MainMenuSwitch();
                     break;
+
                 case 4:
                     Tools.ExitGame(false);
                     break;
             }
         }
+
         //Buy/Sell END
 
         //Buy Options START
@@ -70,6 +71,7 @@ namespace Labb3.Store
             Tools.YellowLine("|| [5] Exit Game........ ||");
             Tools.YellowLine("===========================\n");
         }
+
         private static void BuySwitch()
         {
             BuyText();
@@ -81,64 +83,52 @@ namespace Labb3.Store
                 case 1://Weapons
                     BuyWeapon();
                     break;
+
                 case 2://Power-Ups
                     BuyPowerUpSwitch();
                     break;
+
                 case 3://Potions
                     BuyPotionSwitch();
                     break;
+
                 case 4://Back
                     BuyOrSellSwitch();
                     break;
+
                 case 5://Exit
                     Tools.ExitGame(false);
                     break;
             }
         }
+
         //Buy Options END
 
         //Buy Weapons START
 
-
-
-        private static void DisplayPlayerGoldAndSuch()
-        {
-            Tools.YellowLine("==============================================================");
-            Console.Write(" Health:");
-            Tools.GreenLine($"{Player.player.MaxHp}");
-            Console.Write(" Base damage:");
-            Tools.RedLine($"{Player.player.BaseDamage}");
-            Console.Write(" Gold:");
-            Tools.YellowLine($"{Player.player.Gold}");
-
-            if (Player.player.WeaponIndex >= 0)
-            {
-                Console.Write(" Equipped Weapon:");
-                Tools.YellowLine($"{Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name} +{Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} damage");
-            }
-            else if (Player.player.WeaponIndex < 0)
-            {
-                Tools.PurpleLine("Weapon: Fists +20 attack damage\n");
-            }
-        }
         public static void DisplayWeapons()
         {
-
             Console.Clear();
             Logo.Shop();
 
-            Console.WriteLine(" Write the number of the weapon you would like to purchase:\n");
+            Console.WriteLine("\n Write the number of the weapon\n you would like to purchase:\n");
 
-            DisplayPlayerGoldAndSuch();
+            //DisplayPlayerGoldAndSuch();
 
-            //Display Weapons for shop, loops through the whole weapon list 
+            //Display Weapons for shop, loops through the whole weapon list
             for (int i = 0; i < Weapon.weapon.WeaponList.Count; i++)
             {
+                if (i == 1)
+                {
+                    Tools.DrawCharacterStatus();
+                }
                 BuyWeaponText(i);
             }
-            Console.WriteLine("------------------------------");
+            Tools.DrawCharacterStatus();
 
+            Console.WriteLine("------------------------------");
         }
+
         private static void BuyWeaponText(int nr)//will be looped through in BuyInstruct()
         {
             Console.WriteLine("------------------------------");
@@ -148,7 +138,7 @@ namespace Labb3.Store
             //This if statement displays how much + or - dmg the weapons in the store gives vs current weapon
             if (Player.player.WeaponIndex >= 0) //Check if higher since default weapon index for fist is -1
             {
-                if (Weapon.weapon.WeaponList[nr].Power >= Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power && Weapon.weapon.WeaponList[nr].Name == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name == false)
+                if (Weapon.weapon.WeaponList[nr].Power >= Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power && Weapon.weapon.WeaponList[nr].Name != Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name)
                 {
                     Tools.GreenLine($" +{Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
                 }
@@ -173,21 +163,19 @@ namespace Labb3.Store
             List<IItem> IItemList = new List<IItem>(); //Interface list <----
 
             Logo.Shop();
-
             DisplayWeapons();
 
             input = Tools.ConvToInt32(Weapon.weapon.WeaponList.Count);
 
             bool sucessfulPurchase = GoldWithdraw(input, "weapon");
 
-            if (sucessfulPurchase == true)
+            if (sucessfulPurchase)
             {
-
                 Tools.GreenLine($"\n {Weapon.weapon.WeaponList[input - 1].Name} has been equipped as your weapon");
                 Player.player.WeaponDmg = Weapon.weapon.WeaponList[input - 1].Power;
 
                 int wepIndex = 0;
-                for (int i = 0; i < Weapon.weapon.FullWeaponList.Count; i++)                
+                for (int i = 0; i < Weapon.weapon.FullWeaponList.Count; i++)
                 {
                     if (Weapon.weapon.FullWeaponList[i].Name == Weapon.weapon.WeaponList[input - 1].Name)
                     {
@@ -195,7 +183,6 @@ namespace Labb3.Store
                         break;
                     }
                 }
-                               
 
                 Player.player.WeaponIndex = wepIndex;
                 /* WeaponIndex is a way for me to access the weapon at the correct index when calling on the full weapon list. One of many ways to do it */
@@ -203,8 +190,6 @@ namespace Labb3.Store
                 IItemList.Add(Weapon.weapon.WeaponList[input - 1]);
                 Item.SetList(IItemList); //adds this list to the main Interface list for holding inventory items
                 Weapon.weapon.WeaponList.RemoveAt(input - 1); //test
-               
-
 
                 //test
                 // Player.MyWeapons.Add(Weapon.weapon.WeaponList[input - 1]);//Should be able to save a list with an implemented interface, but it did not work for me somehow.
@@ -219,28 +204,29 @@ namespace Labb3.Store
 
             BuyOrSellSwitch();
         }
-        //Buy Weapons END
 
+        //Buy Weapons END
 
         //Buy Power-Ups START
         private static void BuyPowerUpText()
         {
             Console.Clear();
             Logo.Shop();
-            Tools.YellowLine("===========================        ==================== ");
-            Tools.YellowLine("|| ------Power-Ups------ ||          --Player Stats-- ");
-            Tools.YellowLine($"|| [1] Buy Stamina...... ||          Max Health: {Player.player.MaxHp} ");
-            Tools.YellowLine($"|| [2] Buy Strength..... ||          Attack Damage: {Player.player.BaseDamage} ");
-            Tools.YellowLine($"|| [3] Back............. ||          Gold : {Player.player.Gold} gold ");
-            Tools.YellowLine("============================       =====================\n");
+            Tools.YellowLine(@"
+ ===========================
+ || ------Power-Ups------ ||
+ || [1] Buy Stamina...... ||
+ || [2] Buy Strength..... ||
+ || [3] Back............. ||");
+            Tools.YellowLine("===========================");
+            Tools.DrawCharacterStatus();
 
-            Tools.YellowLine("Okey, listen up!");
-            Tools.YellowLine("There are two different types of power-ups..");
+            Tools.YellowLine("\n Okey, listen up!");
+            Tools.YellowLine("There are two different types of power-ups..\n");
             Tools.Green("Stamina:"); Tools.YellowLine("Increases your max health.");
             Tools.Red("Strength:"); Tools.YellowLine("Increases your attack damage.\n");
-
-
         }
+
         private static void BuyPowerUpSwitch()
         {
             BuyPowerUpText();
@@ -261,13 +247,9 @@ namespace Labb3.Store
                     BuySwitch();
                     break;
             }
-
-            //loop som displayar alla power ups
-
-
-
             Sleep(2000);
         }
+
         private static void StaminaText()
         {
             Console.Clear();
@@ -278,33 +260,15 @@ namespace Labb3.Store
             || [1] Minor Stamina.... ||
             || [2] Greater Stamina.. ||
             || [3] Major Stamina.... ||
-            || [4] Back............. ||
-            ==========================");
+            || [4] Back............. ||");
+            Tools.DrawCharacterStatus();
+            Tools.YellowLine("==========================");
 
-            Tools.Yellow("\n-Minor:"); Tools.Green("+50 hp"); Tools.YellowLine("for 100 gold");
+            Tools.Yellow("\n -Minor:"); Tools.Green("+50 hp"); Tools.YellowLine("for 100 gold");
             Tools.Yellow("-Greater:"); Tools.Green("+100 hp"); Tools.YellowLine("for 200 gold");
             Tools.Yellow("-Major:"); Tools.Green("+150 hp"); Tools.YellowLine("for 300 gold\n");
-            Tools.RedLine(@"
-        00000000000           000000000000         
-      00000000_____00000   000000_____0000000
-    0000000_____________000______________00000
-   0000000_______________0_________________0000
-  000000____________________________________0000
-  00000_____________________________________ 0000
- 00000________________STAMINA________________00000
- 00000_____________________________________000000
-  000000_________________________________0000000
-   0000000______________________________0000000
-     000000____________________________000000
-       000000________________________000000
-          00000_____________________0000
-             0000_________________0000
-               0000_____________000
-                 000_________000
-                    000_____00                     
-                      00__00                       
-                        00   ");
         }
+
         private static void StrengthText()
         {
             Console.Clear();
@@ -316,6 +280,9 @@ namespace Labb3.Store
             Tools.YellowLine("|| [3] Major Strength.... ||");
             Tools.YellowLine("|| [4] Back.............. ||");
             Tools.YellowLine("============================\n");
+
+            Tools.DrawCharacterStatus();
+
             Tools.Yellow("-Minor:"); Tools.Red("+50 damage"); Tools.YellowLine("for 100 gold");
             Tools.Yellow("-Greater:"); Tools.Red("+100 damage"); Tools.YellowLine("for 200 gold");
             Tools.Yellow("-Major:"); Tools.Red("+150 damage"); Tools.YellowLine("for 300 gold\n");
@@ -350,11 +317,11 @@ $$$$$$$$$$$$$$_________$$$$$______$$$$$$$
 $$$$_$$$$$______________$$$$$$$$$$$$$$$$
 $$__$$$$_____$$___________$$$$$$$$$$$$$
 $$_$$$$$$$$$$$$____________$$$$$$$$$$
-$$_$$$$$$$hg$$$____$$$$$$$$__$$$
+$$_$$$$$$$$$$$$____$$$$$$$$__$$$
 $$$$  $$$$$$$$$$$$$$$$$$$$$$$$
 $$         $$$$$$$$$$$$$$$     ");
-
         }
+
         private static void BuyStaminaSwitch()
         {
             StaminaText();
@@ -383,8 +350,8 @@ $$         $$$$$$$$$$$$$$$     ");
                     BuyPowerUpSwitch();
                     break;
             }
-
         }
+
         private static void BuyStrengthSwitch()
         {
             StrengthText();
@@ -411,10 +378,9 @@ $$         $$$$$$$$$$$$$$$     ");
                     BuyPowerUpSwitch();
                     break;
             }
-
         }
-        //Buy Power-Ups END
 
+        //Buy Power-Ups END
 
         //Buy Potions START
         private static void BuyPotionText()
@@ -427,8 +393,8 @@ $$         $$$$$$$$$$$$$$$     ");
             Tools.YellowLine("|| [2] Greater Healing potion.. ||");
             Tools.YellowLine("|| [3] Major Healing potion.... ||");
             Tools.YellowLine("|| [4] Back.................... ||");
+            Tools.DrawCharacterStatus();
             Tools.YellowLine("==================================\n");
-
 
             Tools.YellowLine("This red little bottle will maby one day be your life saver.. ");
             Tools.YellowLine("I mean it.. Literally, you wont die if you drink it..");
@@ -438,6 +404,7 @@ $$         $$$$$$$$$$$$$$$     ");
             Tools.RedLine("|  HP+  |    ");
             Tools.RedLine("'.......'  \n");
         }
+
         private static void BuyPotionSwitch()
         {
             BuyPotionText();
@@ -448,7 +415,6 @@ $$         $$$$$$$$$$$$$$$     ");
 
             switch (input)
             {
-
                 case 1:
                 case 2:
                 case 3:
@@ -481,8 +447,8 @@ $$         $$$$$$$$$$$$$$$     ");
                     break;
             }
         }
-        //Buy Potions END
 
+        //Buy Potions END
 
         //Sell START
         private static void SellTextMenu()
@@ -495,7 +461,9 @@ $$         $$$$$$$$$$$$$$$     ");
             Tools.YellowLine("||    you would like to sell.     ||");
             Tools.Yellow("||   To go back write"); Tools.Red("\"back\""); Tools.YellowLine("     ||");
             Tools.YellowLine("==================================== \n");
+            Tools.DrawCharacterStatus();
         }
+
         private static void SellSwitch()
         {
             bool success;
@@ -533,14 +501,13 @@ $$         $$$$$$$$$$$$$$$     ");
                     Player.player.Gold += items[nr - 1].GoldIfSold;
                     items.RemoveAt(nr - 1);
                     Sleep(2000);
-
                 }
             } while (!success);
 
             BuyOrSellSwitch();
         }
-        //Sell END
 
+        //Sell END
 
         public static void MainMenuStore()
         {
@@ -555,15 +522,11 @@ $$         $$$$$$$$$$$$$$$     ");
             Console.Clear();
 
             BuyOrSellSwitch();
-
         }
-
 
         //GoldWithdraw START
         private static bool GoldWithdraw(int index, string product)
         {
-
-
             if (product == "weapon")
             {
                 if (Player.player.Gold >= Weapon.weapon.WeaponList[index - 1].GoldCost)
@@ -592,7 +555,7 @@ $$         $$$$$$$$$$$$$$$     ");
             }
             else if (product == "power-up")
             {
-                //Does not matter wich list I take gold cost from since they are the same
+                //Does not matter which list I take gold cost from since they are the same
                 PowerUp.powerUp.Instantiate();
                 if (Player.player.Gold >= PowerUp.staminaList[index].GoldCost)
                 {
@@ -604,7 +567,7 @@ $$         $$$$$$$$$$$$$$$     ");
                     purchaseOk = false;
                 }
             }
-            if (purchaseOk == false)
+            if (!purchaseOk)
             {
                 Tools.RedLine("Not enough gold! Get back here when you can afford it!");
                 Sleep(1400);
@@ -612,7 +575,6 @@ $$         $$$$$$$$$$$$$$$     ");
                 Sleep(1400);
             }
             return purchaseOk;
-
         }//GoldWithdraw() End
     }//Dealers.cs End
 }

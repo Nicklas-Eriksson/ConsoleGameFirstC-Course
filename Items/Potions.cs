@@ -4,18 +4,15 @@ using System.Collections.Generic;
 namespace Labb3.Items
 {
     [Serializable]
-
     public class Potions : AbstractItem
     {
         public static Potions pot = new Potions();
         public static List<Potions> itemList = new List<Potions>();
-                
-        private int bonus;               
-        public int Bonus { get => bonus; set => bonus = value; }
+        public int Bonus { get; set; }
 
         public static void Instantiate()
         {
-            Potions minorHealing = new Potions()
+            var minorHealing = new Potions()
             {
                 Name = "Minor healing potion",
                 GoldCost = 50,
@@ -23,7 +20,7 @@ namespace Labb3.Items
                 ItemLevel = 1,
                 Bonus = 50
             };
-            Potions greaterHealing = new Potions()
+            var greaterHealing = new Potions()
             {
                 Name = "Greater healing potion",
                 GoldCost = 150,
@@ -31,7 +28,7 @@ namespace Labb3.Items
                 GoldIfSold = 75,
                 Bonus = 150
             };
-            Potions majorHealing = new Potions()
+            var majorHealing = new Potions()
             {
                 Name = "Major healing potion",
                 GoldCost = 400,
@@ -43,7 +40,6 @@ namespace Labb3.Items
             itemList.Add(minorHealing);
             itemList.Add(greaterHealing);
             itemList.Add(majorHealing);
-
         }
     }
 }

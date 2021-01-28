@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Labb3.Character;
 using Labb3.Encounters;
 using Labb3.Items;
 using Labb3.Store;
-using Labb3.Character;
 using Labb3.UtilityTools;
+using System;
+using System.Collections.Generic;
 using static System.Threading.Thread;
 
 namespace Labb3.Menues
 {
     [Serializable]
-
     public static class MenuOptions
     {
         private static int input;
@@ -26,55 +25,14 @@ namespace Labb3.Menues
             Tools.YellowLine("|| [3] View Inventory... ||");
             Tools.YellowLine("|| [4] Save Game........ ||");
             Tools.YellowLine("|| [5] Exit Game........ ||");
+
+            Tools.DrawCharacterStatus();
+
             Tools.YellowLine("===========================\n");
-
-            //Displays the stats for current charracter
-            PlayerStats();
-        }
-
-        private static void PlayerStats()
-        {
-            Tools.PurpleLine("-Player Stats-");
-            Console.Write(" Name: ");
-            Tools.YellowLine($"{Player.player.Name}");
-            Console.Write(" Health:");
-            Tools.GreenLine($"{Player.player.MaxHp}"); ;
-            Console.Write(" Base damage:");
-            Tools.RedLine($"{Player.player.BaseDamage}");
-            Console.Write($" Level:");
-            Tools.YellowLine($"{Player.player.Lvl}");
-            Console.Write($" Experience:");
-            Tools.GreenLine($"{Player.player.Exp} / {Player.player.MaxExp}");
-            int wepIndex = Player.player.WeaponIndex;
-
-            if (wepIndex == -1)
-            {
-                Tools.PurpleLine($"\n Fists + {Player.player.FistDamage} attack damage");
-            }
-
-            Tools.PurpleLine("\n -Leather Pouch-");
-            //List<Weapon> weaponList = Weapon.weapon.GetFullWeaponList();
-
-            if (wepIndex >= 0)
-            {
-                Console.Write(" Weapon:");
-                Tools.PurpleLine($"{Weapon.weapon.FullWeaponList[wepIndex].Name} + {Weapon.weapon.FullWeaponList[wepIndex].Power} attack damage");
-            }
-            else if (wepIndex == -1)
-            {
-                Console.Write(" Weapon:");
-                Tools.PurpleLine("None");
-            }
-            Console.Write(" Gold:");
-            Tools.YellowLine($"{Player.player.Gold}\n");
-            Console.WriteLine(" Healing Potions:");
-            Tools.GreenLine($"  Minor: {Player.player.MinorPotion}");
-            Tools.GreenLine($"  Greater: {Player.player.GreaterPotion}");
-            Tools.GreenLine($"  Major: {Player.player.MajorPotion}\n");
         }
 
         public static void MainMenuSwitch()
-        {            
+        {
             MainMenuText();
 
             input = Tools.ConvToInt32(5);
@@ -82,28 +40,7 @@ namespace Labb3.Menues
             switch (input)
             {
                 case 1://Explore
-                    Random rnd = new Random();
-                    int rndNr = rnd.Next(1, 11);
-
-                    if (rndNr == 1)//10% nothing happens
-                    {
-                        Console.Clear();
-
-                        Tools.YellowLine("You explore deeper into the dungeon.");
-                        //Sleep(3000);
-                        Tools.YellowLine("You see a wooden door with a rusty knob and lock.");
-                        // Sleep(3000);
-                        Tools.YellowLine("Slowly you turn the creeking door open..");
-                        // Sleep(3000);
-                        Tools.YellowLine("To your surprise, the corridor is completly desolate...");
-                        // Sleep(3000);
-
-                        MainMenuSwitch();
-                    }
-                    else //90% You encounter a monster
-                    {
-                        MonsterEncounters.EncounterGenerator();
-                    }
+                    Explore();
                     break;
 
                 case 2://Shop
@@ -129,6 +66,32 @@ namespace Labb3.Menues
             }
         }
 
+        private static void Explore()
+        {
+            Random rnd = new Random();
+            int rndNr = rnd.Next(1, 11);
+
+            if (rndNr == 1)//10% nothing happens
+            {
+                Console.Clear();
+
+                Tools.YellowLine("You explore deeper into the dungeon.");
+                //Sleep(3000);
+                Tools.YellowLine("You see a wooden door with a rusty knob and lock.");
+                // Sleep(3000);
+                Tools.YellowLine("Slowly you turn the creaking door open..");
+                // Sleep(3000);
+                Tools.YellowLine("To your surprise, the corridor is completely desolate...");
+                // Sleep(3000);
+
+                MainMenuSwitch();
+            }
+            else //90% You encounter a monster
+            {
+                MonsterEncounters.EncounterGenerator();
+            }
+        }
+
         private static void ViewInventory()
         {
             Console.Clear();
@@ -138,12 +101,6 @@ namespace Labb3.Menues
 
             Console.WriteLine();
             InventorySwitch();
-
-            List<IItem> inventory = Item.GetList();//Bort??
-
-
-
-
         }
 
         private static void InventorySwitch()
@@ -187,7 +144,6 @@ namespace Labb3.Menues
                 case 3://Back to main menu
                     MainMenuSwitch();
                     break;
-
             }
         }
 

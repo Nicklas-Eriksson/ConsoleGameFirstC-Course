@@ -10,13 +10,11 @@ using Labb3.Menues;
 using static System.Threading.Thread;
 
 namespace Labb3.UtilityTools
-{  
-
+{
     public static class SaveOrLoad
     {
         public static int idCounter = 0;
 
-        
         public static void Save()
         {
             Console.Clear();
@@ -40,14 +38,13 @@ namespace Labb3.UtilityTools
 
             string[] arrayOfSavedGames = Directory.GetFiles("saves");
             List<Player> savedPlayers = new List<Player>();
-            
 
             BinaryFormatter binaryFormatter = new BinaryFormatter();
 
             foreach (var save in arrayOfSavedGames)
             {
                 FileStream file = File.Open(save, FileMode.Open);
-                Player _player = (Player)binaryFormatter.Deserialize(file); // castin it to a player
+                Player _player = (Player)binaryFormatter.Deserialize(file); // casting it to a player
                 file.Close();
                 savedPlayers.Add(_player);
             }
@@ -62,15 +59,13 @@ namespace Labb3.UtilityTools
             }
 
             Tools.YellowLine("\n Enter the number of the save you want to load.\n");
-            
+
             int nr = Tools.ConvToInt32(savedPlayers.Count);
 
             //Test
             Player.ItemList.AddRange(Player.MyWeapons);
             //Player.ItemList.AddRange(Player.MyItems);
-            
-            
-            
+
             return savedPlayers[nr-1];
         }
     }

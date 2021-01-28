@@ -1,11 +1,12 @@
 ﻿using Labb3.StartGame;
+using Labb3.UtilityTools;
 using System;
 
 namespace Labb3
 {
-    class Program
+    public static class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Start.Game();
         }

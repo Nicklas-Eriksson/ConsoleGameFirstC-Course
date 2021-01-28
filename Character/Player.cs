@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Labb3.Items;
 using Labb3.UtilityTools;
-using Labb3.Items;
+using System;
+using System.Collections.Generic;
 using static System.Threading.Thread;
 
 namespace Labb3.Character
 {
     [Serializable]
-
     public class Player
     {
         public static Player player = new Player();
@@ -16,23 +15,21 @@ namespace Labb3.Character
         private int id;
         private bool alive = true;
         private int lvl = 1; //level
-        private int exp = 0; //experience points
-        private int maxExp = 20; //Max exp before lvl up         
+        private int exp; //experience points
+        private int maxExp = 20; //Max exp before lvl up
         private int maxHp = 175; //Max health
         private int hp = 175; //current health
         private int baseDamage = 20; //damage
         private int fistDamage = 30; //damage
-        private int weaponDmg = 0; //weapon damage. dmg and weaponDmg will be added together during combat
-        private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon       
-        private int gold = 0; //Obtains by killing monsters and selling stuff
-        private int minorPotion = 1; //can be obtained from shop 
-        private int greaterPotion = 0; //can be obtained from shop 
-        private int majorPotion = 0; //can be obtained from  
+        private int weaponDmg; //weapon damage. dmg and weaponDmg will be added together during combat
+        private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon
+        private int gold; //Obtains by killing monsters and selling stuff
+        private int minorPotion = 2; //can be obtained from shop
+        private int greaterPotion; //can be obtained from shop
+        private int majorPotion; //can be obtained from
         private static List<Weapon> myWeapons = new List<Weapon>();
         private static List<Item> myItems = new List<Item>();
         private static List<IItem> itemList = new List<IItem>();
-
-
 
         public string Name { get => name; set => name = value; }
         public int Id { get => id; set => id = value; }
@@ -45,7 +42,7 @@ namespace Labb3.Character
         public int BaseDamage { get => baseDamage; set => baseDamage = value; }
         public int FistDamage { get => fistDamage; set => fistDamage = value; }
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
-        public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }       
+        public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
         public int Gold { get => gold; set => gold = value; }
         public int MinorPotion { get => minorPotion; set => minorPotion = value; }
         public int GreaterPotion { get => greaterPotion; set => greaterPotion = value; }
@@ -54,7 +51,6 @@ namespace Labb3.Character
         public static List<Item> MyItems { get => myItems; set => myItems = value; }
         public static List<IItem> ItemList { get => itemList; set => itemList = value; }
 
-
         //Method for leveling the character
         public static void CheckIfLvlUp()
         {
@@ -62,8 +58,8 @@ namespace Labb3.Character
             {
                 if (player.Exp >= player.MaxExp)
                 {
-                    player.Exp -= player.MaxExp; //if say player has 220 / 200 exp, he will lvl up and have 20 / 250 exp 
-                    Player.player.MaxExp = Player.player.MaxExp * 2;
+                    player.Exp -= player.MaxExp; //if say player has 220 / 200 exp, he will lvl up and have 20 / 250 exp
+                    player.MaxExp *= 2;
                     player.lvl++;
 
                     player.MaxHp += 20 * player.Lvl;
@@ -73,9 +69,8 @@ namespace Labb3.Character
 
                     Tools.Yellow("\n Level up!"); Tools.GreenLine($"New level = {player.Lvl}");
                     Tools.GreenLine($"  +{20 * player.Lvl} max health");
-                    Tools.GreenLine($"  +{5 * player.Lvl} base damage");                    
+                    Tools.GreenLine($"  +{5 * player.Lvl} base damage");
                 }
-                Sleep(4000);
             }
             else
             {
@@ -93,10 +88,9 @@ namespace Labb3.Character
             }
         }
 
-        //Displays iteams obtained by player, and shows the gold amount it sells for
+        //Displays items obtained by player, and shows the gold amount it sells for
         public static void DisplayInventory()
         {
-
             ItemList = Item.GetList();
 
             if (ItemList.Count == 0)
@@ -116,7 +110,6 @@ namespace Labb3.Character
                     {
                         Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
                         Tools.PurpleLine("- Equipped weapon - ");
-
                     }
                     else if (ItemList[i] is Weapon)
                     {
@@ -127,7 +120,7 @@ namespace Labb3.Character
                             Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
                             Tools.Red($" {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power - Weapon.weapon.WeaponList[i].Power}");
                         }
-                        else if(Weapon.weapon.WeaponList[i].Power == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
+                        else if (Weapon.weapon.WeaponList[i].Power == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
                         {
                             Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
                             Tools.Red($" {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power - Weapon.weapon.WeaponList[i].Power}");
@@ -154,7 +147,7 @@ namespace Labb3.Character
                 player.MaxHp = 1000000;
                 player.BaseDamage = 1000000;
                 player.Gold = 1000000;
-                player.MajorPotion = 100;
+                player.MajorPotion = 5;
 
                 Tools.YellowLine("-God mode activated-");
                 Console.Write("Health:");
@@ -168,6 +161,30 @@ namespace Labb3.Character
                 Tools.GreenLine($"  -Greater Healing Potions: {player.GreaterPotion}");
                 Tools.GreenLine($"  -Major Healing Potions: {player.MajorPotion}");
             }
+        }
+        public static void ResetPlayer()
+        {
+            player.Name = "";
+            player.Id = Player.player.id++;
+            player.Alive = true;
+            player.Lvl = 1;
+            player.Exp = 0;
+            player.MaxExp = 20;
+            player.MaxHp = 175;
+            player.Hp = 175;
+            player.BaseDamage = 20;
+            player.FistDamage = 30;
+            player.WeaponDmg = 0;
+            player.WeaponIndex = -1;
+            player.Gold = 0;
+            player.MinorPotion = 1;
+            player.GreaterPotion = 0;
+            player.MajorPotion = 0;
+            player.MajorPotion = 0;
+            player.MajorPotion = 0;
+            Player.MyWeapons.Clear();
+            Player.MyItems.Clear();
+            Player.ItemList.Clear();
         }
     }
 }
