@@ -313,7 +313,7 @@ namespace Labb3.UtilityTools
 
             if (wepIndex == -1)
             {
-                Tools.CursorWritePurple($"-Wooden Sword +{Player.player.WoodenSword} attack dmg", 80, -3);
+                Tools.CursorWritePurple($"Wooden Sword +{Player.player.WoodenSword} attack dmg", 80, -3);
             }
 
             //Tools.CursorWritePurple("-Leather Pouch-", 80, -3);
@@ -326,7 +326,6 @@ namespace Labb3.UtilityTools
             else if (wepIndex == -1)
             {
                 Tools.CursorWriteWhite(" -Weapon:", 80, -4);
-                Tools.CursorWritePurple("None", 89, -4);
             }
             Tools.CursorWriteWhite(" -Gold:", 80, -5);
             Tools.CursorWriteYellow($"{Player.player.Gold}", 87, -5);

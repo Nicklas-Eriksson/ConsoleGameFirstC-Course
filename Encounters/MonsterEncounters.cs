@@ -146,7 +146,7 @@ namespace Labb3.Encounters
             int rndNr3 = rnd.Next(7, 11);
             int rndNr4 = rnd.Next(11, 15);
 
-            List<IItem> itemList = new List<IItem>();
+            //List<IItem> itemList = new List<IItem>();
 
             if (rndChanse == 0 && Player.player.Lvl < 9) //1 in 5 a weapon will drop
             {
@@ -158,32 +158,32 @@ namespace Labb3.Encounters
                 if (rndChanse2 <= 1)
                 {
                     Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr]);
-                    Item.SetList(itemList);
+                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr]);
+                   // Item.SetList(itemList);
                 }
                 else if (rndChanse2 == 2)
                 {
                     Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr2].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr2]);
-                    Item.SetList(itemList);
+                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr2]);
+                    //Item.SetList(itemList);
                     if (rndNr == 1)
                     {
                         Tools.GreenLine($"\n {randomItem.Name} has been added to your inventory!");
-                        itemList.Add(randomItem);
-                        Item.SetList(itemList);
+                        Player.ItemList.Add(randomItem);
+                        //Item.SetList(itemList);
                     }
                 }
                 else if (rndChanse2 == 3)
                 {
                     Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr3].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr3]);
-                    Item.SetList(itemList);
+                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr3]);
+                    //Item.SetList(itemList);
                 }
                 else if (rndChanse2 == 4)
                 {
                     Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr4].Name} has been added to your inventory!");
-                    itemList.Add(Weapon.weapon.FullWeaponList[rndNr4]);
-                    Item.SetList(itemList);
+                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr4]);
+                    //Item.SetList(itemList);
                 }
 
                 Sleep(1000);
@@ -191,16 +191,17 @@ namespace Labb3.Encounters
             else if (Player.player.Lvl == 9)
             {
                 Tools.GreenLine($"\n {miniboss.RareLoot} has been added to your inventory!");
-                var goldenEgg = new Item() { Name = "Golden egg", GoldCost = 1000, GoldIfSold = 10000, ItemLevel = 10 };
-                itemList.Add(goldenEgg);
+                var goldenEgg = new Item() { Name = "Golden egg", GoldIfSold = 10000, ItemLevel = 10 };
+                Player.ItemList.Add(goldenEgg);
+                //itemList.Add(goldenEgg);
             }
 
             if (rndNr == 1) // 33% to drop extra trash
             {
                 Sleep(1400);
                 Tools.GreenLine($"{randomItem.Name} has been added to your inventory!");
-                itemList.Add(randomItem);
-                Item.SetList(itemList);
+                Player.ItemList.Add(randomItem);
+                //Item.SetList(itemList);
             }
 
             Sleep(2000);

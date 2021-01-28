@@ -6,12 +6,11 @@ namespace Labb3.Items
     [Serializable]
     public abstract class AbstractItem : IItem
     {
-        private int goldCost;
+        
         private int goldIfSold;
 
         public string Name { get; set; }
-        public int GoldCost { get => goldCost; set => goldCost = value; }
-        public int GoldIfSold { get => goldIfSold; set => goldIfSold = goldCost / 5; }
+        public int GoldIfSold { get => goldIfSold; set => goldIfSold = ItemLevel*33; }
         public int ItemLevel { get; set; }
     }
 
@@ -38,14 +37,12 @@ namespace Labb3.Items
         {
             var rnd = new Random();
             int rndName = rnd.Next(0, stuffNames.Count);
-            int rndGold = rnd.Next(5, 200);
 
             Item item = new Item()
             {
                 Name = stuffNames[rndName],
-                GoldCost = rndGold,
-                GoldIfSold = 0
-            };
+                GoldIfSold = rnd.Next(5, 200)
+        };
 
             return item;
         }

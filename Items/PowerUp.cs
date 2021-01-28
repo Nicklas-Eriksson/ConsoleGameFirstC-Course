@@ -6,6 +6,10 @@ namespace Labb3.Items
     [Serializable]
     public class PowerUp : AbstractItem
     {
+        private int goldCost;
+
+        public int GoldCost { get => goldCost; set => goldCost = value; }
+
         public static PowerUp powerUp = new PowerUp();
         public static List<PowerUp> staminaList = new List<PowerUp>();
         public static List<PowerUp> strengthList = new List<PowerUp>();

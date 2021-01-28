@@ -132,33 +132,33 @@ namespace Labb3.Store
             Console.WriteLine("------------------------------");
         }
 
-        private static void BuyWeaponText(int nr)//will be looped through in BuyInstruct()
+        private static void BuyWeaponText(int i)//will be looped through in BuyInstruct()
         {
             Console.WriteLine("------------------------------");
-            Tools.YellowLine($"[{nr + 1}]: {Weapon.weapon.WeaponList[nr].Name}");
-            Tools.Yellow($"Weapon damage: +{Weapon.weapon.WeaponList[nr].Power} damage");
+            Tools.YellowLine($"[{i + 1}]: {Weapon.weapon.WeaponList[i].Name}");
+            Tools.Yellow($"Weapon damage: +{Weapon.weapon.WeaponList[i].Power} damage");
 
             //This if statement displays how much + or - dmg the weapons in the store gives vs current weapon
             if (Player.player.WeaponIndex >= 0) //Check if higher since default weapon index for wooden sword is -1
             {
-                if (Weapon.weapon.WeaponList[nr].Power >= Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power && Weapon.weapon.WeaponList[nr].Name != Weapon.weapon.WeaponList[Player.player.WeaponIndex].Name)
+                if (Weapon.weapon.WeaponList[i].Power > Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power && Weapon.weapon.WeaponList[i].Name != Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name)
                 {
-                    Tools.GreenLine($" +{Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
+                    Tools.GreenLine($" +{Weapon.weapon.WeaponList[i].Power - Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} on current weapon");
                 }
-                else if (Weapon.weapon.WeaponList[nr].Power == Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
+                else if (Weapon.weapon.WeaponList[i].Power == Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
                 {
-                    Tools.BlueLine($" +{Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
+                    Tools.BlueLine($" +{Weapon.weapon.WeaponList[i].Power - Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} on current weapon");
                 }
-                else if (Weapon.weapon.WeaponList[nr].Power < Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
+                else if (Weapon.weapon.WeaponList[i].Power < Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
                 {
-                    Tools.RedLine($" {Weapon.weapon.WeaponList[nr].Power - Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power} on current weapon");
+                    Tools.RedLine($" {Weapon.weapon.WeaponList[i].Power - Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} on current weapon");
                 }
             }
             else
             {
-                Tools.GreenLine($" +{Weapon.weapon.WeaponList[nr].Power} on equipped weapon");
+                Tools.GreenLine($" +{Weapon.weapon.WeaponList[i].Power} on equipped weapon");
             }
-            Tools.YellowLine($"Cost to purchase: {Weapon.weapon.WeaponList[nr].GoldCost} Gold");
+            Tools.YellowLine($"Cost to purchase: {Weapon.weapon.WeaponList[i].GoldCost} Gold");
         }
 
         static public void BuyWeapon()
@@ -372,7 +372,7 @@ namespace Labb3.Store
             
             for (int i = 0; i < Potions.potionList.Count; i++)
             {
-                Tools.YellowLine($"{Potions.potionList[i].Name}: {Potions.potionList[i].GoldCost} gold cost");
+                Tools.YellowLine($"{Potions.potionList[i].Name}: {Potions.potionList[i].GoldCost}");
             }
             Console.WriteLine();
             Tools.RedLine("   :~:       ");
@@ -455,24 +455,36 @@ namespace Labb3.Store
                 }
 
                 success = Int32.TryParse(_input, out int nr);
-                if (!success)
+                if(nr <= items.Count)
                 {
-                    Tools.Error();
-                    Sleep(1300);
-                }
-                else if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name)
-                {
-                    Tools.RedLine("You can't sell an equipped weapon!");
-                    success = false;
-                    Sleep(2000);
+                    if (!success)
+                    {
+                        Tools.Error();
+                        Sleep(1300);
+                    }
+                    else if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name)
+                    {
+                        Player.player.Gold += Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].GoldIfSold;
+                        items.RemoveAt(nr - 1);
+                        Player.ItemList.RemoveAt(nr - 1);
+                        Tools.GreenLine("Back to your wooden sword I guess!");
+                        Player.player.WeaponIndex = -1;
+
+                        Tools.PressEnterToContinue();
+                    }
+                    else
+                    {
+                        Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
+                        Player.player.Gold += items[nr - 1].GoldIfSold;
+                        items.RemoveAt(nr - 1);
+                        Sleep(2000);
+                    }
                 }
                 else
                 {
-                    Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
-                    Player.player.Gold += items[nr - 1].GoldIfSold;
-                    items.RemoveAt(nr - 1);
-                    Sleep(2000);
+                    success = false;
                 }
+                
             } while (!success);
 
             BuyOrSellSwitch();

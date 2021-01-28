@@ -84,7 +84,7 @@ namespace Labb3.StartGame
 
             Player.player.Id = SaveOrLoad.idCounter + 1;//Kanske inte behövs..
 
-            InfoAndStory.Intro();
+            //InfoAndStory.Intro();
         }
     }
 }

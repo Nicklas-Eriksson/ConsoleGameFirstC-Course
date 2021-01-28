@@ -116,14 +116,14 @@ namespace Labb3.Menues
                     if (_inventory[input - 1] is Weapon)
                     {
                         int foundIndex = 0;
-                        bool contains = Weapon.weapon.WeaponList.Contains(_inventory[input - 1] as Weapon);
+                        bool contains = Weapon.weapon.FullWeaponList.Contains(_inventory[input - 1] as Weapon);
                         if (contains)
                         {
-                            foundIndex = Weapon.weapon.WeaponList.IndexOf(_inventory[input - 1] as Weapon);
+                            foundIndex = Weapon.weapon.FullWeaponList.IndexOf(_inventory[input - 1] as Weapon);
                         }
 
                         Player.player.WeaponIndex = foundIndex;
-                        Tools.YellowLine($"{Weapon.weapon.WeaponList[foundIndex].Name} is nor your current weapon.");
+                        Tools.YellowLine($"{Weapon.weapon.FullWeaponList[foundIndex].Name} is now your current weapon.");
                         Sleep(1800);
                         MainMenuSwitch();
                     }

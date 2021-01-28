@@ -9,9 +9,12 @@ namespace Labb3.Items
         public static Weapon weapon = new Weapon();
 
         private int power;
+        private int goldCost;
 
         //add a string trivia?
         public int Power { get => power; set => power = ItemLevel * 50; }
+        public int GoldCost { get => goldCost; set => goldCost = 100*ItemLevel; }
+        //public int GoldIfSold { get => GoldIfSold; set => GoldIfSold = goldCost / 3; }
 
         public List<Weapon> WeaponList { get; set; } = new List<Weapon>();
         public List<Weapon> FullWeaponList { get; set; } = new List<Weapon>();
@@ -27,7 +30,7 @@ namespace Labb3.Items
             this.Name = name;
             this.ItemLevel = powerLevel;
             this.power = power;
-            this.GoldCost = 100*ItemLevel;
+            this.GoldCost = goldCost;
             this.GoldIfSold = goldIfSold;
         }
 
@@ -149,7 +152,7 @@ namespace Labb3.Items
             };
             Weapon davidsSpear = new Weapon()//23
             {
-                Name = "David's Glowing Spear",
+                Name = "David's Spear",
                 ItemLevel = 10,
                 Power = this.power,
                 GoldCost = this.GoldCost,
