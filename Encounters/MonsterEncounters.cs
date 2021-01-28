@@ -50,7 +50,7 @@ namespace Labb3.Encounters
             int monsterIndex = rnd.Next(0, monsterNames.Count);
             int monsterIndex2 = rnd.Next(0, miniBossNames.Count);
             int bonusDmg = rnd.Next(1, 15);
-            int bonusGold = rnd.Next(5, 20); 
+            int bonusGold = rnd.Next(5, 20);
             int belowEvenAbove = rnd.Next(-1, 2);
 
             if (Player.player.Lvl < 9)
@@ -269,7 +269,7 @@ namespace Labb3.Encounters
                         {
                             if (monster is LastBoss)
                             {
-                                Console.WriteLine($" With gathered courage you strike against the {DemiLich.Name}, he does not even flinch.\n ");  
+                                Console.WriteLine($" With gathered courage you strike against the {DemiLich.Name}, he does not even flinch.\n ");
                                 Tools.RedLine($"{DemiLich.Name} health: -{pDmg}");
                                 Sleep(1500);
                                 DemiLich.Hp -= pDmg;
@@ -507,8 +507,8 @@ namespace Labb3.Encounters
 
                             Tools.PressEnterToContinue();
 
-                            MenuOptions.MainMenuSwitch(); //Back to menu
                         }
+                        MenuOptions.MainMenuSwitch(); //Back to menu
                         break;
 
                     ////////////////
