@@ -127,9 +127,9 @@ namespace Labb3.UtilityTools
                 }
                 else if (!success && input == "ihavethepower")//lvl up cheat
                 {
-                    Tools.YellowLine("\n Enter the level you want to become:");
-                    int lvlRequest = ConvToInt32(10);
-                    Tools.YellowLine($"Okey a level {lvlRequest} warrior coming up!");
+                    Tools.YellowLine("\n Enter how many levels you want to be granted:");
+                    int lvlRequest = ConvToInt32(10 - Player.player.Lvl);
+                    Tools.YellowLine($"Okey a level {lvlRequest + Player.player.Lvl} warrior coming up!");
                     Sleep(1400);
 
                     for (int i = 0; i < lvlRequest; i++)

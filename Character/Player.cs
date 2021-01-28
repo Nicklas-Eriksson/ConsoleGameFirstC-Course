@@ -88,7 +88,8 @@ namespace Labb3.Character
                 Tools.ExitGame(false);
             }
         }
-       
+
+        private static int wIndex = 0;
         //Displays items obtained by player, and shows the gold amount it sells for
         public static void DisplayInventory()
         {
@@ -107,50 +108,65 @@ namespace Labb3.Character
             }
             else
             {
-                int wIndex = 0;
                 for (int i = 0; i < ItemList.Count; i++)
                 {
-                    if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == ItemList[i].Name)
+                    if (Player.player.WeaponIndex >= 0)
                     {
-                        Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
-                        Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
-                        Tools.PurpleLine("- Equipped weapon - ");
-                    }
-                    else if (ItemList[i] is Weapon)
-                    {
-                        Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
-
-                        for (int j = 0; i < Weapon.weapon.FullWeaponList.Count; j++)
+                        if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == ItemList[i].Name)
                         {
-                            if (Weapon.weapon.FullWeaponList[j].Name == ItemList[i].Name)
+                            Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
+                            Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
+                            Tools.PurpleLine("- Equipped weapon - ");
+                        }
+                        else if (ItemList[i] is Weapon)
+                        {
+                            Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
+
+                            for (int j = 0; i < Weapon.weapon.FullWeaponList.Count; j++)
                             {
-                                wIndex = j;
-                                break;
+                                if (Weapon.weapon.FullWeaponList[j].Name == ItemList[i].Name)
+                                {
+                                    wIndex = j;
+                                    break;
+                                }
+                            }
+
+                            //if player weapon is stronger than other weapons in inventory, display power difference
+                            if (Weapon.weapon.FullWeaponList[wIndex].Power < Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
+                            {
+                                Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
+                                Tools.RedLine($" {Weapon.weapon.FullWeaponList[wIndex].Power - Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} attack damage.");
+                            }
+                            //if player weapon got same power as another weapon in inventory, display power difference
+                            else if (Weapon.weapon.FullWeaponList[wIndex].Power == Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
+                            {
+                                Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
+                                Tools.BlueLine("Same attack damage as equipped weapon.");
+                            }
+                            //if player weapon is weaker than other weapons in inventory, display power difference
+                            else
+                            {
+                                Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
+                                Tools.GreenLine($"{Weapon.weapon.FullWeaponList[wIndex].Power - Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} attack damage.");
                             }
                         }
-
-                        //if player weapon is stronger than other weapons in inventory, display power difference
-                        if (Weapon.weapon.FullWeaponList[wIndex].Power < Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
-                        {
-                            Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
-                            Tools.RedLine($" {Weapon.weapon.FullWeaponList[wIndex].Power - Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} attack damage.");
-                        }
-                        //if player weapon got same power as another weapon in inventory, display power difference
-                        else if (Weapon.weapon.FullWeaponList[wIndex].Power == Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
-                        {
-                            Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
-                            Tools.BlueLine("Same attack damage as equipped weapon.");
-                        }
-                        //if player weapon is weaker than other weapons in inventory, display power difference
                         else
                         {
-                            Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
-                            Tools.GreenLine($"{Weapon.weapon.FullWeaponList[wIndex].Power - Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power} attack damage.");
+                            Tools.Yellow($"{i + 1}: {ItemList[i].Name}"); Tools.GreenLine($"+{ItemList[i].GoldIfSold} gold if sold.");
                         }
                     }
-                    else
+                    else //if player don't have weapon (index will be -1)
                     {
-                        Tools.Yellow($"{i + 1}: {ItemList[i].Name}"); Tools.GreenLine($"+{ItemList[i].GoldIfSold} gold if sold.");
+                        if (ItemList[i] is Weapon)
+                        {
+                            Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
+                            Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
+                            Tools.GreenLine($"+{Weapon.weapon.FullWeaponList[wIndex].Power} attack damage.");
+                        }
+                        else
+                        {
+                            Tools.Yellow($"{i + 1}: {ItemList[i].Name}"); Tools.GreenLine($"+{ItemList[i].GoldIfSold} gold if sold.");
+                        }
                     }
                 }
             }

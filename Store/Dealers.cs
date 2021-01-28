@@ -408,6 +408,7 @@ namespace Labb3.Store
                             Player.player.MajorPotion++;
                         }
                         Tools.GreenLine($"\n 1 {Potions.potionList[input - 1].Name} has been added to your inventory!");
+                        Tools.YellowLine($"\n 1 -{Potions.potionList[input - 1].GoldCost} has been withdrawn from your pouch!");
                     }
                     Sleep(2000);
 
@@ -525,7 +526,6 @@ namespace Labb3.Store
             }
             else if (product == "potion")
             {
-                Potions.Instantiate();
                 if (Player.player.Gold >= Potions.potionList[index].GoldCost)
                 {
                     Player.player.Gold -= Potions.potionList[index].GoldCost;

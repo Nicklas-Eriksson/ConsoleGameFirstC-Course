@@ -46,12 +46,11 @@ namespace Labb3.Encounters
             List<string> monsterNames = new List<string>() { "Goblin", "Thief", "Banshee", "Cultist", "Mutant", "Hell Hound", "Elder Thing", "Deep One", " Silent One", "Necromancer", "Deci", "Ogre", "Gargoyle", "Troll", "Nymph", "Kobold", "Satyr", "Decided Rat", "Giant Spider", "Rabid Goblin", "Giant Spider" };
             List<string> miniBossNames = new List<string>() { "Azathoth", "B'gnu-Thun", "Bokrug", "Cthulhu", "Dagon", "Dimensional Shambler", "Dunwich Horror", "Formless Spawn", "Ghatanothoa", "Gloon", "Gnoph-Keh", "Great Old One", "Yog-Sothoth", "Yuggoth", "Innsmouth", "Shoggoth", "Outer God", "Nightgaut", "Nyarlathotep" };
 
-            int[] expDropArray = new int[9] { 20, 23, 27, 41, 54, 92, 161, 285, 513 };
+            int[] expDropArray = new int[9] { 20, 23, 27, 41, 54, 92, 161, 285, 20000 };
             int monsterIndex = rnd.Next(0, monsterNames.Count);
             int monsterIndex2 = rnd.Next(0, miniBossNames.Count);
             int bonusDmg = rnd.Next(1, 15);
             int bonusGold = rnd.Next(5, 20);
-            //int upOrDown = rnd.Next(0, 2);
             int belowEvenAbove = rnd.Next(-1, 2);
 
             if (Player.player.Lvl < 9)
@@ -81,7 +80,7 @@ namespace Labb3.Encounters
                 {
                     Name = miniBossNames[monsterIndex2],
                     Lvl = Player.player.Lvl + 1,
-                    Hp = 500 * (Player.player.Lvl + 1),
+                    Hp = 4500,
                     Dmg = 450 + (bonusDmg * 5),
                     ExpDrop = expDropArray[Player.player.Lvl - 1],
                     GoldDrop = 500,
@@ -95,7 +94,7 @@ namespace Labb3.Encounters
                 DemiLich.Name = "Demi-Lich";
                 DemiLich.Lvl = 11;
                 DemiLich.Hp = 7000;
-                DemiLich.Dmg = 700 + (bonusDmg * 5);
+                DemiLich.Dmg = 400 + (bonusDmg * 5);
                 DemiLich.SpecialAttackName = "Ice lance";
                 DemiLich.SpecialAttackPower = 1000;
                 DemiLich.Alive = true;
@@ -136,74 +135,45 @@ namespace Labb3.Encounters
         {
             var randomItem = Item.StuffGenerator();
 
-            //20% chance a weapon drops
-            int rndChanse = rnd.Next(0, 6);
-            int rndChanse2 = rnd.Next(0, 5);
+            //chance on weapon drops
+            int chanseOnLoot = rnd.Next(0, 3); //33% chance on drop
+            int chanseOnWeaponLoot = rnd.Next(0, 4);//25% to drop weapon too
 
-            //So weapons with index of 0 ti 14 can drop from mobs
+            //So weapons with index of 0 ti 6 can drop from mobs
             int rndNr = rnd.Next(0, 3);
-            int rndNr2 = rnd.Next(3, 7);
-            int rndNr3 = rnd.Next(7, 11);
-            int rndNr4 = rnd.Next(11, 15);
+            int rndNr2 = rnd.Next(0, 7);
 
-            //List<IItem> itemList = new List<IItem>();
-
-            if (rndChanse == 0 && Player.player.Lvl < 9) //1 in 5 a weapon will drop
+            if (chanseOnLoot == 0 && Player.player.Lvl < 9) 
             {
                 Tools.YellowLine("\n Loot spontaneously appears from thin air!");
                 Sleep(1400);
                 Tools.YellowLine("Remarkable!\n");
                 Sleep(1400);
 
-                if (rndChanse2 <= 1)
+                if (chanseOnWeaponLoot <= 1) //if 0 or 1 is rolled this drops (bad weapons)
                 {
                     Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr].Name} has been added to your inventory!");
-                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr]);
-                   // Item.SetList(itemList);
+                    Item.InventoryList.Add(Weapon.weapon.FullWeaponList[rndNr]); // Item.SetList(itemList);
                 }
-                else if (rndChanse2 == 2)
+                else if (chanseOnWeaponLoot > 1) //if 2 or 3 is rolled this drops (better weapons)
                 {
                     Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr2].Name} has been added to your inventory!");
-                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr2]);
-                    //Item.SetList(itemList);
+                    Item.InventoryList.Add(Weapon.weapon.FullWeaponList[rndNr2]);
                     if (rndNr == 1)
                     {
                         Tools.GreenLine($"\n {randomItem.Name} has been added to your inventory!");
-                        Player.ItemList.Add(randomItem);
-                        //Item.SetList(itemList);
+                        Item.InventoryList.Add(randomItem);
                     }
                 }
-                else if (rndChanse2 == 3)
-                {
-                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr3].Name} has been added to your inventory!");
-                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr3]);
-                    //Item.SetList(itemList);
-                }
-                else if (rndChanse2 == 4)
-                {
-                    Tools.GreenLine($"{Weapon.weapon.FullWeaponList[rndNr4].Name} has been added to your inventory!");
-                    Player.ItemList.Add(Weapon.weapon.FullWeaponList[rndNr4]);
-                    //Item.SetList(itemList);
-                }
 
-                Sleep(1000);
+                Sleep(1400);
             }
             else if (Player.player.Lvl == 9)
             {
                 Tools.GreenLine($"\n {miniboss.RareLoot} has been added to your inventory!");
                 var goldenEgg = new Item() { Name = "Golden egg", GoldIfSold = 10000, ItemLevel = 10 };
-                Player.ItemList.Add(goldenEgg);
-                //itemList.Add(goldenEgg);
+                Item.InventoryList.Add(goldenEgg);
             }
-
-            if (rndNr == 1) // 33% to drop extra trash
-            {
-                Sleep(1400);
-                Tools.GreenLine($"{randomItem.Name} has been added to your inventory!");
-                Player.ItemList.Add(randomItem);
-                //Item.SetList(itemList);
-            }
-
             Sleep(2000);
 
             Tools.PressEnterToContinue();
@@ -302,8 +272,7 @@ namespace Labb3.Encounters
                         {
                             if (monster is LastBoss)
                             {
-                                Console.WriteLine($" With gathered courage you strike against the {DemiLich.Name}, he does not even flinch.\n ");
-                                Sleep(1500);
+                                Console.WriteLine($" With gathered courage you strike against the {DemiLich.Name}, he does not even flinch.\n ");  
                                 Tools.RedLine($"{DemiLich.Name} health: -{pDmg}");
                                 Sleep(1500);
                                 DemiLich.Hp -= pDmg;
@@ -311,13 +280,10 @@ namespace Labb3.Encounters
                             else
                             {
                                 Console.WriteLine($" As you strike the {monster.Name}, it screams in pain.\n ");
-                                Sleep(1500);
                                 Tools.RedLine($"{monster.Name} health: -{pDmg}");
                                 Sleep(1500);
                                 monster.Hp -= pDmg;
                             }
-
-                            Player.CheckIfAlive();
                         }
 
                         bool monsterAlive = monster.CheckIfAlive();
@@ -332,39 +298,29 @@ namespace Labb3.Encounters
                             if (monster is LastBoss && specialAttack % 2 == 1)
                             {
                                 Console.WriteLine($" As you stare into the glowing ruby eyes of the {monster.Name}, you can feel your blood start to freeze..");
-                                Sleep(3000);
                                 Console.WriteLine(" You can not seem to look away, his glare is paralyzing you momentarily in place..\n ");
-                                Sleep(1400);
                                 Tools.GreenLine($"{pName} health: -{DemiLich.Dmg}");
                                 Player.player.Hp -= DemiLich.Dmg;
                             }
                             else if (monster is LastBoss && specialAttack % 2 == 0)
                             {
                                 Console.WriteLine($" Suddenly the {monster.Name} starts mumbling something..");
-                                Sleep(1400);
                                 Console.WriteLine(" You can not quite hear what he's saying.. Thus, you are certain its words are ancient and power full.");
-                                Sleep(1400);
                                 Console.WriteLine($" A second later the {monster.Name} bony hands starts to glow white.");
-                                Sleep(1400);
                                 Console.WriteLine(" Ice is emerging in his hands from nothing, and before you realize feel a sharp sting in your chest.");
-                                Sleep(1400);
                                 Console.WriteLine(" As you look down at your chest an ice lance has shattered on you and its fragments are protruding out from your skin..\n ");
-                                Sleep(1400);
                                 Tools.GreenLine($"{pName} health: -{DemiLich.SpecialAttackPower}.");
                                 Player.player.Hp -= DemiLich.SpecialAttackPower;
                             }
                             else if (monster is MiniBoss && specialAttack % 2 == 0)
                             {
                                 Console.WriteLine($" With dark eyes the {monster.Name} fixates its gaze in your eyes..");
-                                Sleep(1400);
                                 Console.WriteLine($" Without hesitation the {monster.Name} strikes you with a deafening blow.\n ");
-                                Sleep(1400);
                                 Tools.GreenLine($"{pName} health: -{monster.Dmg}.");
                             }
                             else
                             {
                                 Console.WriteLine($" The {monster.Name} takes a step back, and lunges towards you and hits you with a sweeping strike!\n");
-                                Sleep(1400);
                                 Tools.GreenLine($"{pName} health: -{monster.Dmg}");
                                 Player.player.Hp -= monster.Dmg;
                             }
@@ -383,7 +339,7 @@ namespace Labb3.Encounters
                                 Sleep(1600);
                                 Console.WriteLine($" As the dust settles left is only the eyes of the {DemiLich.Name}. ");
                                 Sleep(1400);
-                                Console.WriteLine(" 2 blood red ruby's are all that is left.");
+                                Console.WriteLine(" 2 blood red rubies are all that is left.");
                                 Sleep(1400);
 
                                 Tools.PressEnterToContinue();
@@ -408,7 +364,6 @@ namespace Labb3.Encounters
                                 ItemDrop();
                             }
 
-                            Sleep(3000);
                         }
 
                         break;
@@ -426,9 +381,7 @@ namespace Labb3.Encounters
                             Tools.YellowLine($"\n -{mName} Turn-");
                             Console.WriteLine($" The {monster.Name} strikes you with all their power and hits you for half the damage!");
                             Console.WriteLine(" Their attack was not that effective..");
-                            Sleep(2000);
                             Tools.GreenLine($"{pName} health: -{monster.Dmg / 2}");
-                            Sleep(1400);
 
                             Tools.PressEnterToContinue();
 
@@ -439,7 +392,6 @@ namespace Labb3.Encounters
                         {
                             Tools.YellowLine($"\n -{mName} Turn-");
                             Console.WriteLine($" The {monster.Name} misses you with their attack and you quickly counter attack!");
-                            Sleep(1400);
                             Console.WriteLine($" You hit the {monster.Name} for half your damage.");
                             Tools.RedLine($"{mName} health: -{pDmg / 2}");
 
@@ -531,7 +483,7 @@ namespace Labb3.Encounters
                         else
                         {
                             Tools.RedLine("Your health is already at max!");
-                            Sleep(2000);
+                            Tools.PressEnterToContinue();
                         }
                         break;
 
@@ -539,11 +491,8 @@ namespace Labb3.Encounters
                     //   Run away   //
                     case 4:
                         Console.WriteLine("With darting eyes you look for the door you just came in from.");
-                        Sleep(1400);
                         Console.WriteLine("You turn around and head for the exit.");
-                        Sleep(1400);
                         Console.WriteLine($"But as you do the {monster.Name} takes a swing at you!");
-                        Sleep(1400);
 
                         if (monsterChanseOnHit >= 1) // 33% chance the monster hits you on your way out
                         {
