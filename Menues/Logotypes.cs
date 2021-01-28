@@ -106,7 +106,7 @@ namespace Labb3.Menues
             sg.ToCharArray();
 
             //So it looks cool when you are saving.. Even tho the saving process does not take this long...
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 foreach (var item in sg)
                 {

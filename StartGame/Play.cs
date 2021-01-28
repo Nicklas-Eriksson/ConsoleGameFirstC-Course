@@ -17,10 +17,10 @@ namespace Labb3.StartGame
             Console.Title = "Dungeons of Solitude";
 
             //Music
-            SoundPlayer music = new SoundPlayer("music/NinjaMusicWAV.wav");
-            music.PlayLooping();
+            //SoundPlayer music = new SoundPlayer("music/NinjaMusicWAV.wav");
+            //music.PlayLooping();
 
-            if (!Directory.Exists("saves"))//Fixa så den inte crachar om inte mappen finns
+            if (!Directory.Exists("saves"))
             {
                 Directory.CreateDirectory("saves");
             }
@@ -31,7 +31,7 @@ namespace Labb3.StartGame
 
             MenuOptions.MainMenuSwitch();
 
-            music.Stop();
+            //music.Stop();
         }
 
         private static void NewGameOrLoadGame()
