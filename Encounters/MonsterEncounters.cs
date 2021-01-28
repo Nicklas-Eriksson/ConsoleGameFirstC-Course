@@ -499,6 +499,7 @@ namespace Labb3.Encounters
                             Tools.PressEnterToContinue();
 
                             Player.player.Hp -= monster.Dmg / 2;
+
                             Player.CheckIfAlive();
                         }
                         else if (monsterChanseOnHit > 1)// 66% miss
