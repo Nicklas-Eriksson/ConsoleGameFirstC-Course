@@ -8,9 +8,9 @@ ihavethepower     //makes you enter how many levels you want (max is your lvl - 
 ===============
 
 Names that grants GodMode:
-Hakk
-hakk
-Robin
-Robin Kamo
-robin gamo
+Hakk,
+hakk,
+Robin,
+Robin Kamo,
+robin kamo,
 Kakashi
