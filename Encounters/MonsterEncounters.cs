@@ -210,13 +210,13 @@ namespace Labb3.Encounters
 
         private static void FightingMenueText()
         {
-            Console.WriteLine("=========================");
-            Console.WriteLine("|| [1] Attack......... ||");//The fighting is turn based. First you strike, than the monster will attack you
-            Console.WriteLine("|| [2] Block Attack... ||");//Block attack, take reduced  or no dmg, and deal some back
-            Console.WriteLine("|| [3] Healing.........||");//Take a swig from a potion, heals up health. Takes reduced damage while healing
-            Console.WriteLine("|| [4] Run Away........||");//Tries to escape. Chance to be hit on the way out
-            Console.WriteLine("|| [5] Exit Game.......||");
-            Console.WriteLine("=========================");
+            Console.WriteLine(" =========================");
+            Console.WriteLine(" || [1] Attack......... ||");//The fighting is turn based. First you strike, than the monster will attack you
+            Console.WriteLine(" || [2] Block Attack... ||");//Block attack, take reduced  or no dmg, and deal some back
+            Console.WriteLine(" || [3] Healing.........||");//Take a swig from a potion, heals up health. Takes reduced damage while healing
+            Console.WriteLine(" || [4] Run Away........||");//Tries to escape. Chance to be hit on the way out
+            Console.WriteLine(" || [5] Exit Game.......||");
+            Console.WriteLine(" =========================");
         }
 
         static public void Fight(Monster monster)
@@ -236,22 +236,22 @@ namespace Labb3.Encounters
                 wepName = Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name;
                 pDmg = Player.player.BaseDamage + Player.player.WeaponDmg + crit;
             }
-            else //fists
+            else //wooden sword
             {
-                wepName = "Fists";
-                pDmg = Player.player.BaseDamage + Player.player.FistDamage; //fist dmg
+                wepName = "Wooden sword";
+                pDmg = Player.player.BaseDamage + Player.player.WoodenSword; //wooden sword dmg dmg
             }
 
             while (Player.player.Alive && monster.Alive)
             {
                 int monsterChanseOnHit = rnd.Next(1, 3); //33% chance to hit on escape
-                int dodge = rnd.Next(1, 5); //20% that the attack is dodged
+                int dodge = rnd.Next(1, 7); //% that the attack is dodged
                 Console.Clear();
 
                 //UI
                 Logo.Fight();
                 FightingMenueText();
-                StatsDuringFight(monster); //Displayes stats of the player and the monster
+                StatsDuringFight(monster); //Displays stats of the player and the monster
 
                 while (readOnce == 0)
                 {
@@ -387,7 +387,7 @@ namespace Labb3.Encounters
 
                                 Tools.PressEnterToContinue();
 
-                                Messange.Outro();
+                                InfoAndStory.Outro();
                             }
                             else
                             {
@@ -468,16 +468,16 @@ namespace Labb3.Encounters
                                 Tools.GreenLine($"{Player.player.MajorPotion} left\n");
 
                                 int index = Tools.ConvToInt32(3);
-                                Tools.YellowLine($"\n You open your bag and scramble for your {Potions.itemList[index - 1].Name}..");
+                                Tools.YellowLine($"\n You open your bag and scramble for your {Potions.potionList[index - 1].Name}..");
                                 Sleep(1500);
 
-                                if (Potions.itemList[index - 1].Name == "Minor healing potion")
+                                if (Potions.potionList[index - 1].Name == "Minor healing potion")
                                 {
                                     if (Player.player.MinorPotion > 0)
                                     {
                                         Player.player.MinorPotion--;
                                         Console.WriteLine(" With a big chug you down its content.\n");
-                                        Tools.GreenLine($"Health + {Potions.itemList[index - 1].Bonus}");
+                                        Tools.GreenLine($"Health + {Potions.potionList[index - 1].Bonus}");
 
                                         success = true;
                                     }
@@ -486,13 +486,13 @@ namespace Labb3.Encounters
                                         Tools.RedLine("You don't have any left!");
                                     }
                                 }
-                                else if (Potions.itemList[index - 1].Name == "Greater healing potion")
+                                else if (Potions.potionList[index - 1].Name == "Greater healing potion")
                                 {
                                     if (Player.player.GreaterPotion > 0)
                                     {
                                         Player.player.GreaterPotion--;
                                         Console.WriteLine(" With a big chug you down the whole content.");
-                                        Tools.GreenLine($"Health + {Potions.itemList[index - 1].Bonus}");
+                                        Tools.GreenLine($"Health + {Potions.potionList[index - 1].Bonus}");
 
                                         success = true;
                                     }
@@ -507,7 +507,7 @@ namespace Labb3.Encounters
                                     {
                                         Player.player.MajorPotion--;
                                         Console.WriteLine(" With a big chug you down the whole content.");
-                                        Tools.GreenLine($"Health + {Potions.itemList[index - 1].Bonus}");
+                                        Tools.GreenLine($"Health + {Potions.potionList[index - 1].Bonus}");
 
                                         success = true;
                                     }
@@ -517,7 +517,7 @@ namespace Labb3.Encounters
                                     }
                                 }
 
-                                Player.player.Hp += Potions.itemList[index - 1].Bonus;
+                                Player.player.Hp += Potions.potionList[index - 1].Bonus;
 
                                 if (Player.player.Hp >= Player.player.MaxHp) //Corrects so that player cant heal for more than max hp
                                 {

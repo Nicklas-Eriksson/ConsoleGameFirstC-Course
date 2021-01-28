@@ -7,16 +7,15 @@ namespace Labb3.Items
     public class Potions : AbstractItem
     {
         public static Potions pot = new Potions();
-        public static List<Potions> itemList = new List<Potions>();
+        public static List<Potions> potionList = new List<Potions>();
         public int Bonus { get; set; }
 
-        public static void Instantiate()
+        private void PotionForge()
         {
             var minorHealing = new Potions()
             {
                 Name = "Minor healing potion",
                 GoldCost = 50,
-                GoldIfSold = 25,
                 ItemLevel = 1,
                 Bonus = 50
             };
@@ -25,21 +24,23 @@ namespace Labb3.Items
                 Name = "Greater healing potion",
                 GoldCost = 150,
                 ItemLevel = 2,
-                GoldIfSold = 75,
                 Bonus = 150
             };
             var majorHealing = new Potions()
             {
                 Name = "Major healing potion",
                 GoldCost = 400,
-                GoldIfSold = 200,
                 ItemLevel = 3,
                 Bonus = 400
             };
 
-            itemList.Add(minorHealing);
-            itemList.Add(greaterHealing);
-            itemList.Add(majorHealing);
+            potionList.Add(minorHealing);
+            potionList.Add(greaterHealing);
+            potionList.Add(majorHealing);
+        }
+        public static void Instantiate()
+        {
+            pot.PotionForge();
         }
     }
 }

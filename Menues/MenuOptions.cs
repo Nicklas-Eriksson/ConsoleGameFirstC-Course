@@ -107,7 +107,7 @@ namespace Labb3.Menues
         {
             List<IItem> _inventory = Item.GetList();
 
-            input = Tools.ConvToInt32(3);
+            input = Tools.ConvToInt32(2);
             switch (input)
             {
                 case 1://Change Weapon
@@ -137,11 +137,7 @@ namespace Labb3.Menues
 
                     break;
 
-                case 2://Inspect Item
-                    //
-                    break;
-
-                case 3://Back to main menu
+                case 2://Back to main menu
                     MainMenuSwitch();
                     break;
             }
@@ -152,8 +148,7 @@ namespace Labb3.Menues
             Tools.YellowLine("=========================");
             Tools.YellowLine("|| -----Inventory----- ||");
             Tools.YellowLine("|| [1] Change Weapon.. ||");
-            Tools.YellowLine("|| [2] Inspect Item... ||");
-            Tools.YellowLine("|| [3] Back........... ||");
+            Tools.YellowLine("|| [2] Back........... ||");
             Tools.YellowLine("=========================\n");
         }
     }

@@ -20,9 +20,9 @@ namespace Labb3.Character
         private int maxHp = 175; //Max health
         private int hp = 175; //current health
         private int baseDamage = 20; //damage
-        private int fistDamage = 30; //damage
+        private int woodenSword = 30; //damage
         private int weaponDmg; //weapon damage. dmg and weaponDmg will be added together during combat
-        private int weaponIndex = -1; //set to -1 so fists can be set as a kind of starter weapon
+        private int weaponIndex = -1; //set to -1 so wooden sword can be set as a kind of starter weapon
         private int gold; //Obtains by killing monsters and selling stuff
         private int minorPotion = 2; //can be obtained from shop
         private int greaterPotion; //can be obtained from shop
@@ -40,7 +40,7 @@ namespace Labb3.Character
         public int Hp { get => hp; set => hp = value; }
         public int MaxHp { get => maxHp; set => maxHp = value; }
         public int BaseDamage { get => baseDamage; set => baseDamage = value; }
-        public int FistDamage { get => fistDamage; set => fistDamage = value; }
+        public int WoodenSword { get => woodenSword; set => woodenSword = value; }
         public int WeaponDmg { get => weaponDmg; set => weaponDmg = value; }
         public int WeaponIndex { get => weaponIndex; set => weaponIndex = value; }
         public int Gold { get => gold; set => gold = value; }
@@ -91,7 +91,8 @@ namespace Labb3.Character
         //Displays items obtained by player, and shows the gold amount it sells for
         public static void DisplayInventory()
         {
-            ItemList = Item.GetList();
+            ItemList.AddRange(Item.GetList());
+            Console.WriteLine("\n\n");
 
             if (ItemList.Count == 0)
             {
@@ -115,25 +116,28 @@ namespace Labb3.Character
                     {
                         Tools.Yellow($"{1 + i}: {ItemList[i].Name}");
 
-                        if (Weapon.weapon.WeaponList[i].Power < Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
+                        //if player weapon is stronger than other weapons in inventory, display power difference
+                        if (Weapon.weapon.FullWeaponList[i].Power < Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
                         {
                             Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
-                            Tools.Red($" {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power - Weapon.weapon.WeaponList[i].Power}");
+                            Tools.RedLine($" {Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power - Weapon.weapon.FullWeaponList[i].Power} power.");
                         }
-                        else if (Weapon.weapon.WeaponList[i].Power == Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power)
+                        //if player weapon got same power as another weapon in inventory, display power difference
+                        else if (Weapon.weapon.FullWeaponList[i].Power == Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power)
                         {
                             Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
-                            Tools.Red($" {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power - Weapon.weapon.WeaponList[i].Power}");
+                            Tools.BlueLine(" Same attack damage as equipped weapon.");
                         }
+                        //if player weapon is stronger than other weapons in inventory, display power difference
                         else
                         {
                             Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold. ");
-                            Tools.Green($" + {Weapon.weapon.WeaponList[Player.player.WeaponIndex].Power - Weapon.weapon.WeaponList[i].Power}");
+                            Tools.GreenLine($" + {Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Power - Weapon.weapon.FullWeaponList[i].Power} power.");
                         }
                     }
                     else
                     {
-                        Tools.Yellow($"{i + 1}: {ItemList[i].Name}"); Tools.Green($"+{ItemList[i].GoldIfSold} gold if sold.\n");
+                        Tools.Yellow($"{i + 1}: {ItemList[i].Name}"); Tools.GreenLine($"+{ItemList[i].GoldIfSold} gold if sold.");
                     }
                 }
             }
@@ -173,7 +177,7 @@ namespace Labb3.Character
             player.MaxHp = 175;
             player.Hp = 175;
             player.BaseDamage = 20;
-            player.FistDamage = 30;
+            player.WoodenSword = 30;
             player.WeaponDmg = 0;
             player.WeaponIndex = -1;
             player.Gold = 0;

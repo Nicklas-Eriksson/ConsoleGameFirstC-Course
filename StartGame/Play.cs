@@ -1,6 +1,7 @@
 ﻿using Labb3.Character;
 using Labb3.Items;
 using Labb3.Menues;
+using Labb3.Story;
 using Labb3.UtilityTools;
 using System;
 using System.IO;
@@ -14,8 +15,6 @@ namespace Labb3.StartGame
         static public void Game()
         {
             Console.Title = "Dungeons of Solitude";
-            //Console.WindowHeight = 55;
-            //Console.WindowWidth = 100;
 
             //Music
             SoundPlayer music = new SoundPlayer("music/NinjaMusicWAV.wav");
@@ -29,8 +28,6 @@ namespace Labb3.StartGame
             NewGameOrLoadGame();
 
             Tools.PressEnterToContinue();
-
-            //Sleep(1400);
 
             MenuOptions.MainMenuSwitch();
 
@@ -68,8 +65,11 @@ namespace Labb3.StartGame
 
         public static void NewGame()
         {
+            InfoAndStory.GameInfo();
+
             Player.ResetPlayer();
 
+            Logo.DoS();
             Tools.Yellow("\n Enter character name: ");
             Player.player.Name = Console.ReadLine().Trim();
             if(Player.player.Name.Length == 0)
@@ -84,7 +84,7 @@ namespace Labb3.StartGame
 
             Player.player.Id = SaveOrLoad.idCounter + 1;//Kanske inte behövs..
 
-            //Messange.Intro();
+            InfoAndStory.Intro();
         }
     }
 }

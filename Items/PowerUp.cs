@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using static System.Threading.Thread;
 
 namespace Labb3.Items
 {
@@ -69,9 +68,7 @@ namespace Labb3.Items
             //Strength
             strengthList.Add(minorStrength);//0
             strengthList.Add(greaterStrength);//1
-            strengthList.Add(majorStrength);//2
-
-            Sleep(1300);
+            strengthList.Add(majorStrength);//2                       
         }
     }
 }

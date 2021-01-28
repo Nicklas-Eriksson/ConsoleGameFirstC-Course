@@ -61,11 +61,7 @@ namespace Labb3.UtilityTools
             Tools.YellowLine("\n Enter the number of the save you want to load.\n");
 
             int nr = Tools.ConvToInt32(savedPlayers.Count);
-
-            //Test
-            Player.ItemList.AddRange(Player.MyWeapons);
-            //Player.ItemList.AddRange(Player.MyItems);
-
+                        
             return savedPlayers[nr-1];
         }
     }

@@ -27,7 +27,7 @@ namespace Labb3.Items
             this.Name = name;
             this.ItemLevel = powerLevel;
             this.power = power;
-            this.GoldCost = goldCost;
+            this.GoldCost = 100*ItemLevel;
             this.GoldIfSold = goldIfSold;
         }
 
@@ -157,7 +157,6 @@ namespace Labb3.Items
             };
 
             //Weapon List
-
             WeaponList.Add(rustyDagger);
             WeaponList.Add(vorpalBlade);
             WeaponList.Add(lightsaber);

@@ -313,7 +313,7 @@ namespace Labb3.UtilityTools
 
             if (wepIndex == -1)
             {
-                Tools.CursorWritePurple($"-Fists +{Player.player.FistDamage} attack dmg", 80, -3);
+                Tools.CursorWritePurple($"-Wooden Sword +{Player.player.WoodenSword} attack dmg", 80, -3);
             }
 
             //Tools.CursorWritePurple("-Leather Pouch-", 80, -3);
