@@ -31,6 +31,7 @@ namespace Labb3.Store
 
         private static void BuyOrSellSwitch()
         {
+            Console.Clear();
             BuyOrSellText();
 
             input = Tools.ConvToInt32(4);
@@ -458,12 +459,6 @@ namespace Labb3.Store
                 success = Int32.TryParse(_input, out int nr);
                 if (nr <= items.Count)
                 {
-
-                    //if (!success)
-                    //{
-                    //    Tools.Error();
-                    //    Sleep(1300);
-                    //}
                     if (Player.player.WeaponIndex >= 0) //If weapon is equipped
                     {
                         if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name) //If you sell your equipped weapon
@@ -473,7 +468,6 @@ namespace Labb3.Store
                             Player.ItemList.RemoveAt(nr - 1);
                             Tools.GreenLine("Back to your wooden sword I guess!");
                             Player.player.WeaponIndex = -1;
-
                             Tools.PressEnterToContinue();
                         }
                     }
@@ -484,22 +478,13 @@ namespace Labb3.Store
                         items.RemoveAt(nr - 1);
                         Sleep(2000);
                     }
-                    //success = false;
                 }
                 else
                 {
-                    //if (!success)
-                    //{
-                    //    Tools.Error();
-                    //    Sleep(1300);
-                    //}
-                    //else
-                    //{
-                        Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
-                        Player.player.Gold += items[nr - 1].GoldIfSold;
-                        items.RemoveAt(nr - 1);
-                        Sleep(2000);
-                   // }
+                    Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
+                    Player.player.Gold += items[nr - 1].GoldIfSold;
+                    items.RemoveAt(nr - 1);
+                    Sleep(2000);
                 }
 
             } while (!success);
@@ -514,13 +499,9 @@ namespace Labb3.Store
             Console.Clear();
             Logo.Shop();
             Tools.YellowLine("Welcome to The Iron Skillet!");
-            // Sleep(2000);
             Tools.YellowLine("It's not often we get customers these days..");
-            // Sleep(2000);
             Tools.YellowLine("Anyways!..");
-            // Sleep(2000);
-            Console.Clear();
-
+            Tools.PressEnterToContinue();
             BuyOrSellSwitch();
         }
 
@@ -555,7 +536,6 @@ namespace Labb3.Store
             else if (product == "power-up")
             {
                 //Does not matter which list I take gold cost from since they are the same
-
                 if (Player.player.Gold >= PowerUp.staminaList[index].GoldCost)
                 {
                     Player.player.Gold -= PowerUp.staminaList[index].GoldCost;
@@ -569,9 +549,8 @@ namespace Labb3.Store
             if (!purchaseOk)
             {
                 Tools.RedLine("Not enough gold! Get back here when you can afford it!");
-                Sleep(1400);
                 Tools.RedLine("Filthy creature..");
-                Sleep(1400);
+                Tools.PressEnterToContinue();
             }
             return purchaseOk;
         }//GoldWithdraw() End

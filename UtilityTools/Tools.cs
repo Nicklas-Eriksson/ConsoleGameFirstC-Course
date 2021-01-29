@@ -149,9 +149,11 @@ namespace Labb3.UtilityTools
                 {
                     Player.player.MaxHp += 10000;
                     Player.player.Hp = Player.player.MaxHp;
+                    Player.player.BaseDamage += 500;
 
                     Tools.GreenLine("\n Is that hair on your chest??");
                     Tools.GreenLine($"New max health: {Player.player.MaxHp}");
+                    Tools.GreenLine($"New base damage: {Player.player.BaseDamage}");
 
                     Tools.PressEnterToContinue();
 

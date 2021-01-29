@@ -24,7 +24,7 @@ namespace Labb3.Encounters
         private static void TextEncounter()
         {
             Console.Clear();
-            Logo.Fight();
+            Logo.MonsterEncounter();
 
             Tools.YellowLine("You decide to keep exploring the god-forsaken dungeon..");
             Tools.YellowLine("You grab the doorknob to the next room and slowly turn it..");
@@ -132,13 +132,7 @@ namespace Labb3.Encounters
         {
             var randomItem = Item.RandomItem();
 
-            //chance on weapon drops
             int chanseOnLoot = rnd.Next(0, 2); //50% chance on drop
-            int chanseOnWeaponLoot = rnd.Next(0, 4);//25% to drop weapon too
-
-            //So weapons with index of 0 ti 6 can drop from mobs
-            int rndNr = rnd.Next(0, 3);
-            int rndNr2 = rnd.Next(0, 7);
 
             if (Player.player.Lvl < 9 && chanseOnLoot == 0)
             {
@@ -149,19 +143,6 @@ namespace Labb3.Encounters
 
                 Tools.GreenLine($"-{randomItem.Name} has been added to your inventory!");
                 Item.InventoryList.Add(randomItem);
-
-                if (chanseOnWeaponLoot <= 1) //if 0 or 1 is rolled this drops (bad weapons)
-                {
-                    Tools.GreenLine($"-{Weapon.weapon.FullWeaponList[rndNr].Name} has been added to your inventory!");
-                    Item.InventoryList.Add(Weapon.weapon.FullWeaponList[rndNr]);
-                }
-                else if (chanseOnWeaponLoot > 1) //if 2 or 3 is rolled this drops (better weapons)
-                {
-                    Tools.GreenLine($"-{Weapon.weapon.FullWeaponList[rndNr2].Name} has been added to your inventory!");
-                    Item.InventoryList.Add(Weapon.weapon.FullWeaponList[rndNr2]);
-                }
-
-                Sleep(1400);
             }
             else if (Player.player.Lvl == 9)
             {
@@ -170,7 +151,6 @@ namespace Labb3.Encounters
                 Item.InventoryList.Add(goldenEgg);
             }
             Tools.PressEnterToContinue();
-
         }//ItemDrop END
 
         private static void FightingMenueText()
@@ -214,7 +194,7 @@ namespace Labb3.Encounters
                 Console.Clear();
 
                 //UI
-                Logo.Fight();
+                Logo.MonsterEncounter();
                 FightingMenueText();
                 StatsDuringFight(monster); //Displays stats of the player and the monster
 
@@ -234,12 +214,10 @@ namespace Labb3.Encounters
 
                         Tools.YellowLine($"\n -{pName} Turn-");
                         Console.Write(" You raise your"); Tools.Purple($"{wepName}"); Console.WriteLine($" and attack the {monster.Name}!");
-                        Sleep(1500);
-
+                      
                         if (dodge == 1)
                         {
                             Console.Write(" As you try to strike you stumble and"); Tools.Yellow("miss"); Console.WriteLine(" your attack...");
-                            Sleep(1500);
 
                             if (monster is LastBoss)
                             {

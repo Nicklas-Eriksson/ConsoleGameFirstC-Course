@@ -102,9 +102,7 @@ namespace Labb3.Character
             {
                 Tools.YellowLine("-Inventory is empty-\n");
 
-                Tools.PressEnterToContinue();
-
-                MenuOptions.MainMenuSwitch();
+                //MenuOptions.MainMenuSwitch();
             }
             else
             {

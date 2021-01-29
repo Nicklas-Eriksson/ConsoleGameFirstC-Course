@@ -75,14 +75,13 @@ namespace Labb3.Menues
             {
                 Console.Clear();
 
+                Logo.NoEncounter();
                 Tools.YellowLine("You explore deeper into the dungeon.");
-                //Sleep(3000);
                 Tools.YellowLine("You see a wooden door with a rusty knob and lock.");
-                // Sleep(3000);
                 Tools.YellowLine("Slowly you turn the creaking door open..");
-                // Sleep(3000);
                 Tools.YellowLine("To your surprise, the corridor is completely desolate...");
-                // Sleep(3000);
+
+                Tools.PressEnterToContinue();
 
                 MainMenuSwitch();
             }
@@ -107,7 +106,7 @@ namespace Labb3.Menues
         {
             List<IItem> _inventory = Item.GetList();
 
-            input = Tools.ConvToInt32(2);
+            input = Tools.ConvToInt32(3);
             switch (input)
             {
                 case 1://Change Weapon
@@ -134,13 +133,40 @@ namespace Labb3.Menues
                         Tools.RedLine("That item is not a weapon!");
                         InventorySwitch();
                     }
-
                     break;
 
-                case 2://Back to main menu
+                case 2: //Info about your character
+                    CharacterInfo();
+                    ViewInventory();
+                    break;
+
+                case 3://Back to main menu
                     MainMenuSwitch();
                     break;
             }
+        }
+
+        private static void CharacterInfo()
+        {
+            Logo.DoS();
+            Tools.PurpleLine("====================================================");
+            Tools.YellowLine($"My name is {Player.player.Name}. And I come from\n a village called the Merchant's Gut.");  
+            Tools.YellowLine("The \"Gut\" is located in an mountain outcrop just\n beside the villages mining shafts.");
+            Tools.YellowLine("Our tow is rugged one.. We get little to no");
+            Tools.DrawCharacterStatus();
+            Tools.YellowLine("sunshine per day.");
+            Tools.YellowLine("So if you want to see the sun you have to sneak out\n and explore on your own.");
+            Tools.YellowLine("The salesmen from the village is specialized in\n the gem trade.");
+            Tools.YellowLine("So if you don't find a big on you're in it deep.");
+            Tools.YellowLine("The cost of living is immense.. Contribute or you\n get fed to the wolfs, or worse..");
+            Tools.YellowLine("Left in an old mining pit without any light\n or means to escape.");
+            Tools.YellowLine($"I myself is just turned 18 this spring, so I'm\n not expected to work until next summer comes.");
+            Tools.YellowLine("So, naturally I'm a bit bored, and seeking\n adventure..");
+            Tools.YellowLine("Thats why I find myself in this dungeon I guess..");
+            Tools.YellowLine("And no, my parents does not know I'm here,\n and they probably don't care..");
+            Tools.PurpleLine("====================================================");
+
+            Tools.PressEnterToContinue();
         }
 
         private static void InventoryMenu()
@@ -148,7 +174,8 @@ namespace Labb3.Menues
             Tools.YellowLine("=========================");
             Tools.YellowLine("|| -----Inventory----- ||");
             Tools.YellowLine("|| [1] Change Weapon.. ||");
-            Tools.YellowLine("|| [2] Back........... ||");
+            Tools.YellowLine("|| [2] Read Diaries... ||");
+            Tools.YellowLine("|| [3] Back........... ||");
             Tools.YellowLine("=========================\n");
         }
     }
