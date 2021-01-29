@@ -1,4 +1,5 @@
 ﻿using System;
+using Labb3.Character;
 using Labb3.Menues;
 using Labb3.UtilityTools;
 using static System.Threading.Thread;
@@ -30,6 +31,39 @@ namespace Labb3.Story
 
             Console.Clear();
         }
+        public static void CharacterInfo()
+        {
+            Logo.DoS();
+            Tools.PurpleLine("====================================================");
+            Tools.YellowLine($"My name is {Player.player.Name}, and I come from\n a village called the Merchant's Gut.");
+            Tools.YellowLine("The \"Gut\" is located in a mountain outcrop just\n beside the village's mining shafts.");
+            Tools.YellowLine("Our town is a rugged one.. We get little to no");
+            Tools.DrawCharacterStatus();
+            Tools.YellowLine("sunshine during the day.");
+            Tools.YellowLine("If you want to see the sun you have to sneak out\n and explore on your own.");
+            Tools.YellowLine("The salesmen from the village are specialized in\n the gem trade.");
+            Tools.YellowLine("If you don't find a big one you're in it deep..");
+            Tools.YellowLine("The cost of living is immense.. Contribute or you\n get fed to the wolves, or worse..");
+            Tools.YellowLine("You can get left in an old mining pit without any light\n or means to escape.");
+            Tools.YellowLine("I myself just turned 18 this spring, so I'm\n not expected to work until next summer.");
+            Tools.YellowLine("Naturally I'm a bit bored, and seeking\n adventure..");
+            Tools.YellowLine("That's why I find myself in this dungeon I guess..");
+            Tools.YellowLine("And no, my parents does not know I'm here,\n and they probably wouldn't care..");
+            Tools.PurpleLine("====================================================");
+
+            Tools.PressEnterToContinue();
+        }
+        public static void EmptyRoom()
+        {
+            Console.Clear();
+            Logo.NoEncounter();
+            Tools.YellowLine("You explore deeper into the dungeon.");
+            Tools.YellowLine("You see a wooden door with a rusty knob and lock.");
+            Tools.YellowLine("Slowly you turn the creaking door open..");
+            Tools.YellowLine("To your surprise, the corridor is completely desolate...");
+
+            Tools.PressEnterToContinue();
+        }
         static public void Intro()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -48,8 +82,6 @@ namespace Labb3.Story
                 Sleep(30);
             }
             Console.ResetColor();
-
-            Sleep(1600);
         }
 
         static public void Outro()
@@ -58,7 +90,6 @@ namespace Labb3.Story
             Logo.YouWon();
 
             Tools.YellowLine("You have beaten the game! Congratulations, now the world is free from horror and you can finally rest..\n");
-            Sleep(1600);
 
             Tools.PurpleLine("-Press any key to exit the game-");
             Console.ReadKey();

@@ -26,7 +26,6 @@ namespace Labb3.Monsters
     public class MiniBoss : Monster
     {
         public string RareLoot { get; set; } = "Golden egg";
-        public int RareLootGold { get; set; } = 10000;
 
         public MiniBoss()
         {}

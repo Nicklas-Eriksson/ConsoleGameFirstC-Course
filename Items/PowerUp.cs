@@ -24,21 +24,21 @@ namespace Labb3.Items
                 Name = "Minor Stamina",
                 GoldCost = 100,
                 ItemLevel = 1,
-                Bonus = 50,
+                Bonus = 100,
             };
             var greaterStamina = new PowerUp()
             {
                 Name = "Greater Stamina",
                 GoldCost = 200,
                 ItemLevel = 2,
-                Bonus = 100,
+                Bonus = 175,
             };
             var majorStamina = new PowerUp()
             {
                 Name = "Major Stamina",
                 GoldCost = 300,
                 ItemLevel = 3,
-                Bonus = 150,
+                Bonus = 250,
             };
 
             //Strength buff
@@ -47,21 +47,21 @@ namespace Labb3.Items
                 Name = "Minor Strength",
                 GoldCost = 100,
                 ItemLevel = 1,
-                Bonus = 50,
+                Bonus = 10,
             };
             var greaterStrength = new PowerUp()
             {
                 Name = "Greater Strength",
                 GoldCost = 200,
                 ItemLevel = 2,
-                Bonus = 100,
+                Bonus = 25,
             };
             var majorStrength = new PowerUp()
             {
                 Name = "Major Strength",
                 GoldCost = 300,
                 ItemLevel = 3,
-                Bonus = 150,
+                Bonus = 50,
             };
 
             //Stamina

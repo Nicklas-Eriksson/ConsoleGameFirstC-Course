@@ -18,14 +18,14 @@ namespace Labb3.Character
         private int lvl = 1; //level
         private int exp; //experience points
         private int maxExp = 20; //Max exp before lvl up
-        private int maxHp = 175; //Max health
-        private int hp = 175; //current health
+        private int maxHp = 250; //Max health
+        private int hp = 250; //current health
         private int baseDamage = 20; //damage
-        private int woodenSword = 30; //damage
+        private int woodenSword = 20; //damage
         private int weaponDmg; //weapon damage. dmg and weaponDmg will be added together during combat
         private int weaponIndex = -1; //set to -1 so wooden sword can be set as a kind of starter weapon
         private int gold; //Obtains by killing monsters and selling stuff
-        private int minorPotion = 1; //can be obtained from shop
+        private int minorPotion = 2; //can be obtained from shop
         private int greaterPotion; //can be obtained from shop
         private int majorPotion; //can be obtained from shop
         private static List<Weapon> myWeapons = new List<Weapon>();
@@ -101,8 +101,6 @@ namespace Labb3.Character
             if (ItemList.Count == 0)
             {
                 Tools.YellowLine("-Inventory is empty-\n");
-
-                //MenuOptions.MainMenuSwitch();
             }
             else
             {
@@ -201,14 +199,14 @@ namespace Labb3.Character
             player.Lvl = 1;
             player.Exp = 0;
             player.MaxExp = 20;
-            player.MaxHp = 175;
-            player.Hp = 175;
+            player.MaxHp = 250;
+            player.Hp = 250;
             player.BaseDamage = 20;
-            player.WoodenSword = 30;
+            player.WoodenSword = 20;
             player.WeaponDmg = 0;
             player.WeaponIndex = -1;
             player.Gold = 0;
-            player.MinorPotion = 1;
+            player.MinorPotion = 2;
             player.GreaterPotion = 0;
             player.MajorPotion = 0;
             player.MajorPotion = 0;

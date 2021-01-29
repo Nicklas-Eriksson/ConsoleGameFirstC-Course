@@ -137,20 +137,16 @@ namespace Labb3.Encounters
             if (Player.player.Lvl < 9 && chanseOnLoot == 0)
             {
                 Tools.YellowLine("\n Loot spontaneously appears from thin air!");
-                Sleep(1400);
                 Tools.YellowLine("Remarkable!\n");
-                Sleep(1400);
-
                 Tools.GreenLine($"-{randomItem.Name} has been added to your inventory!");
                 Item.InventoryList.Add(randomItem);
             }
             else if (Player.player.Lvl == 9)
             {
                 Tools.GreenLine($"\n -{miniboss.RareLoot} has been added to your inventory!");
-                var goldenEgg = new Item() { Name = miniboss.RareLoot, GoldIfSold = miniboss.RareLootGold, ItemLevel = 10 };
+                var goldenEgg = new Item() { Name = miniboss.RareLoot, ItemLevel = 500, GoldIfSold = 10000 };
                 Item.InventoryList.Add(goldenEgg);
             }
-            Tools.PressEnterToContinue();
         }//ItemDrop END
 
         private static void FightingMenueText()
@@ -214,7 +210,7 @@ namespace Labb3.Encounters
 
                         Tools.YellowLine($"\n -{pName} Turn-");
                         Console.Write(" You raise your"); Tools.Purple($"{wepName}"); Console.WriteLine($" and attack the {monster.Name}!");
-                      
+
                         if (dodge == 1)
                         {
                             Console.Write(" As you try to strike you stumble and"); Tools.Yellow("miss"); Console.WriteLine(" your attack...");
@@ -224,7 +220,6 @@ namespace Labb3.Encounters
                                 Tools.YellowLine($"\n -{DemiLich.Name} Turn-");
                                 Console.WriteLine($" You clumsily stumbles forward {monster.Name} slices you with a his icy dagger.\n ");
                                 Tools.GreenLine($"{pName} health: -{DemiLich.Dmg / 2}");
-                                Sleep(1500);
                                 Player.player.Hp -= DemiLich.Dmg / 2; //Player takes half monster dmg
                             }
                             else
@@ -232,10 +227,8 @@ namespace Labb3.Encounters
                                 Tools.YellowLine($"\n -{mName} Turn-");
                                 Console.WriteLine($" The {monster.Name} strikes you while you gather your wits.\n ");
                                 Tools.GreenLine($"{pName} health: -{monster.Dmg / 2}");
-                                Sleep(1500);
                                 Player.player.Hp -= monster.Dmg / 2; //Player takes half monster dmg
                             }
-
                             Tools.PressEnterToContinue();
 
                             Player.CheckIfAlive();
@@ -246,14 +239,12 @@ namespace Labb3.Encounters
                             {
                                 Console.WriteLine($" With gathered courage you strike against the {DemiLich.Name}, he does not even flinch.\n ");
                                 Tools.RedLine($"{DemiLich.Name} health: -{pDmg}");
-                                Sleep(1500);
                                 DemiLich.Hp -= pDmg;
                             }
                             else
                             {
                                 Console.WriteLine($" As you strike the {monster.Name}, it screams in pain.\n ");
                                 Tools.RedLine($"{monster.Name} health: -{pDmg}");
-                                Sleep(1500);
                                 monster.Hp -= pDmg;
                             }
                         }
@@ -313,9 +304,7 @@ namespace Labb3.Encounters
                                 Sleep(1400);
                                 Console.WriteLine(" 2 blood red rubies are all that is left.");
                                 Sleep(1400);
-
                                 Tools.PressEnterToContinue();
-
                                 InfoAndStory.Outro();
                             }
                             else
@@ -332,8 +321,8 @@ namespace Labb3.Encounters
                                 Player.player.Exp += monster.ExpDrop;
                                 Player.player.Gold += monster.GoldDrop;
                                 Player.CheckIfLvlUp(); //Checks if you can level up
-
                                 ItemDrop();
+                                Tools.PressEnterToContinue();
                             }
                         }
 

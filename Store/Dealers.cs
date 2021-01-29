@@ -14,6 +14,7 @@ namespace Labb3.Store
         private static int input;
         private static bool purchaseOk;
         static private int readOnce;
+        static private int readOnce2;
 
         //Buy or Sell START
         private static void BuyOrSellText()
@@ -373,7 +374,8 @@ namespace Labb3.Store
 
             for (int i = 0; i < Potions.potionList.Count; i++)
             {
-                Tools.YellowLine($"{Potions.potionList[i].Name}: {Potions.potionList[i].GoldCost}");
+                Tools.Yellow($"{Potions.potionList[i].Name}: {Potions.potionList[i].GoldCost} gold");
+                Tools.GreenLine($"+{Potions.potionList[i].Bonus} healing");
             }
             Console.WriteLine();
             Tools.RedLine("   :~:       ");
@@ -468,7 +470,12 @@ namespace Labb3.Store
                             Player.ItemList.RemoveAt(nr - 1);
                             Tools.GreenLine("Back to your wooden sword I guess!");
                             Player.player.WeaponIndex = -1;
-                            Tools.PressEnterToContinue();
+                        }
+                        else
+                        {
+                            Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
+                            Player.player.Gold += items[nr - 1].GoldIfSold;
+                            items.RemoveAt(nr - 1);
                         }
                     }
                     else //If no weapon is equipped
@@ -476,7 +483,6 @@ namespace Labb3.Store
                         Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
                         Player.player.Gold += items[nr - 1].GoldIfSold;
                         items.RemoveAt(nr - 1);
-                        Sleep(2000);
                     }
                 }
                 else
@@ -484,10 +490,10 @@ namespace Labb3.Store
                     Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
                     Player.player.Gold += items[nr - 1].GoldIfSold;
                     items.RemoveAt(nr - 1);
-                    Sleep(2000);
                 }
 
             } while (!success);
+            Tools.PressEnterToContinue();
 
             BuyOrSellSwitch();
         }
@@ -496,12 +502,16 @@ namespace Labb3.Store
 
         public static void MainMenuStore()
         {
-            Console.Clear();
-            Logo.Shop();
-            Tools.YellowLine("Welcome to The Iron Skillet!");
-            Tools.YellowLine("It's not often we get customers these days..");
-            Tools.YellowLine("Anyways!..");
-            Tools.PressEnterToContinue();
+            while (readOnce2 == 0)
+            {
+                Console.Clear();
+                Logo.Shop();
+                Tools.YellowLine("Welcome to The Iron Skillet!");
+                Tools.YellowLine("It's not often we get customers these days..");
+                Tools.YellowLine("Anyways!..");
+                Tools.PressEnterToContinue();
+                readOnce2++;
+            }
             BuyOrSellSwitch();
         }
 

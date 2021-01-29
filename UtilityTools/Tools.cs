@@ -295,7 +295,7 @@ namespace Labb3.UtilityTools
             Tools.CursorWriteWhite(" -Name: ", 56, -5);
             Tools.CursorWriteGreen($"{Player.player.Name}", 63, -5);
             Tools.CursorWriteWhite(" -Health:", 56, -4);
-            Tools.CursorWriteGreen($"{Player.player.Hp}", 64, -4);
+            Tools.CursorWriteGreen($"{Player.player.Hp} / {Player.player.MaxHp}", 64, -4);
             Tools.CursorWriteWhite(" -Base damage:", 56, -3);
             Tools.CursorWriteRed($"{Player.player.BaseDamage}", 70, -3);
             Tools.CursorWriteWhite(" -Level:", 56, -2);
@@ -315,11 +315,9 @@ namespace Labb3.UtilityTools
 
             if (wepIndex == -1)
             {
-                Tools.CursorWritePurple($"Wooden Sword +{Player.player.WoodenSword} attack dmg", 80, -3);
+                Tools.CursorWritePurple($"Wooden Sword +{Player.player.WoodenSword} dmg", 80, -3);
             }
-
-            //Tools.CursorWritePurple("-Leather Pouch-", 80, -3);
-
+                        
             if (wepIndex >= 0)
             {
                 Tools.CursorWriteWhite(" -Weapon", 80, -4);
