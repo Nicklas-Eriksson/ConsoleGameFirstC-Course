@@ -27,15 +27,12 @@ namespace Labb3.Encounters
             Logo.Fight();
 
             Tools.YellowLine("You decide to keep exploring the god-forsaken dungeon..");
-            // Sleep(3000);
             Tools.YellowLine("You grab the doorknob to the next room and slowly turn it..");
-            //Sleep(3000);
             Tools.YellowLine("When you hear the door click, you push open the door,");
-            // Sleep(3000);
             Tools.YellowLine("ready to face whatever stand before you.");
-            // Sleep(3000);
             Tools.YellowLine("Before you stands a hideous creature..\n");
-            // Sleep(3000);
+
+            Tools.PressEnterToContinue();
         }
 
         public static void EncounterGenerator()
