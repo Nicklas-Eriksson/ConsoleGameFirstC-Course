@@ -207,7 +207,7 @@ namespace Labb3.Encounters
             else //wooden sword
             {
                 wepName = "Wooden sword";
-                pDmg = Player.player.BaseDamage + Player.player.WoodenSword; //wooden sword dmg dmg
+                pDmg = Player.player.BaseDamage + Player.player.WoodenSword; //wooden sword dmg
             }
 
             while (Player.player.Alive && monster.Alive)
@@ -360,7 +360,6 @@ namespace Labb3.Encounters
 
                                 ItemDrop();
                             }
-
                         }
 
                         break;

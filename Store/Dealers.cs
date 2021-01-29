@@ -226,7 +226,7 @@ namespace Labb3.Store
             Tools.Green("Stamina:"); Tools.YellowLine("Increases your max health.");
             Tools.Red("Strength:"); Tools.YellowLine("Increases your attack damage.\n");
         }
-        
+
         private static void BuyPowerUpSwitch()
         {
             BuyPowerUpText();
@@ -369,7 +369,7 @@ namespace Labb3.Store
             Tools.YellowLine("I mean it.. Literally, you wont die if you drink it..");
             Tools.YellowLine("Pinkie swear...\n");
 
-            
+
             for (int i = 0; i < Potions.potionList.Count; i++)
             {
                 Tools.YellowLine($"{Potions.potionList[i].Name}: {Potions.potionList[i].GoldCost}");
@@ -456,36 +456,52 @@ namespace Labb3.Store
                 }
 
                 success = Int32.TryParse(_input, out int nr);
-                if(nr <= items.Count)
+                if (nr <= items.Count)
                 {
-                    if (!success)
-                    {
-                        Tools.Error();
-                        Sleep(1300);
-                    }
-                    else if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name)
-                    {
-                        Player.player.Gold += Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].GoldIfSold;
-                        items.RemoveAt(nr - 1);
-                        Player.ItemList.RemoveAt(nr - 1);
-                        Tools.GreenLine("Back to your wooden sword I guess!");
-                        Player.player.WeaponIndex = -1;
 
-                        Tools.PressEnterToContinue();
+                    //if (!success)
+                    //{
+                    //    Tools.Error();
+                    //    Sleep(1300);
+                    //}
+                    if (Player.player.WeaponIndex >= 0) //If weapon is equipped
+                    {
+                        if (Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].Name == items[nr - 1].Name) //If you sell your equipped weapon
+                        {
+                            Player.player.Gold += Weapon.weapon.FullWeaponList[Player.player.WeaponIndex].GoldIfSold;
+                            items.RemoveAt(nr - 1);
+                            Player.ItemList.RemoveAt(nr - 1);
+                            Tools.GreenLine("Back to your wooden sword I guess!");
+                            Player.player.WeaponIndex = -1;
+
+                            Tools.PressEnterToContinue();
+                        }
                     }
-                    else
+                    else //If no weapon is equipped
                     {
                         Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
                         Player.player.Gold += items[nr - 1].GoldIfSold;
                         items.RemoveAt(nr - 1);
                         Sleep(2000);
                     }
+                    //success = false;
                 }
                 else
                 {
-                    success = false;
+                    //if (!success)
+                    //{
+                    //    Tools.Error();
+                    //    Sleep(1300);
+                    //}
+                    //else
+                    //{
+                        Tools.GreenLine($"\n {items[nr - 1].Name} sold, +{items[nr - 1].GoldIfSold} gold coins.");
+                        Player.player.Gold += items[nr - 1].GoldIfSold;
+                        items.RemoveAt(nr - 1);
+                        Sleep(2000);
+                   // }
                 }
-                
+
             } while (!success);
 
             BuyOrSellSwitch();
