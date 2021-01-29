@@ -1,6 +1,4 @@
 ﻿using Labb3.StartGame;
-using Labb3.UtilityTools;
-using System;
 
 namespace Labb3
 {
