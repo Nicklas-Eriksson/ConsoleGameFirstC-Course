@@ -1,5 +1,7 @@
 # Labb3
 
+This is a console game made during a course in C#
+
 Cheat codes:
 whosyourdaddy     //+ 10k hp
 greedisgood       //+ 1mil gold
